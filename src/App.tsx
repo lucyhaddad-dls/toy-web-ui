@@ -1,0 +1,26 @@
+
+import { Stack } from '@mui/material'
+import { DiamondDSTheme, ThemeProvider, Navbar} from '@diamondlightsource/sci-react-ui'
+import PlotComponent from './PlotComponent'
+import UserComponent from './UserComponent'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
+function App() {
+
+
+  return (
+  <QueryClientProvider client={queryClient}>
+
+  <ThemeProvider theme={DiamondDSTheme}>
+  <Stack sx={{height:"100vh", width:"100vw"}} >
+    <Navbar>A title</Navbar>
+    <PlotComponent></PlotComponent>
+    <UserComponent/>
+  </Stack>
+  </ThemeProvider>
+  
+  </QueryClientProvider>)
+}
+export default App
