@@ -1,6 +1,4 @@
 import '@h5web/lib/styles.css';
-
-import React from 'react';
 import ndarray from 'ndarray';
 import { HeatmapVis, getDomain } from '@h5web/lib';
 

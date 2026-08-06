@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import type { User } from "../models";
+import type { User } from "../model_utils/models";
 
 export const handlers = [
   http.get("/user", () => {

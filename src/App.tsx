@@ -1,8 +1,8 @@
 
 import { Stack } from '@mui/material'
 import { DiamondDSTheme, ThemeProvider, Navbar} from '@diamondlightsource/sci-react-ui'
-import PlotComponent from './PlotComponent'
-import UserComponent from './UserComponent'
+import PlotComponent from './components/PlotComponent'
+import UserComponent from './components/UserComponent'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 
 const queryClient = new QueryClient()
