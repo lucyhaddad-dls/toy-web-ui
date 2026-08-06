@@ -9,7 +9,8 @@ const values = [
 ];
 
 // Flatten source array
-const flatValues: number[] = values.flat(Infinity);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const flatValues: any[] = values.flat(Infinity);
 
 // Convert to ndarray and get domain
 const dataArray = ndarray(flatValues, [2, 3]);
