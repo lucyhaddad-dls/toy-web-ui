@@ -1,0 +1,25 @@
+FROM node:23-bookworm-slim as build-web
+
+WORKDIR /client
+
+RUN yes | npm install -g pnpm@10.32
+
+RUN apt update 
+
+COPY . .
+
+ENV CI true
+
+RUN yes | pnpm install --frozen-lockfile --prod
+
+RUN yes | pnpm install vite
+
+RUN pnpm vite build
+
+From docker.io/nginxinc/nginx-unprivileged:alpine3.21-slim as host
+
+COPY --from=build-web /client/dist/ /usr/share/nginx/html
+COPY ./nginx/default.conf /etc/nginx/nginx.conf
+
+EXPOSE 8081
+ENTRYPOINT ["nginx","-g", "daemon off;"]
