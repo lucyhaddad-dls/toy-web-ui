@@ -6,8 +6,6 @@ RUN yes | npm install -g pnpm@10.32
 
 RUN apt update 
 
-RUN RUN apt-get update && apt-get install -y git
-
 COPY . .
 
 ENV CI true
