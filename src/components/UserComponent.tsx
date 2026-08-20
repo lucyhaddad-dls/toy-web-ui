@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { getInput } from "../model_utils/queryFunctions";
+import { getInput } from "../models/queryFunctions";
 
 export default function UserComponent() {
   const query = useQuery({
