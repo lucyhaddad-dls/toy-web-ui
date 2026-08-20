@@ -1,8 +1,12 @@
 import axios, { type AxiosResponse } from "axios";
-import type { User } from "./models";
+import { type TotalSampleInput, type Hello} from "./models";
 
-export const getUser = async () => {
-  const { data } = await axios.get<User, AxiosResponse<User>>("/user");
-
+export const getHello = async() => {
+  const { data } = await axios.get<Hello, AxiosResponse<Hello>>("/api");
   return data;
-};
+}
+
+export const getInput = async() => {
+  const { data } = await axios.get<TotalSampleInput, AxiosResponse<TotalSampleInput>>("/api/input");
+  return data;
+}

@@ -1,9 +1,11 @@
 
-import { Stack } from '@mui/material'
+import { Button, Stack } from '@mui/material'
 import { DiamondDSTheme, ThemeProvider, Navbar} from '@diamondlightsource/sci-react-ui'
 import PlotComponent from './components/PlotComponent'
 import UserComponent from './components/UserComponent'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+
+import {fetchInputValues} from './context/SampleContext'
 
 const queryClient = new QueryClient()
 
@@ -18,9 +20,11 @@ function App() {
     <Navbar>A title</Navbar>
     <PlotComponent></PlotComponent>
     <UserComponent/>
+    <Button variant="outlined" onClick={fetchInputValues}></Button>
   </Stack>
   </ThemeProvider>
   
-  </QueryClientProvider>)
+  // </QueryClientProvider>)
+  // )
 }
 export default App
