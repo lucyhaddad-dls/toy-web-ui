@@ -2,9 +2,7 @@
 
 import React, { createContext, useState } from "react";
 import { type AbsorptionKeys, type SampleKeys, type SampleMassResponse, 
-    type SampleValueGetter, type SampleValues,
-     type MassUnits, type EnergyUnits, type LengthUnits, 
-     type SampleUnit} from "../models/models";
+    type SampleValueGetter, type SampleValues,type SampleUnit} from "../models/models";
 import { useQuery } from "@tanstack/react-query";
 import { getMassAbsorption, getSampleData } from "../models/queryFunctions";
 import { AxiosError } from "axios";
@@ -13,6 +11,8 @@ export const SampleContext = createContext<SampleValueGetter>({});
 
 export function SampleProvider(props: {children: React.ReactNode}) {
     const { children } = props;
+
+    // should probably remove units from this and add to SampleUnit interface..
 
     const initialSampleValues = {formula: {value: null, isUnit: false, isCalculated:false},
         absorber: {value: null, isUnit: false, isCalculated: false},
@@ -42,6 +42,7 @@ export function SampleProvider(props: {children: React.ReactNode}) {
     const getValues = (name:SampleKeys) => {
         return initialSampleValues[name]
     }
+
 
     const getAbsorptionValues = async(kind:AbsorptionKeys) => {
 

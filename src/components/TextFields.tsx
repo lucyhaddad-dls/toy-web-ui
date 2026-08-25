@@ -38,7 +38,6 @@ export function MakeTextInput() {
   const { keyList } = useContext(SampleContext)
   const half = Math.floor(keyList.length/2)
 
-  
   const firstKeys = keyList.slice(0, half)
   const lastKeys = keyList.slice(half, keyList.length)
 
