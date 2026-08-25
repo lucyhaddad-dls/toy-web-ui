@@ -43,6 +43,8 @@ export function SampleProvider(props: {children: React.ReactNode}) {
         return initialSampleValues[name]
     }
 
+    const initialKeys:SampleKeys[] = Object.keys(initialSampleValues).map((i) => i as SampleKeys)
+
 
     const getAbsorptionValues = async(kind:AbsorptionKeys) => {
 
@@ -78,7 +80,7 @@ export function SampleProvider(props: {children: React.ReactNode}) {
 
         return (<SampleContext.Provider value={{
             getValues: getValues,
-            keyList: Object.keys(initialSampleValues),
+            keyList: initialKeys,
             getAbsorptionValues: getAbsorptionValues,
             absorptionValues: absorptionValues,
             unitOptions: unitOptions,
