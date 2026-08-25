@@ -1,8 +1,8 @@
 // make context to handle sample values:
 
 import React, { createContext, useState } from "react";
-import { type AbsorptionKeys, type SampleKeys, type SampleMassResponse, type SampleValueGetter } from "../models/models";
-import { dataTagErrorSymbol, useQuery } from "@tanstack/react-query";
+import { type AbsorptionKeys, type SampleKeys, type SampleMassResponse, type SampleValueGetter, type SampleValues } from "../models/models";
+import { useQuery } from "@tanstack/react-query";
 import { getMassAbsorption, getSampleData } from "../models/queryFunctions";
 import { AxiosError } from "axios";
 
@@ -23,8 +23,7 @@ export function SampleProvider(props: {children: React.ReactNode}) {
         energy_unit: {value: "gev", isUnit: true, isCalculated: false},
 
         mass: {value: null, isUnit: false, isCalculated: true},
-        thickness: {value: null, isUnit: false, isCalculated: true}}
-
+        thickness: {value: null, isUnit: false, isCalculated: true}} satisfies SampleValues
 
     const [absorptionValues, setAbsorptionValues] = useState<SampleMassResponse>({xlabel: null,
                                                                                 ylabel: null,
@@ -41,11 +40,9 @@ export function SampleProvider(props: {children: React.ReactNode}) {
     const getAbsorptionValues = async(kind:AbsorptionKeys) => {
 
         // todo: add conditionals here to avoid over-posting data.
-        console.log("getting absorption for kind: ", kind)
         setCurrentAbsorptionKind(kind)
         const data = await getMassAbsorption()
         setAbsorptionValues(data)
-        
     }
    
 

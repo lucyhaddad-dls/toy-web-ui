@@ -1,4 +1,4 @@
-import axios, { Axios, type AxiosResponse } from "axios";
+import axios, { type AxiosResponse } from "axios";
 
 import type { SampleMassResponse, SampleResponse } from "./models";
 

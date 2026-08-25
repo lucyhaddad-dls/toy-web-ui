@@ -1,27 +1,49 @@
 import '@h5web/lib/styles.css';
 import ndarray from 'ndarray';
-import { HeatmapVis, getDomain } from '@h5web/lib';
+import { DataCurve, VisCanvas, getDomain, type Domain } from '@h5web/lib';
+import { Stack } from '@mui/material';
 
-// Initialise source 2D array
-const values = [
-  [0, 1, 2],
-  [3, 4, 5],
-];
+export function DataPlot(props: {data_y: number[]|null, data_x: number[]|null,
+                label_x: string|null, label_y:string|null}){
 
-// Flatten source array
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const flatValues: any[] = values.flat(Infinity);
+  const ydata = props.data_y ? ndarray(props.data_y): null;
 
-// Convert to ndarray and get domain
-const dataArray = ndarray(flatValues, [2, 3]);
-const domain = getDomain(dataArray);
+  const xdata = props.data_x != null ? ndarray(props.data_x)
+        : null;
 
-function PlotComponent() {
-  return (
-    <div style={{ display: 'flex', height: '30rem' }}>
-      <HeatmapVis dataArray={dataArray} domain={domain} />
-    </div>
-  );
+      
+    let domain:Domain|undefined = ydata ? getDomain(ydata): [0, 1];
+    let domain_x:Domain|undefined = xdata ? getDomain(xdata): [0, 1];
+
+    domain = domain ? domain: [0, 1];
+    domain_x = domain_x ? domain_x: [0, 1];
+
+    const xlabel = props.label_x != null ? props.label_x : ""
+    const ylabel = props.label_y != null ? props.label_y : ""
+
+
+    return (
+      <Stack>
+        <VisCanvas
+        abscissaConfig={{
+          visDomain: domain_x ? domain_x: [0, 1], 
+        label: xlabel}}
+        ordinateConfig={{
+          visDomain: domain ? domain: [0, 1],
+        label: ylabel }}
+        >
+          {ydata && xdata && (
+            <DataCurve
+            abscissas={xdata.data}
+            color="red"
+            ordinates={ydata?.data}
+            visible={true}
+            />
+          )
+          }
+        </VisCanvas>
+      </Stack>
+    )
+    
+
 }
-
-export default PlotComponent;
