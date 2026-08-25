@@ -1,25 +1,36 @@
+import { Stack } from "@mui/material";
+import {
+  DiamondDSTheme,
+  ThemeProvider,
+  Navbar,
+} from "@diamondlightsource/sci-react-ui";
 
-import { Button, Stack } from '@mui/material'
-import { DiamondDSTheme, ThemeProvider, Navbar} from '@diamondlightsource/sci-react-ui'
-import PlotComponent from './components/PlotComponent'
-import { DataProvider } from './context/SampleContext'
-import { MakeTextInput } from './components/TextFields'
+import { SampleProvider } from "./context/SampleContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { MakeTextInput } from "./components/TextFields";
+
+
+
+const queryClient = new QueryClient();
 
 
 function App() {
 
   return (
-  <DataProvider>
-  <ThemeProvider theme={DiamondDSTheme}>
-  <Stack sx={{height:"100vh", width:"100vw"}} >
-    <Navbar>A title</Navbar>
-    <PlotComponent></PlotComponent>
-    {/* <Button variant="outlined" onClick={fetchInputValues}></Button>
-     */}
-     <MakeTextInput/>
-  </Stack>
-  </ThemeProvider>
-</DataProvider>
-  )
+    <QueryClientProvider client={queryClient}>
+    <SampleProvider>
+      <ThemeProvider theme={DiamondDSTheme}>
+        <Stack sx={{ height: "100vh", width: "100vw" }}>
+          
+          <Navbar>A title</Navbar>
+          
+        <MakeTextInput/>
+        </Stack>
+      </ThemeProvider>
+
+    </SampleProvider>
+    </QueryClientProvider>
+  );
 }
-export default App
+export default App;

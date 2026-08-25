@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import type { Hello, TotalSampleInput } from "../models/models";
+import type { Hello, TotalSampleInput } from "../models/old_models";
 
 export const handlers = [
   // adding fake sample-mass-calcs output here.

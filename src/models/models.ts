@@ -1,34 +1,45 @@
 
-export interface Hello {
-  message: string
-}
+
+export type SampleKeys = "formula" | "absorber" | "edge" | "mu_total" | "density" | "area" |
+        "mass_unit" | "energy_unit" | "length_unit" | "mass" | "thickness"
+
 
 
 export interface SampleInput {
-  value: {val: string|null, dtype: string}
-  name: string
+    value: string | null
+    isUnit: boolean
+    isCalculated: boolean
 }
 
-export interface TotalSampleInput {
-  fields: SampleInput[]
+export interface SampleValues {
+
+    formula: SampleInput
+    absorber: SampleInput
+    edge: SampleInput
+    mu_total: SampleInput
+    density: SampleInput
+    area: SampleInput
+
+    // isUnit = true
+    mass_unit: SampleInput
+    length_unit: SampleInput
+    energy_unit: SampleInput
+
+    // isCalculated = true
+    mass: SampleInput
+    thickness: SampleInput
 }
 
-
-export interface SingleValue {
-  val: string | null
-  dtype: string
+export interface SingleSampleValue {
+    name: SampleKeys
+    value: {val: string | null, dtype: "float" | "str"}
 }
 
-export interface SampleInputValues {
-  formula: SingleValue
-  absorber: SingleValue
-  edge: SingleValue
-  mu_total: SingleValue
-  density: SingleValue
-  area: SingleValue
-  mass: SingleValue
-  thickness: SingleValue
-  mass_unit: SingleValue
-  length_unit: SingleValue
-  energy_unit: SingleValue
+export interface SampleResponse {
+    data: SingleSampleValue[]
+}
+
+export interface SampleValueGetter {
+    getValue: (name: SampleKeys) => string | null
+    keyList: SampleKeys[]
 }

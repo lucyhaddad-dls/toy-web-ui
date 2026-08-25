@@ -1,26 +1,29 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { SampleContext } from "../context/SampleContext";
-import { Stack, TextField } from "@mui/material";
+import { TextField, Stack, Typography } from "@mui/material";
+import type { SampleKeys } from "../models/models";
 
-export function TextInput( props: {name: string, key: string}) {
+function TextInput(props: {name: SampleKeys, key: string}) {
+  const { getValue } = useContext(SampleContext)
 
-    const [currentVal, setCurrentVal] = useState("")
-    const {sampleValues} = useContext(SampleContext)
-    
-    if (currentVal==""){
-    setCurrentVal(sampleValues[props.name])}
+  const val = getValue(props.name)
 
-    return (<Stack>
-        <TextField defaultValue={currentVal}></TextField>
-    </Stack>)
-
+  return <Stack>
+    <Typography variant = "h5">{props.name}</Typography>
+    <TextField defaultValue={val}/>
+    </Stack>
 }
 
-export function MakeTextInput(){
-    const { sampleValues } = useContext(SampleContext)
+export function MakeTextInput() {
 
-    return (
-        Object.keys(sampleValues).map( (k) =>
-        <TextInput name = {k} key = {'${k}-input'} /> )
-    )
+  const { keyList } = useContext(SampleContext)
+
+  return <Stack>
+    {keyList.map((k, i) => 
+    {
+      const key :string = String(i)
+    return <TextInput name={k} key={key}/>
+    })
+    }
+  </Stack>
 }
