@@ -50,7 +50,7 @@ export interface SampleResponse {
 
 export interface SampleValueGetter {
     getValues: (name: SampleKeys) => SampleInput
-    keyList: string[] // is actually of type sampleKeys..
+    keyList: SampleKeys[]
     getAbsorptionValues: (kind: AbsorptionKeys) => Promise<void>
     absorptionValues: SampleMassResponse
     unitOptions: SampleUnit[]
