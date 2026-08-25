@@ -1,9 +1,8 @@
 
-
 export type SampleKeys = "formula" | "absorber" | "edge" | "mu_total" | "density" | "area" |
         "mass_unit" | "energy_unit" | "length_unit" | "mass" | "thickness"
 
-
+export type AbsorptionKeys = "mass" | "linear" | "total"
 
 export interface SampleInput {
     value: string | null
@@ -40,6 +39,15 @@ export interface SampleResponse {
 }
 
 export interface SampleValueGetter {
-    getValue: (name: SampleKeys) => string | null
+    getValues: (name: SampleKeys) => string | null
     keyList: SampleKeys[]
+    getAbsorptionValues: (kind: AbsorptionKeys) => SampleMassResponse
+    absorptionValues: SampleMassResponse
+}
+
+export interface SampleMassResponse {
+    xlabel: string | null 
+    ylabel: string | null
+    x: string | null
+    y: string | null
 }

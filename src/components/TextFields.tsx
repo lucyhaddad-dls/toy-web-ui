@@ -4,9 +4,9 @@ import { TextField, Stack, Typography } from "@mui/material";
 import type { SampleKeys } from "../models/models";
 
 function TextInput(props: {name: SampleKeys, key: string}) {
-  const { getValue } = useContext(SampleContext)
+  const { getValues } = useContext(SampleContext)
 
-  const val = getValue(props.name)
+  const val = getValues(props.name)
 
   return <Stack>
     <Typography variant = "h5">{props.name}</Typography>
