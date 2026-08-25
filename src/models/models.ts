@@ -4,6 +4,16 @@ export type SampleKeys = "formula" | "absorber" | "edge" | "mu_total" | "density
 
 export type AbsorptionKeys = "mass" | "linear" | "total"
 
+export type MassUnits = "kg" | "g" | "mg" | "ug"
+export type LengthUnits = "m" | "cm" | "mm" | "um"
+export type EnergyUnits = "gev" | "ev"
+
+export interface SampleUnit {
+    name: "energy_unit" | "length_unit" | "mass_unit"
+    value: MassUnits | LengthUnits | EnergyUnits
+    options: MassUnits[] | LengthUnits[] | EnergyUnits[]
+}
+
 export interface SampleInput {
     value: string | null
     isUnit: boolean
@@ -39,10 +49,12 @@ export interface SampleResponse {
 }
 
 export interface SampleValueGetter {
-    getValues: (name: SampleKeys) => string | null
+    getValues: (name: SampleKeys) => SampleInput
     keyList: SampleKeys[]
     getAbsorptionValues: (kind: AbsorptionKeys) => Promise<void>
     absorptionValues: SampleMassResponse
+    unitOptions: SampleUnit[]
+    currentAbsorptionKind: AbsorptionKeys
 }
 
 export interface SampleMassResponse {

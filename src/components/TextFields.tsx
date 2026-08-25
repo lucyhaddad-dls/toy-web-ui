@@ -1,19 +1,38 @@
 import { useContext } from "react";
 import { SampleContext } from "../context/SampleContext";
-import { TextField, Stack, Typography } from "@mui/material";
+import { TextField, Stack, Typography, Select, MenuItem } from "@mui/material";
 import type { SampleKeys } from "../models/models";
 
+
 function TextInput(props: {name: SampleKeys, key: string}) {
-  const { getValues } = useContext(SampleContext)
+  const { getValues, unitOptions } = useContext(SampleContext)
 
-  const val = getValues(props.name)
+  const measurement = getValues(props.name)
 
-  return <Stack>
-    <Typography variant = "h6">{props.name}</Typography>
-    <TextField defaultValue={val}/>
+  if (measurement.isUnit == false){
+        return <Stack>
+          <Typography variant = "h6">{props.name}</Typography>
+          <TextField defaultValue={measurement.value}/>
+          </Stack>
+      }
+  if (measurement.isUnit == true){
+
+    // getting list of options for each unit
+      const options = unitOptions.filter((val) => val.name == props.name)[0].options
+  
+    return <Stack>
+      <Select
+      value = {measurement.value}
+      >
+        {options.map((val) => <MenuItem value={val}>
+          {val}
+        </MenuItem>)}
+
+      </Select>
+
     </Stack>
+  }
 }
-
 export function MakeTextInput() {
 
   const { keyList } = useContext(SampleContext)

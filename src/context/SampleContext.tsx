@@ -1,7 +1,10 @@
 // make context to handle sample values:
 
 import React, { createContext, useState } from "react";
-import { type AbsorptionKeys, type SampleKeys, type SampleMassResponse, type SampleValueGetter, type SampleValues } from "../models/models";
+import { type AbsorptionKeys, type SampleKeys, type SampleMassResponse, 
+    type SampleValueGetter, type SampleValues,
+     type MassUnits, type EnergyUnits, type LengthUnits, 
+     type SampleUnit} from "../models/models";
 import { useQuery } from "@tanstack/react-query";
 import { getMassAbsorption, getSampleData } from "../models/queryFunctions";
 import { AxiosError } from "axios";
@@ -25,6 +28,10 @@ export function SampleProvider(props: {children: React.ReactNode}) {
         mass: {value: null, isUnit: false, isCalculated: true},
         thickness: {value: null, isUnit: false, isCalculated: true}} satisfies SampleValues
 
+    const unitOptions:SampleUnit[] = [{value: "g", name:"mass_unit", options:["kg", "g", "mg", "ug"]},
+                        {value: "cm", name:"length_unit", options:["m", "cm", "mm", "um"]},
+                        {value: "gev", name:"energy_unit", options:["gev", "ev"]}]
+
     const [absorptionValues, setAbsorptionValues] = useState<SampleMassResponse>({xlabel: null,
                                                                                 ylabel: null,
                                                                                 x: null,
@@ -33,9 +40,8 @@ export function SampleProvider(props: {children: React.ReactNode}) {
     const [currentAbsorptionKind, setCurrentAbsorptionKind] = useState<AbsorptionKeys>("mass")
 
     const getValues = (name:SampleKeys) => {
-        if (initialSampleValues[name].value != null){
-            return (initialSampleValues[name].value)}
-        else{return null}}
+        return initialSampleValues[name]
+    }
 
     const getAbsorptionValues = async(kind:AbsorptionKeys) => {
 
@@ -74,6 +80,8 @@ export function SampleProvider(props: {children: React.ReactNode}) {
             keyList: Object.keys(initialSampleValues),
             getAbsorptionValues: getAbsorptionValues,
             absorptionValues: absorptionValues,
+            unitOptions: unitOptions,
+            currentAbsorptionKind: currentAbsorptionKind
         }}> 
                     {children}
                 </SampleContext.Provider>)
