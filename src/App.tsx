@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import {
   DiamondDSTheme,
   ThemeProvider,
@@ -23,11 +23,18 @@ function App() {
       
     <SampleProvider>
       <ThemeProvider theme={DiamondDSTheme}>
-        <Stack sx={{ height: "100vh", width: "100vw" }}>
+
+        <Box sx={{width:"100vw", height:"100vh"}}>
           <Navbar>A title</Navbar>
+        
+        <Stack>
         <MakeTextInput/>
+   
         <AbsorptionPlotComponent/>
+
         </Stack>
+      </Box>
+
       </ThemeProvider>
     </SampleProvider>
 

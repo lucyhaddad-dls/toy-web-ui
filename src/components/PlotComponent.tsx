@@ -1,7 +1,6 @@
 import '@h5web/lib/styles.css';
 import ndarray from 'ndarray';
 import { DataCurve, VisCanvas, getDomain, type Domain } from '@h5web/lib';
-import { Stack } from '@mui/material';
 
 export function DataPlot(props: {data_y: number[]|null, data_x: number[]|null,
                 label_x: string|null, label_y:string|null}){
@@ -23,7 +22,6 @@ export function DataPlot(props: {data_y: number[]|null, data_x: number[]|null,
 
 
     return (
-      <Stack>
         <VisCanvas
         abscissaConfig={{
           visDomain: domain_x ? domain_x: [0, 1], 
@@ -39,11 +37,7 @@ export function DataPlot(props: {data_y: number[]|null, data_x: number[]|null,
             ordinates={ydata?.data}
             visible={true}
             />
-          )
-          }
+          )}
         </VisCanvas>
-      </Stack>
     )
-    
-
 }

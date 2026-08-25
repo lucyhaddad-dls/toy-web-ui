@@ -2,7 +2,7 @@ import '@h5web/lib/styles.css';
 import { useContext, useState } from 'react';
 import { SampleContext } from '../context/SampleContext';
 import { DataPlot } from './PlotComponent';
-import { Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 
 
 export function AbsorptionPlotComponent() {
@@ -27,11 +27,11 @@ export function AbsorptionPlotComponent() {
     }
 
     return (
-        <div>
+        <Stack>
         <DataPlot data_x={xdata} data_y={ydata}
         label_x={xlabel} label_y={ylabel}/>
         <Button variant="outlined" onClick={refreshData}>Replot</Button>
-        </div>
+        </Stack>
     )
 
     }
