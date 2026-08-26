@@ -17,7 +17,7 @@ import {
   postSampleValue,
 } from "../models/queryFunctions";
 import { DataContext } from "./DataContext";
-import { sampleUnitsDefault, sampleValuesDefault } from "../models/defaults";
+import { nullAbsorptionValues, sampleUnitsDefault, sampleValuesDefault } from "../models/defaults";
 
 export function SampleProvider(props: { children: React.ReactNode }) {
   const { children } = props;
@@ -45,7 +45,11 @@ export function SampleProvider(props: { children: React.ReactNode }) {
     return out[0].value.val;
   };
 
-  const [absorptionData, setAbsorptionData] = useState<AbsorptionDataSet[]>();
+  const [absorptionData, setAbsorptionData] = useState<AbsorptionDataSet[]>([
+                                    {data: nullAbsorptionValues, kind: "mass"},
+                                    {data: nullAbsorptionValues, kind: "linear"},
+                                    {data: nullAbsorptionValues, kind:"total"}
+                                ]);
 
   const getAllAbsorptionData = async (elements: string[] = ["total"]) => {
     const massAbsorption = await getMassAbsorptionData(elements);
