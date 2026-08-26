@@ -52,6 +52,8 @@ export interface SampleValueGetter {
     getValues: (name: SampleKeys) => SampleInput
     keyList: SampleKeys[]
     getAbsorptionValues: (kind: AbsorptionKeys) => Promise<void>
+    getElements: () => Promise<void>
+    elements: string[]
     absorptionValues: SampleMassResponse
     unitOptions: SampleUnit[]
     currentAbsorptionKind: AbsorptionKeys
@@ -62,4 +64,8 @@ export interface SampleMassResponse {
     ylabel: string | null
     x: string | null
     y: string | null
+}
+
+export interface ElementsResponse {
+    elements: string[]
 }

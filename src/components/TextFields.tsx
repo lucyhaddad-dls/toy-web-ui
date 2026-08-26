@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { SampleContext } from "../context/SampleContext";
+import { SampleContext } from "../context/SampleProviderContext";
 import { TextField, Stack, Typography, Select, MenuItem } from "@mui/material";
 import type { SampleKeys } from "../models/models";
 

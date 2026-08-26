@@ -1,6 +1,6 @@
 import axios, { type AxiosResponse } from "axios";
 
-import type { SampleMassResponse, SampleResponse } from "./models";
+import { type ElementsResponse, type SampleMassResponse, type SampleResponse } from "./models";
 
 
 export const getSampleData = async() => {
@@ -22,5 +22,11 @@ export const getMassAbsorption = async() => {
   })
   const data = response.data
 
+  return data
+}
+
+export const getElementsList = async() => {
+  const { data } = await axios.get<ElementsResponse, 
+        AxiosResponse<ElementsResponse>> ("/api/elements");
   return data
 }

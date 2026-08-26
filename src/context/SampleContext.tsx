@@ -1,14 +1,14 @@
 // make context to handle sample values:
 
-import React, { createContext, useState } from "react";
+import React, { useState } from "react";
 import { type AbsorptionKeys, type SampleKeys, type SampleMassResponse, 
-    type SampleValueGetter, type SampleValues,type SampleUnit} from "../models/models";
+    type SampleValues,type SampleUnit} from "../models/models";
 import { useQuery } from "@tanstack/react-query";
-import { getMassAbsorption, getSampleData } from "../models/queryFunctions";
+import { getElementsList, getMassAbsorption, getSampleData } from "../models/queryFunctions";
 import { AxiosError } from "axios";
+import { SampleContext } from "./SampleProviderContext";
 
-export const SampleContext = createContext<SampleValueGetter>({});
-
+// would like to re-write this to separate out units, elements, sample mass absorption ect. more cleanly.
 export function SampleProvider(props: {children: React.ReactNode}) {
     const { children } = props;
 
@@ -37,6 +37,8 @@ export function SampleProvider(props: {children: React.ReactNode}) {
                                                                                 x: null,
                                                                                 y: null})
 
+    const [elements, setElements] = useState<string[]>([])
+
     const [currentAbsorptionKind, setCurrentAbsorptionKind] = useState<AbsorptionKeys>("mass")
 
     const getValues = (name:SampleKeys) => {
@@ -52,6 +54,11 @@ export function SampleProvider(props: {children: React.ReactNode}) {
         setCurrentAbsorptionKind(kind)
         const data = await getMassAbsorption()
         setAbsorptionValues(data)
+    }
+
+    const getElements = async() => {
+        const elements_new = await getElementsList()
+        setElements(elements_new.elements)
     }
    
 
@@ -82,6 +89,8 @@ export function SampleProvider(props: {children: React.ReactNode}) {
             getValues: getValues,
             keyList: initialKeys,
             getAbsorptionValues: getAbsorptionValues,
+            getElements: getElements,
+            elements: elements,
             absorptionValues: absorptionValues,
             unitOptions: unitOptions,
             currentAbsorptionKind: currentAbsorptionKind
