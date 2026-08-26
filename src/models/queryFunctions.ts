@@ -6,7 +6,6 @@ import type {
   SampleResponseKeys,
   SampleUnitKeys,
 } from "./models";
-import { JavascriptOutlined } from "@mui/icons-material";
 
 export const sampleKeys = [
   "formula",

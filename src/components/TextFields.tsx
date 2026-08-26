@@ -6,7 +6,7 @@ import { InputLabel, MenuItem, Select, Stack, TextField, Typography } from "@mui
 function TextInput(props: { name: SampleResponseKeys; key: string }) {
   const { getValue, postNewValue } = useContext(DataContext);
 
-  const measurement: string = getValue(props.name);
+  const measurement: string |null = getValue(props.name);
 
   const updateValues = (value:string) => {
     if (value != ""){

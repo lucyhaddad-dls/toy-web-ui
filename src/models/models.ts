@@ -43,3 +43,15 @@ export interface SampleValueResponse {
     value: SampleValueValue
     name: SampleResponseKeys | SampleUnitKeys
 }
+
+export interface SampleProviderData {
+    sampleUnits: UnitValue[]
+    sampleValues: SampleValue[]
+    setSampleUnits: React.Dispatch<React.SetStateAction<UnitValue[]>>
+    absorptionData: AbsorptionDataSet[] | undefined
+    getInitialValues: () => Promise<void>
+    postNewValue: (name: SampleUnitKeys | SampleResponseKeys, value: string) => Promise<void>
+    getValue: (name: SampleResponseKeys) => string | null
+    testGetAllAbsorption: (elements?: string[]) => Promise<void>
+
+}
