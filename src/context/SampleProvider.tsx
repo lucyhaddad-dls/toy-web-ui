@@ -47,13 +47,9 @@ export function SampleProvider(props: { children: React.ReactNode }) {
 
   const [absorptionData, setAbsorptionData] = useState<AbsorptionDataSet[]>();
 
-  const testGetAllAbsorption = async (elements: string[] = ["total"]) => {
+  const getAllAbsorptionData = async (elements: string[] = ["total"]) => {
     const massAbsorption = await getMassAbsorptionData(elements);
-
-    // need check for server error (500)
     const linearAbsorption = await getLinearAbsorptionData(elements);
-
-    // need check for server error (500)
     const totalAbsorption = await getTotalAbsorptionData(elements);
 
     const dataset: AbsorptionDataSet[] = [
@@ -63,6 +59,7 @@ export function SampleProvider(props: { children: React.ReactNode }) {
     ];
 
     setAbsorptionData(dataset);
+  
   };
 
   return (
@@ -75,7 +72,7 @@ export function SampleProvider(props: { children: React.ReactNode }) {
         postNewValue: postNewValue,
         getValue: getValue,
         absorptionData: absorptionData,
-        testGetAllAbsorption: testGetAllAbsorption,
+        getAllAbsorptionData: getAllAbsorptionData
       }}
     >
       {children}

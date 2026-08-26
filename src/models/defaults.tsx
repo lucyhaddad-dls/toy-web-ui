@@ -1,4 +1,4 @@
-import { type UnitValue, type SampleValue } from "./models";
+import { type UnitValue, type SampleValue, type AbsorptionDataResponse } from "./models";
 
 export const sampleUnitsDefault: UnitValue[] = [
     { name: "mass_unit", value: "g", options: ["kg", "g", "mg", "ug"] },
@@ -16,3 +16,11 @@ export const sampleValuesDefault: SampleValue[] = [
     {name:"thickness", value:{val:null, dtype:"float"}},
     {name:"mass", value:{val:null, dtype:"float"}}
 ]
+
+export const nullAbsorptionValues: AbsorptionDataResponse = 
+{
+    xlabel: null,
+    ylabel: null,
+    x: null,
+    y: null
+}

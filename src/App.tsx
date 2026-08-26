@@ -8,6 +8,7 @@ import {
 import { SampleProvider } from "./context/SampleProvider"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MakeTextInput } from "./components/TextFields";
+import { PlotComponent } from "./components/PlotComponent";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ function App() {
 
           <MakeTextInput/>
 
+          <PlotComponent/>
         </Stack>
 
     </Box>

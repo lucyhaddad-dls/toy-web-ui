@@ -52,6 +52,7 @@ export interface SampleProviderData {
     getInitialValues: () => Promise<void>
     postNewValue: (name: SampleUnitKeys | SampleResponseKeys, value: string) => Promise<void>
     getValue: (name: SampleResponseKeys) => string | null
-    testGetAllAbsorption: (elements?: string[]) => Promise<void>
+    getAllAbsorptionData: (elements?: string[]) => Promise<void>
+
 
 }

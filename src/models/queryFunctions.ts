@@ -6,6 +6,7 @@ import type {
   SampleResponseKeys,
   SampleUnitKeys,
 } from "./models";
+import { nullAbsorptionValues } from "./defaults";
 
 export const sampleKeys = [
   "formula",
@@ -63,25 +64,31 @@ export const getMassAbsorptionData = async (elements: string[]) => {
 };
 
 export const getLinearAbsorptionData = async (elements: string[]) => {
-  const response = await axios<
-    AbsorptionDataResponse,
-    AxiosResponse<AbsorptionDataResponse>
-  >({
+  // eslint-disable-next-line no-useless-assignment
+  let response = {data: nullAbsorptionValues}
+  try { response = await axios <AbsorptionDataResponse,
+    AxiosResponse<AbsorptionDataResponse>> ({
     method: "post",
     url: "/api/calculate/linear-absorption",
-    headers: { "Content-Type": "application/json", elements: elements },
-  });
-  return response.data;
+    headers: { "Content-Type": "application/json", 
+    elements: elements},
+  }); } catch {
+    response = {data: nullAbsorptionValues}
+  }
+  return response.data
 };
 
 export const getTotalAbsorptionData = async (elements: string[]) => {
-  const response = await axios<
-    AbsorptionDataResponse,
-    AxiosResponse<AbsorptionDataResponse>
-  >({
+  // eslint-disable-next-line no-useless-assignment
+  let response = {data: nullAbsorptionValues}
+  try { response = await axios <AbsorptionDataResponse,
+    AxiosResponse<AbsorptionDataResponse>> ({
     method: "post",
     url: "/api/calculate/total-absorption",
-    headers: { "Content-Type": "application/json", elements: elements },
-  });
-  return response.data;
+    headers: { "Content-Type": "application/json", 
+    elements: elements},
+  }); } catch {
+    response = {data: nullAbsorptionValues}
+  } 
+  return response.data
 };
