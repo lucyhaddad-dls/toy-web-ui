@@ -1,62 +1,79 @@
-import { useContext } from "react";
-import { SampleContext } from "../context/SampleProviderContext";
-import { TextField, Stack, Typography, Select, MenuItem } from "@mui/material";
-import type { SampleKeys } from "../models/models";
+import { useContext, useState } from "react";
+import type { SampleResponseKeys, SampleUnitKeys, UnitValue } from "../models/models";
+import { DataContext } from "../context/DataContext";
+import { InputLabel, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
 
+function TextInput(props: { name: SampleResponseKeys; key: string }) {
+  const { getValue } = useContext(DataContext);
 
-function TextInput(props: {name: SampleKeys, key: string}) {
-  const { getValues, unitOptions } = useContext(SampleContext)
+  const measurement: string = getValue(props.name);
 
-  const measurement = getValues(props.name)
-
-  if (measurement.isUnit == false){
-        return <Stack>
-          <Typography variant = "h6">{props.name}</Typography>
-          <TextField defaultValue={measurement.value}/>
-          </Stack>
-      }
-  if (measurement.isUnit == true){
-
-    // getting list of options for each unit
-      const options = unitOptions.filter((val) => val.name == props.name)[0].options
-  
-    return <Stack>
-      <Select
-      value = {measurement.value}
-      >
-        {options.map((val) => <MenuItem value={val}>
-          {val}
-        </MenuItem>)}
-
-      </Select>
-
+  return (
+    <Stack>
+        <Typography variant="h6">{props.name}</Typography>
+      <TextField defaultValue={measurement} />
     </Stack>
-  }
+  );
 }
+
+function UnitInput(props: {name: SampleUnitKeys, key: string}){
+
+    
+    const { sampleUnits } = useContext(DataContext)
+
+    const unit:UnitValue = sampleUnits.filter((v:UnitValue) => 
+                                    v.name == props.name)[0]
+
+    const [selected, setSelected] = useState<string>(unit.value)
+
+    return (
+        <Stack>
+            <InputLabel>{props.name.replace("_", " ")}</InputLabel>
+            <Select value={selected}>
+            
+            {unit.options.map((option) => (
+                <MenuItem key={option}
+                label={selected}
+                value = {option}
+                selected = {selected === option}
+                onClick={() => setSelected(option)}>
+                    {option}
+                </MenuItem>
+            ))}
+        </Select>
+        </Stack>
+    )
+}
+
 export function MakeTextInput() {
+  const { getInitialValues, sampleValues } = useContext(DataContext);
 
-  const { keyList } = useContext(SampleContext)
-  const half = Math.floor(keyList.length/2)
+  if (sampleValues[0].value.val == null){getInitialValues()}
 
-  const firstKeys = keyList.slice(0, half)
-  const lastKeys = keyList.slice(half, keyList.length)
-
-  return <Stack spacing={2}>
+  return (
     <Stack direction="row" spacing={2}>
-    {firstKeys.map((k, i) => 
-    {
-      const key :string = String(i)
-        return <TextInput name={k} key={key}/>
-    })
-    }
+    <Stack spacing={2}>
+      <Stack direction="row" spacing={2}>
+        {["formula", "absorber", "edge"].map((k, i) => {
+          return (
+            <TextInput name={k as SampleResponseKeys} key={i.toString()} />
+          );
+        })}
+      </Stack>
+      <Stack direction="row" spacing={2}>
+        {["density", "area", "thickness"].map((k, i) => {
+          return (
+            <TextInput name={k as SampleResponseKeys} key={i.toString()} />
+          );
+        })}
+      </Stack>
     </Stack>
-    <Stack direction="row" spacing={2}>
-      {lastKeys.map((k, i) =>
-      { 
-      const key:string = String(i)
-          return <TextInput name={k} key={key}/>
-      })
-      }
+    <Stack spacing={2}>
+        {["mass_unit", "length_unit", "energy_unit"].map((k, i) => {
+            return (<UnitInput name = {k as SampleUnitKeys}
+            key = {i.toString()}/>)
+        })} 
+     </Stack>
     </Stack>
-  </Stack>
+  );
 }

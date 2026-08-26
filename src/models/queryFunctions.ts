@@ -1,32 +1,82 @@
 import axios, { type AxiosResponse } from "axios";
+import type {
+  AbsorptionDataResponse,
+  SampleValueResponse,
+  SampleValue,
+  SampleResponseKeys,
+  SampleUnitKeys,
+} from "./models";
 
-import { type ElementsResponse, type SampleMassResponse, type SampleResponse } from "./models";
+export const sampleKeys = [
+  "formula",
+  "absorber",
+  "edge",
+  "density",
+  "area",
+  "thickness",
+];
 
+export const getSampleData = async () => {
+  const { data } = await axios.get<
+    SampleValueResponse[],
+    AxiosResponse<SampleValue[]>
+  >("/api/input");
 
-export const getSampleData = async() => {
-  const { data } = await axios.get<SampleResponse,
-   AxiosResponse<SampleResponse>>("/api/input");
-  return data
-}
+  const sample = data.filter((v) => sampleKeys.includes(v.name));
 
+  return sample;
+};
 
-// need to add elements arg. to this!
-export const getMassAbsorption = async() => {
-  const response = await axios<SampleMassResponse,
-   AxiosResponse<SampleMassResponse>>({
-    method:"post",
+export const postSampleValue = async (
+  name: SampleResponseKeys | SampleUnitKeys,
+  value: string,
+) => {
+  const response = await axios<
+    SampleValueResponse[],
+    AxiosResponse<SampleValue[]>
+  >({
+    method: "post",
+    url: "/api/input",
+    headers: { "Content-Type": "application/json", name: name, value: value },
+  });
+
+  const sample = response.data.filter((v) => sampleKeys.includes(v.name));
+
+  return sample;
+};
+
+export const getMassAbsorptionData = async (elements: string[]) => {
+  const response = await axios<
+    AbsorptionDataResponse,
+    AxiosResponse<AbsorptionDataResponse>
+  >({
+    method: "post",
     url: "/api/calculate/mass-absorption",
-    headers: {"Content-Type": "application/json",
-            "elements": ["total"]
-    }
-  })
-  const data = response.data
+    headers: { "Content-Type": "application/json", elements: elements },
+  });
+  return response.data;
+};
 
-  return data
-}
+export const getLinearAbsorptionData = async (elements: string[]) => {
+  const response = await axios<
+    AbsorptionDataResponse,
+    AxiosResponse<AbsorptionDataResponse>
+  >({
+    method: "post",
+    url: "/api/calculate/linear-absorption",
+    headers: { "Content-Type": "application/json", elements: elements },
+  });
+  return response.data;
+};
 
-export const getElementsList = async() => {
-  const { data } = await axios.get<ElementsResponse, 
-        AxiosResponse<ElementsResponse>> ("/api/elements");
-  return data
-}
+export const getTotalAbsorptionData = async (elements: string[]) => {
+  const response = await axios<
+    AbsorptionDataResponse,
+    AxiosResponse<AbsorptionDataResponse>
+  >({
+    method: "post",
+    url: "/api/calculate/total-absorption",
+    headers: { "Content-Type": "application/json", elements: elements },
+  });
+  return response.data;
+};
