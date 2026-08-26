@@ -8,8 +8,7 @@ import {
 import { SampleProvider } from "./context/SampleContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { MakeTextInput } from "./components/TextFields";
-import { AbsorptionPlotComponent } from "./components/PlotAbsComponent";
+
 
 
 const queryClient = new QueryClient();
@@ -28,9 +27,9 @@ function App() {
           <Navbar>A title</Navbar>
         
         <Stack>
-        <MakeTextInput/>
+        {/* <MakeTextInput/> */}
    
-        <AbsorptionPlotComponent/>
+        {/* <AbsorptionPlotComponent/> */}
 
         </Stack>
       </Box>

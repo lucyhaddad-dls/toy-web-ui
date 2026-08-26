@@ -37,13 +37,7 @@ export function AbsorptionPlotComponent() {
         label_x={xlabel} label_y={ylabel}/>
         <Stack direction="row">
         <Button variant="outlined" onClick={refreshData}>Replot</Button> 
-        <Select>
-        {elements.map((e) => {
-
-            <MenuItem val={e}>{e}</MenuItem>
-        })}
-        </Select>
-
+   
         </Stack>
         </Stack>
     )
