@@ -6,6 +6,7 @@ import type {
   SampleResponseKeys,
   SampleUnitKeys,
 } from "./models";
+import { JavascriptOutlined } from "@mui/icons-material";
 
 export const sampleKeys = [
   "formula",
@@ -27,6 +28,8 @@ export const getSampleData = async () => {
   return sample;
 };
 
+
+
 export const postSampleValue = async (
   name: SampleResponseKeys | SampleUnitKeys,
   value: string,
@@ -36,14 +39,17 @@ export const postSampleValue = async (
     AxiosResponse<SampleValue[]>
   >({
     method: "post",
-    url: "/api/input",
-    headers: { "Content-Type": "application/json", name: name, value: value },
+    // better way to do this?
+    url: `/api/input?name=${name}&value=${value}`,
+    headers: { "Content-Type": "application/json"
+    }
+
   });
 
   const sample = response.data.filter((v) => sampleKeys.includes(v.name));
-
   return sample;
 };
+
 
 export const getMassAbsorptionData = async (elements: string[]) => {
   const response = await axios<

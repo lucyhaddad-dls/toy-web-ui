@@ -4,21 +4,34 @@ import { DataContext } from "../context/DataContext";
 import { InputLabel, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
 
 function TextInput(props: { name: SampleResponseKeys; key: string }) {
-  const { getValue } = useContext(DataContext);
+  const { getValue, postNewValue } = useContext(DataContext);
 
   const measurement: string = getValue(props.name);
+
+  const updateValues = (value:string) => {
+    if (value != ""){
+      if (value != getValue(props.name)){
+    postNewValue(props.name, value)}
+  }
+  }
 
   return (
     <Stack>
         <Typography variant="h6">{props.name}</Typography>
-      <TextField defaultValue={measurement} />
+      <TextField defaultValue={measurement} 
+    onKeyUp={ (event) => {
+              if (event.key === "Enter") {
+                const ev = event.target as HTMLTextAreaElement
+                updateValues(ev.value)
+                event.preventDefault()}}}/>
     </Stack>
+
   );
 }
 
 function UnitInput(props: {name: SampleUnitKeys, key: string}){
 
-    
+    // need to add in unit conversion utils later!
     const { sampleUnits } = useContext(DataContext)
 
     const unit:UnitValue = sampleUnits.filter((v:UnitValue) => 
