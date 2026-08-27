@@ -28,8 +28,6 @@ export const getSampleData = async () => {
   return sample;
 };
 
-
-
 export const postSampleValue = async (
   name: SampleResponseKeys | SampleUnitKeys,
   value: string,
@@ -50,17 +48,31 @@ export const postSampleValue = async (
   return sample;
 };
 
+export const testPost = async (elements: string[]) => {
+  const response = await axios.post("/api/calculate/mass-absorption", elements);
+
+  if (response.status != 200) {
+    throw new Error("Failed to get absorption data");
+  }
+
+  return response.data;
+};
+
 
 export const getMassAbsorptionData = async (elements: string[]) => {
-  const response = await axios<
-    AbsorptionDataResponse,
-    AxiosResponse<AbsorptionDataResponse>
-  >({
+  // eslint-disable-next-line no-useless-assignment
+  let response = {data: nullAbsorptionValues}
+  try { response = await axios <AbsorptionDataResponse,
+    AxiosResponse<AbsorptionDataResponse>> ({
     method: "post",
     url: "/api/calculate/mass-absorption",
-    headers: { "Content-Type": "application/json", elements: elements },
-  });
-  return response.data;
+    headers: { "Content-Type": "application/json", 
+    elements: elements},
+  }); } catch {
+    response = {data: nullAbsorptionValues}
+  }
+
+  return response.data
 };
 
 export const getLinearAbsorptionData = async (elements: string[]) => {

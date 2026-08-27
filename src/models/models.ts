@@ -1,7 +1,7 @@
 
 type MassUnits = "kg" | "g" | "mg" | "ug"
 type LengthUnits = "m" | "cm" | "mm" | "um"
-type EnergyUnits = "gev" | "ev"
+type EnergyUnits = "gev" | "kev" | "ev"
 
 export type AbsorptionType = "mass" | "linear" | "total"
 
@@ -35,8 +35,9 @@ export interface AbsorptionDataResponse {
 
 
 export interface AbsorptionDataSet {
-    data: AbsorptionDataResponse
-    kind: AbsorptionType
+    mass: AbsorptionDataResponse
+    linear: AbsorptionDataResponse
+    total: AbsorptionDataResponse
 }
 
 export interface SampleValueResponse {
@@ -48,11 +49,17 @@ export interface SampleProviderData {
     sampleUnits: UnitValue[]
     sampleValues: SampleValue[]
     setSampleUnits: React.Dispatch<React.SetStateAction<UnitValue[]>>
-    absorptionData: AbsorptionDataSet[] | undefined
+    absorptionData: AbsorptionDataSet
     getInitialValues: () => Promise<void>
+    getInitialAbsorption: () => Promise<void>
     postNewValue: (name: SampleUnitKeys | SampleResponseKeys, value: string) => Promise<void>
     getValue: (name: SampleResponseKeys) => string | null
-    getAllAbsorptionData: (elements?: string[]) => Promise<void>
+    getAbsorption: (elements?: string[], kind?: AbsorptionType) => void
+    setAbsorptionData: React.Dispatch<React.SetStateAction<{
+                                    mass: AbsorptionDataResponse;
+                                    linear: AbsorptionDataResponse;
+                                    total: AbsorptionDataResponse;
+}>>
 
 
 }

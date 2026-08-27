@@ -2,13 +2,13 @@
 
 import type React from "react";
 import type {
-  AbsorptionDataSet,
   SampleResponseKeys,
   SampleValue,
   UnitValue,
   SampleUnitKeys,
+  AbsorptionType,
 } from "../models/models";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getLinearAbsorptionData,
   getMassAbsorptionData,
@@ -45,26 +45,34 @@ export function SampleProvider(props: { children: React.ReactNode }) {
     return out[0].value.val;
   };
 
-  const [absorptionData, setAbsorptionData] = useState<AbsorptionDataSet[]>([
-                                    {data: nullAbsorptionValues, kind: "mass"},
-                                    {data: nullAbsorptionValues, kind: "linear"},
-                                    {data: nullAbsorptionValues, kind:"total"}
-                                ]);
+    const [absorptionData, setAbsorptionData] = useState({"mass": nullAbsorptionValues,
+                                                    "linear": nullAbsorptionValues,
+                                                    "total": nullAbsorptionValues
+                                                        })
 
-  const getAllAbsorptionData = async (elements: string[] = ["total"]) => {
-    const massAbsorption = await getMassAbsorptionData(elements);
-    const linearAbsorption = await getLinearAbsorptionData(elements);
-    const totalAbsorption = await getTotalAbsorptionData(elements);
+    const getInitialAbsorption = async () => {
+        const result = await getMassAbsorptionData(["total"]);
+        setAbsorptionData({...absorptionData, mass: result})
+    }
+    
 
-    const dataset: AbsorptionDataSet[] = [
-      { data: massAbsorption, kind: "mass" },
-      { data: linearAbsorption, kind: "linear" },
-      { data: totalAbsorption, kind: "total" },
-    ];
 
-    setAbsorptionData(dataset);
-  
-  };
+    const getAbsorption= async (elements:string[]=["total"], kind:AbsorptionType="mass") => {
+        if (kind=="mass"){
+            const massAbsorption = await getMassAbsorptionData(elements)
+            setAbsorptionData({...absorptionData, mass: massAbsorption })
+        }
+        if (kind=="linear"){
+            const linearAbsorption = await getLinearAbsorptionData(elements)
+            setAbsorptionData({...absorptionData, linear: linearAbsorption})
+        }
+
+        if (kind=="total"){
+            const totalAbsorption = await getTotalAbsorptionData(elements)
+            setAbsorptionData({...absorptionData, total:totalAbsorption})
+        }
+    }
+
 
   return (
     <DataContext.Provider
@@ -73,10 +81,13 @@ export function SampleProvider(props: { children: React.ReactNode }) {
         sampleValues: sampleValues,
         setSampleUnits: setSampleUnits,
         getInitialValues: getInitialValues,
+        getInitialAbsorption: getInitialAbsorption,
         postNewValue: postNewValue,
         getValue: getValue,
         absorptionData: absorptionData,
-        getAllAbsorptionData: getAllAbsorptionData
+        setAbsorptionData: setAbsorptionData,
+        getAbsorption: getAbsorption
+
       }}
     >
       {children}
