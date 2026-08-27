@@ -1,5 +1,5 @@
 
-import {  Button, Stack } from "@mui/material";
+import {  Button, InputLabel, MenuItem, Stack, Select } from "@mui/material";
 import { type AbsorptionType } from "../models/models";
 import '@h5web/lib/styles.css';
 import { DataPlot } from "./PlotCanvas";
@@ -51,8 +51,32 @@ export function PlotComponent() {
 
     return (
         <Stack>
+        
+        <Stack direction="row">
             <DataPlot xdata={xData} ydata={yData} xlabel={xlabel}
              ylabel={ylabel}/> 
+            
+            <Stack>
+            <InputLabel>Value?</InputLabel>
+            <Select value={currentKey}>
+            {["mass", "linear", "total"].map((val) =>
+                 (
+                    <MenuItem key={val}
+                     label={currentKey} 
+                     value={val}
+                    selected = {currentKey === val}
+                    onClick = {() => {setCurrentKey(val as AbsorptionType);
+                        setCurrentData()
+                    }
+                    } >
+                        {val}
+                    </MenuItem>
+                 )
+            )}
+            </Select>
+            </Stack>
+           
+        </Stack>
              <Button onClick={() => {setData(setCurrentData()); remakeXy()}} >replot</Button>
             hello from mass calculator
         </Stack>
