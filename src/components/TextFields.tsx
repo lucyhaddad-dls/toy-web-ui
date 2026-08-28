@@ -11,7 +11,8 @@ function TextInput(props: { name: SampleResponseKeys; key: string }) {
   const updateValues = (value:string) => {
     if (value != ""){
       if (value != getValue(props.name)){
-    postNewValue(props.name, value)}
+    postNewValue(props.name, value)
+  }
   }
   }
 
