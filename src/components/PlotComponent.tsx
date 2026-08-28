@@ -1,27 +1,73 @@
-import '@h5web/lib/styles.css';
-import ndarray from 'ndarray';
-import { HeatmapVis, getDomain } from '@h5web/lib';
+import { useContext, useState } from "react";
+import { DataContext } from "../context/DataContext";
+import type { AbsorptionType, ElementAbsorptionResponse } from "../models/models";
+import { getAbsorptionData } from "../models/queryFunctions";
+import { InputLabel, MenuItem, Stack, Select } from "@mui/material";
 
-// Initialise source 2D array
-const values = [
-  [0, 1, 2],
-  [3, 4, 5],
-];
+export function PlotComponent() {
 
-// Flatten source array
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const flatValues: any[] = values.flat(Infinity);
+    const { absorptionData, setAbsorptionData } = useContext(DataContext)
 
-// Convert to ndarray and get domain
-const dataArray = ndarray(flatValues, [2, 3]);
-const domain = getDomain(dataArray);
 
-function PlotComponent() {
-  return (
-    <div style={{ display: 'flex', height: '30rem' }}>
-      <HeatmapVis dataArray={dataArray} domain={domain} />
-    </div>
-  );
+    const [currentValue, setCurrentValue] = useState<AbsorptionType>("mass")
+
+    const [elementList, setElementList] = useState<string[]>(["total"])
+
+    const [currentElement, setCurrentElement] = useState<string>("total")
+
+    const setCurrentData = () => {
+    getAbsorptionData(currentValue).then(
+        
+        data => {setAbsorptionData(data);
+        if (Object.hasOwn(absorptionData, "y")){
+            setElementList(data.y.map((e:ElementAbsorptionResponse) => e.name))}
+        else {setElementList(["total"]); setCurrentElement("total")}
+        });
+        return () => {}
+    }
+
+    // handle x, y, + labels here?
+
+    return (
+
+
+    <Stack direction="row" spacing={5}>
+        <InputLabel>
+        Value to plot
+        </InputLabel>
+        <Select value = {currentValue}>
+            {["mass", "linear", "total"].map((val) => 
+            (
+            <MenuItem key={val}
+                label={currentValue}
+                value = {val}
+                selected={currentValue === val}
+                onClick = {() => {setCurrentValue(val as AbsorptionType);
+                setCurrentData() }}> {val}
+            </MenuItem> )
+            )}
+        </Select>
+
+         <InputLabel>Elements to plot</InputLabel> 
+         <Select value = {currentElement}>
+
+            {elementList.map((element) => (
+                <MenuItem key = {element}
+                label= {currentElement}
+                value = {element}
+                selected = {currentElement === element}
+                onClick = {() => {setCurrentElement(element)
+                    // CHANGE DATA IN PLOT HERE
+                }}>
+                    {element}
+                </MenuItem>
+            ))}
+        
+
+        </Select>
+
+
+        </Stack>
+
+    )
 }
-
-export default PlotComponent;

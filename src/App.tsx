@@ -4,6 +4,7 @@ import { DiamondDSTheme, ThemeProvider, Navbar} from '@diamondlightsource/sci-re
 import { DataProvider } from './context/DataProvider'
 import { MakeTextInput } from './components/TextFields'
 import { MakeUnitInput } from './components/UnitFields'
+import { PlotComponent } from './components/PlotComponent'
 
 
 function App() {
@@ -23,7 +24,9 @@ function App() {
     <MakeTextInput/>
     <MakeUnitInput/>
   </Stack>
-
+    <Stack>
+      <PlotComponent/>
+    </Stack>
   </Stack>
   
   </ThemeProvider>

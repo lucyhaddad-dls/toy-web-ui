@@ -37,10 +37,10 @@ interface SampleValue {
 
 export interface SampleValueResponse {
     value: SampleValue
-    name: SampleResponseKeys | SampleUnitKeys
+    name: SampleResponseKeys 
 }
 
-interface ElementAbsorptionResponse {
+export interface ElementAbsorptionResponse {
   name: string
   y: string[]
 }
@@ -50,4 +50,21 @@ export interface SampleAbsorptionResponse {
   xlabel: string
   ylabel: string
   y: ElementAbsorptionResponse
+}
+
+export interface SampleAbsorptionErrorResponse {
+  error: string
+}
+
+export interface DataContextType {
+
+  sampleValues: SampleValueResponse[]
+  setSampleValues: React.Dispatch<React.SetStateAction<SampleValueResponse[]>>
+  sampleUnits: UnitValue[]
+  setSampleUnits: React.Dispatch<React.SetStateAction<UnitValue[]>>
+  getSingleValue: (name: SampleResponseKeys) => string | null
+  getUnit: (name: SampleUnitKeys) => UnitValue
+  absorptionData: SampleAbsorptionResponse | SampleAbsorptionErrorResponse
+  setAbsorptionData: React.Dispatch<React.SetStateAction<SampleAbsorptionResponse >>
+
 }
