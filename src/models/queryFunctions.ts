@@ -1,12 +1,35 @@
 import axios, { type AxiosResponse } from "axios";
-import { type TotalSampleInput, type Hello} from "./models";
+import { type AbsorptionType, type SampleResponseKeys, type SampleUnitKeys, type SampleValueResponse, sampleKeys } from "./models";
 
-export const getHello = async() => {
-  const { data } = await axios.get<Hello, AxiosResponse<Hello>>("/api");
-  return data;
+
+export const getSampleData = async() => {
+  const { data } = await axios.get <
+    SampleValueResponse[], AxiosResponse<SampleValueResponse[]>
+    > ("/api/input")
+
+  const sample = data.filter((v) => sampleKeys.includes(v.name));
+
+  return sample
 }
 
-export const getInput = async() => {
-  const { data } = await axios.get<TotalSampleInput, AxiosResponse<TotalSampleInput>>("/api/input");
-  return data;
-}
+export const postSampleData = async(name:SampleResponseKeys | SampleUnitKeys,
+  value: string,) => {
+    // should maybe add check in here if the input is valid?
+    const response = await axios.post("/api/input", {},
+      {params: {name, value}}
+     );
+    if (response.status != 200){
+      throw new Error("Failed to post new data")
+    };
+  }
+
+  export const getAbsorptionData = async(abs_type:AbsorptionType) => {
+
+    const data = await axios.get("/api/absorption",
+       {params: {abs_type: abs_type}}
+      ).then((response) => {return response.data})
+    .catch((err) => console.log(err));
+      
+    return data
+    
+  }
