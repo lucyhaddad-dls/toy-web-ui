@@ -15,4 +15,4 @@ export const defaultSampleUnits: UnitValue[] = [
     {name:"area", value:{val:null, dtype:"float"}},
     {name:"thickness", value:{val:null, dtype:"float"}},
     {name:"mass", value:{val:null, dtype:"float"}}
-  ]
+  ];
