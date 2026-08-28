@@ -3,6 +3,8 @@ import { DataContext } from "../context/DataContext";
 import { type SampleAbsorptionResponse, type AbsorptionType, type ElementAbsorptionResponse, type TotalAbsorptionDataset } from "../models/models";
 import { getAbsorptionData } from "../models/queryFunctions";
 import { InputLabel, MenuItem, Stack, Select } from "@mui/material";
+import ndarray from "ndarray";
+import { DataPlot } from "./PlotCanvas";
 
 export function PlotComponent() {
 
@@ -22,9 +24,11 @@ export function PlotComponent() {
 
         if (absorptionData != undefined){
 
+        if (allAbsorptionData != undefined && 
+            Object.hasOwn(allAbsorptionData, currentValue)){
         const out:TotalAbsorptionDataset = {...allAbsorptionData,
                             [currentValue]: absorptionData}
-        setAllAbsorptionData(out);
+        setAllAbsorptionData(out);}
         };
   
         if (absorptionData == undefined){
@@ -37,25 +41,29 @@ export function PlotComponent() {
         return () => {}}
 
 
-    // const [xdata, setXdata] = useState()
-    // const [ydata, setYdata] = useState()
-    // const [xlabel, setXlabel] = useState<string>("")
-    // const [ylabel, setYlabel] = useState<string>("")
+    const [xdata, setXdata] = useState<ndarray.NdArray<number[]> |null>(null)
+    const [ydata, setYdata] = useState<ndarray.NdArray<number[]> | null>(null)
+    const [xlabel, setXlabel] = useState<string>("")
+    const [ylabel, setYlabel] = useState<string>("")
 
 
-    // const handleAbsorptionData() => {
-        
-    //     if (absorptionData != undefined){
-            
+    const handleAbsorptionData = () => {
+        if (absorptionData != undefined && Object.hasOwn(absorptionData, "y")){
+            const tmpX = absorptionData.x.split(",").map((n) => parseFloat(n))
+            const tmpY = absorptionData.y.filter((n)=> (n.name == currentElement))[0]
+            const tmpY2 = tmpY.y.split(",").map((n) => parseFloat(n))
 
-    //     }
-    // }
+            setXdata(ndarray(tmpX)); setYdata(ndarray(tmpY2))
+            setXlabel(absorptionData.xlabel); setYlabel(absorptionData.ylabel)
+        }
+    }
 
-    // handle x, y, + labels here?
 
     return (
 
 
+    <Stack spacing={5}>
+        
     <Stack direction="row" spacing={5}>
         <InputLabel>
         Value to plot
@@ -68,7 +76,7 @@ export function PlotComponent() {
                 value = {val}
                 selected={currentValue === val}
                 onClick = {() => {setCurrentValue(val as AbsorptionType);
-                setCurrentData() }}> {val}
+                setCurrentData(); handleAbsorptionData() }}> {val}
             </MenuItem> )
             )}
         </Select>
@@ -81,17 +89,20 @@ export function PlotComponent() {
                 label= {currentElement}
                 value = {element}
                 selected = {currentElement === element}
-                onClick = {() => {setCurrentElement(element)
-                    // CHANGE DATA IN PLOT HERE
+                onClick = {() => {setCurrentElement(element);
+                    handleAbsorptionData()
                 }}>
                     {element}
                 </MenuItem>
             ))}
-        
-
         </Select>
 
-
+            </Stack>
+        <DataPlot 
+                xdata={xdata}
+                ydata={ydata}
+                xlabel={xlabel}
+                ylabel={ylabel}/>
         </Stack>
 
     )

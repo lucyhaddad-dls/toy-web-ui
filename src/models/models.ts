@@ -42,14 +42,14 @@ export interface SampleValueResponse {
 
 export interface ElementAbsorptionResponse {
   name: string
-  y: string[]
+  y: string
 }
 
 export interface SampleAbsorptionResponse { 
-  x: string[]
+  x: string
   xlabel: string
   ylabel: string
-  y: ElementAbsorptionResponse
+  y: ElementAbsorptionResponse[]
 }
 
 export interface SampleAbsorptionErrorResponse {

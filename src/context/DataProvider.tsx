@@ -5,7 +5,6 @@ import { getAbsorptionData, getSampleData } from "../models/queryFunctions";
 import { type SampleResponseKeys, type SampleUnitKeys,
      type SampleValueResponse, type TotalAbsorptionDataset, type UnitValue } from "../models/models";
 import { defaultSampleUnits, nullAbsorptionValues, nullSampleValues } from "../models/defaults";
-import { all } from "axios";
 
 export function DataProvider(props: { children: React.ReactNode }) {
     const { children } = props;

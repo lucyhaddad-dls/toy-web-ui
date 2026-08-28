@@ -23,10 +23,11 @@ function App() {
     <Box sx = {{ p:2 }}/>
     <MakeTextInput/>
     <MakeUnitInput/>
+
+     <PlotComponent/>
   </Stack>
-    <Stack>
-      <PlotComponent/>
-    </Stack>
+  
+
   </Stack>
   
   </ThemeProvider>
