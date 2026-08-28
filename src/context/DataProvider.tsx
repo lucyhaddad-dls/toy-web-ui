@@ -2,9 +2,10 @@ import type React from "react";
 import { DataContext } from "./DataContext";
 import { useEffect, useState } from "react";
 import { getAbsorptionData, getSampleData } from "../models/queryFunctions";
-import { type SampleAbsorptionResponse, type SampleResponseKeys, type SampleUnitKeys,
-     type SampleValueResponse, type UnitValue } from "../models/models";
-import { defaultSampleUnits, nullSampleValues } from "../models/defaults";
+import { type SampleResponseKeys, type SampleUnitKeys,
+     type SampleValueResponse, type TotalAbsorptionDataset, type UnitValue } from "../models/models";
+import { defaultSampleUnits, nullAbsorptionValues, nullSampleValues } from "../models/defaults";
+import { all } from "axios";
 
 export function DataProvider(props: { children: React.ReactNode }) {
     const { children } = props;
@@ -14,7 +15,8 @@ export function DataProvider(props: { children: React.ReactNode }) {
     const [sampleUnits, setSampleUnits] = useState<UnitValue[]>(defaultSampleUnits)
 
 
-    const [absorptionData, setAbsorptionData] = useState<SampleAbsorptionResponse>()
+    const [allAbsorptionData, setAllAbsorptionData] = useState<TotalAbsorptionDataset>
+    (nullAbsorptionValues)
 
     useEffect(() => {
     let ignore = false;
@@ -27,11 +29,14 @@ export function DataProvider(props: { children: React.ReactNode }) {
     useEffect(() => {
     let ignore = false;
     getAbsorptionData("mass").then(data => {
-      if (!ignore) { setAbsorptionData(data)}
+      if (!ignore) { 
+        setAllAbsorptionData({mass: data, total: undefined, linear: undefined})
+      }
         });
         return () => { ignore = true; }
     }, []);
 
+ 
     const getSingleValue = (name:SampleResponseKeys) => {
        
         const value = sampleValues.filter((v) => v.name == name);
@@ -60,8 +65,9 @@ export function DataProvider(props: { children: React.ReactNode }) {
         setSampleUnits: setSampleUnits,
         getSingleValue: getSingleValue,
         getUnit: getUnit,
-        absorptionData: absorptionData,
-        setAbsorptionData: setAbsorptionData
+        allAbsorptionData: allAbsorptionData,
+        setAllAbsorptionData: setAllAbsorptionData
+
     }}
     > 
     {children} 

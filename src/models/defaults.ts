@@ -1,4 +1,4 @@
-import type { SampleValueResponse, UnitValue } from "./models";
+import type { SampleValueResponse, TotalAbsorptionDataset, UnitValue } from "./models";
 
 
 export const defaultSampleUnits: UnitValue[] = [
@@ -16,3 +16,9 @@ export const defaultSampleUnits: UnitValue[] = [
     {name:"thickness", value:{val:null, dtype:"float"}},
     {name:"mass", value:{val:null, dtype:"float"}}
   ];
+
+  export const nullAbsorptionValues: TotalAbsorptionDataset = {
+    mass: undefined,
+    linear: undefined,
+    total: undefined
+  }

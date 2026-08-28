@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
 import { DataContext } from "../context/DataContext";
-import type { AbsorptionType, ElementAbsorptionResponse } from "../models/models";
+import { type SampleAbsorptionResponse, type AbsorptionType, type ElementAbsorptionResponse, type TotalAbsorptionDataset } from "../models/models";
 import { getAbsorptionData } from "../models/queryFunctions";
 import { InputLabel, MenuItem, Stack, Select } from "@mui/material";
 
 export function PlotComponent() {
 
-    const { absorptionData, setAbsorptionData } = useContext(DataContext)
+    const { allAbsorptionData, setAllAbsorptionData } = useContext(DataContext)
 
+    const [absorptionData, setAbsorptionData] = useState<SampleAbsorptionResponse>()
 
     const [currentValue, setCurrentValue] = useState<AbsorptionType>("mass")
 
@@ -17,8 +18,15 @@ export function PlotComponent() {
 
     const setCurrentData = () => {
     getAbsorptionData(currentValue).then(
-        
         data => {setAbsorptionData(data);
+
+        if (absorptionData != undefined){
+
+        const out:TotalAbsorptionDataset = {...allAbsorptionData,
+                            [currentValue]: absorptionData}
+        setAllAbsorptionData(out);
+        };
+  
         if (absorptionData == undefined){
             setElementList(["total"])
         }
@@ -26,8 +34,22 @@ export function PlotComponent() {
             setElementList(data.y.map((e:ElementAbsorptionResponse) => e.name))}
         else {setElementList(["total"]); setCurrentElement("total")}
         });
-        return () => {}
-    }
+        return () => {}}
+
+
+    // const [xdata, setXdata] = useState()
+    // const [ydata, setYdata] = useState()
+    // const [xlabel, setXlabel] = useState<string>("")
+    // const [ylabel, setYlabel] = useState<string>("")
+
+
+    // const handleAbsorptionData() => {
+        
+    //     if (absorptionData != undefined){
+            
+
+    //     }
+    // }
 
     // handle x, y, + labels here?
 
