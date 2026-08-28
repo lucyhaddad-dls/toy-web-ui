@@ -64,7 +64,7 @@ export interface DataContextType {
   setSampleUnits: React.Dispatch<React.SetStateAction<UnitValue[]>>
   getSingleValue: (name: SampleResponseKeys) => string | null
   getUnit: (name: SampleUnitKeys) => UnitValue
-  absorptionData: SampleAbsorptionResponse | SampleAbsorptionErrorResponse
-  setAbsorptionData: React.Dispatch<React.SetStateAction<SampleAbsorptionResponse >>
+  absorptionData: SampleAbsorptionResponse | SampleAbsorptionErrorResponse | undefined
+  setAbsorptionData: React.Dispatch<React.SetStateAction<SampleAbsorptionResponse | undefined>>
 
 }

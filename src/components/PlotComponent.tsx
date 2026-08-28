@@ -19,7 +19,10 @@ export function PlotComponent() {
     getAbsorptionData(currentValue).then(
         
         data => {setAbsorptionData(data);
-        if (Object.hasOwn(absorptionData, "y")){
+        if (absorptionData == undefined){
+            setElementList(["total"])
+        }
+        else if (Object.hasOwn(absorptionData, "y")){
             setElementList(data.y.map((e:ElementAbsorptionResponse) => e.name))}
         else {setElementList(["total"]); setCurrentElement("total")}
         });
