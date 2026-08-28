@@ -14,12 +14,13 @@ export const getSampleData = async() => {
 
 export const postSampleData = async(name:SampleResponseKeys | SampleUnitKeys,
   value: string,) => {
-    await axios(
-      {method:"post",
-        headers: {"Content-Type":"application/json",
-                    name: name, value: value}
-        }
-    );
+    // should maybe add check in here if the input is valid?
+    const response = await axios.post("/api/input", {},
+      {params: {name, value}}
+     );
+    if (response.status != 200){
+      throw new Error("Failed to post new data")
+    };
   }
 
   export const getAbsorptionData = async(abs_type:AbsorptionType) => {
