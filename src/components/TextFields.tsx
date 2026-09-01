@@ -7,8 +7,8 @@ import { TextField, Stack, Box } from "@mui/material";
 function TextInput( props: {name: SampleResponseKeys,
                             key: string} )
 {
-        
-    const { getSingleValue } = useContext(DataContext)
+    
+    const {getSingleValue} = useContext(DataContext)
 
     const initialValue = getSingleValue(props.name)
 

@@ -2,8 +2,11 @@ import { Button, Drawer, List, ListItem, ListItemText, Stack } from "@mui/materi
 import { useState } from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import { AbsorptionCalcPage } from "../pages/AbsorptionCalcs";
-import { PlaceholderPage } from "../pages/Placeholder";
+
 import { Navbar } from "@diamondlightsource/sci-react-ui";
+import { SampleBuilderPage } from "../pages/SampleBuilder";
+import { PlaceholderPage } from "../pages/Placeholder";
+import { SampleBuilderMenu } from "./SampleBuilderMenu";
 
 const LinkList = (
     <Stack>
@@ -14,7 +17,7 @@ const LinkList = (
                 </Link>
             </ListItem>
 
-            <ListItem key={"sample"}>
+            <ListItem key={"sample"}> 
                 <Link  to="/sample-builder"> 
                 <ListItemText>Sample Builder </ListItemText>
                 </Link>
@@ -32,6 +35,7 @@ export function LinkDrawer () {
 
     return (
         <BrowserRouter>
+        <Stack>
         <Stack direction="row">
             <Navbar sx={{backgroundColor: "primary",
                          color: "primary",
@@ -55,9 +59,21 @@ export function LinkDrawer () {
         </Stack>
         <Routes>
         <Route path="/" element={<AbsorptionCalcPage/>} />
-        <Route path="/sample-builder" element={<PlaceholderPage/>} />
+        <Route path="/sample-builder" element={<SampleBuilderPage/>} />
+        <Route path="/sample-builder/formula-from-mass-ratios" 
+                    element={<div>
+                            <SampleBuilderMenu/>
+                            <PlaceholderPage/>
+                            </div>}/>
+        <Route path="/placeholder"
+                    element={<div>
+                            <SampleBuilderMenu/>
+                            <PlaceholderPage/>
+                            </div>}/>
       </Routes>
+      </Stack>
     </BrowserRouter>
+  
 
     )
 }
