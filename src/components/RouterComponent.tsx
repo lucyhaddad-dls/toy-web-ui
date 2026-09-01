@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import { AbsorptionCalcPage } from "../pages/AbsorptionCalcs";
 import { PlaceholderPage } from "../pages/Placeholder";
+import { Navbar } from "@diamondlightsource/sci-react-ui";
 
 const LinkList = (
     <Stack>
@@ -23,6 +24,7 @@ const LinkList = (
 )
 
 export function LinkDrawer () {
+
     const [ showMenu, setShowMenu ] = useState<boolean>(false);
 
     const toggleDrawer = (newVal: boolean) => () =>
@@ -30,12 +32,22 @@ export function LinkDrawer () {
 
     return (
         <BrowserRouter>
+        <Stack direction="row">
+            <Navbar sx={{backgroundColor: "primary",
+                         color: "primary",
+                         width: '100%'
+                         }}>
+                <Button onClick={toggleDrawer(true)}
+                        variant="contained"
+                        sx={{ backgroundColor: "inherit",
+                            color: "inherit" ,
+                            flexShrink: 1}}>
+                        Open Menu
+                </Button>
+            </Navbar>
+                    
+        </Stack>
         <Stack>
-            
-        <Button onClick={toggleDrawer(true)}>
-                Open Menu
-        </Button>
-
         <Drawer open={showMenu} onClose={toggleDrawer(false)}>
                 {LinkList}
         </Drawer>
