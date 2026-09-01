@@ -7,6 +7,7 @@ import { Navbar } from "@diamondlightsource/sci-react-ui";
 import { SampleBuilderPage } from "../pages/SampleBuilder";
 import { PlaceholderPage } from "../pages/Placeholder";
 import { SampleBuilderMenu } from "./SampleBuilderMenu";
+import { MassRatioInputFields } from "./SampleBuilderComponents/MassRatioInputComponent";
 
 const LinkList = (
     <Stack>
@@ -63,7 +64,7 @@ export function LinkDrawer () {
         <Route path="/sample-builder/formula-from-mass-ratios" 
                     element={<div>
                             <SampleBuilderMenu/>
-                            <PlaceholderPage/>
+                            <MassRatioInputFields/>
                             </div>}/>
         <Route path="/placeholder"
                     element={<div>
