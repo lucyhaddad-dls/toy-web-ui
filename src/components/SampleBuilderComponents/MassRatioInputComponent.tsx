@@ -1,8 +1,8 @@
-import { Fab, Stack, TextField } from "@mui/material";
-import { use, useState } from "react";
+import { Fab, Grid, Stack, TextField } from "@mui/material";
+import { useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import { NumberInput } from "@diamondlightsource/sci-react-ui";
-
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 function MassRatioInputComponent (props:{componentNumber:number}) {
     
     const [formula, setFormula] = useState<string>("")
@@ -36,26 +36,45 @@ export function MassRatioInputFields () {
     
     const [inputCount, setInputCount] = useState<number>(1)
 
-    const tmp = [...Array(inputCount).keys()]
-    console.log("test: ", tmp)
-
     return (
-    <Stack direction="row" spacing={2}>
+        <Grid container
+         rowSpacing={1} 
+        columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         {
         [...Array(inputCount).keys()].map((i) => { 
-            return ( <Stack>
-            <MassRatioInputComponent componentNumber={i}/>
+            if (i == inputCount-1){
+            return ( <Grid key={i+1} rowSpacing={1}
+            columnSpacing={1}>
+            <MassRatioInputComponent componentNumber={i+1}/>
              <Fab
                 color="primary"
-                size="medium"
+                size="small"
                 variant="circular"
                 onClick={() => setInputCount(inputCount+1)}
                 >
                 <AddIcon/>
             </Fab>
-        </Stack>)
-            })
-            }
-    </Stack>
+            <Fab
+            color="primary"
+            size="small"
+            variant="circular"
+            onClick={() => {if (inputCount > 1){
+                setInputCount(inputCount-1)
+            }}}>
+                <DeleteOutlinedIcon/>
+            </Fab>
+        </Grid>)
+        
+        }
+        if (i !== inputCount){
+            return ( <Grid key={i+1}>
+            <MassRatioInputComponent componentNumber={i}/>
+        </Grid>)
+        
+        }
+    }
+        )}
+            
+    </Grid>
     )
 }
