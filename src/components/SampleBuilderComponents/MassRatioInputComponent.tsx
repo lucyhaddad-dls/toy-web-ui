@@ -5,6 +5,7 @@ import { NumberInput } from "@diamondlightsource/sci-react-ui";
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 import type { SampleMassRatioType } from "../../models/models";
+import { getNewFormula } from "../../models/queryFunctions";
 
 
 function MassRatioInputComponent (props:{componentNumber:number,
@@ -70,7 +71,11 @@ export function MassRatioInputFields () {
         const formulaList = formulaInfo.map(i => i.formula)
         const ratioList = formulaInfo.map(i => i.ratio)
         console.log("formula list: ", formulaList, "\nratio list: ", ratioList)
-    }
+
+        
+        getNewFormula(formulaList, ratioList).then( data => {
+            console.log("result: ", data)})
+        }
 
     // make an onChange fn. here instead
     const onChange = (index:number, valuetype:"formula"|"ratio", value:string|number) => {
@@ -100,7 +105,6 @@ export function MassRatioInputFields () {
 
             <MassRatioInputComponent componentNumber={index}
                                     sampleInfo={formulaInfo}
-                                    setSampleInfo={setFormulaInfo}
                                     onChange={onChange} />
 
              <Fab
@@ -128,8 +132,7 @@ export function MassRatioInputFields () {
 
             return ( <Grid key={index}>
             <MassRatioInputComponent componentNumber={index}
-                                        sampleInfo={formulaInfo} 
-                                        setSampleInfo={setFormulaInfo}
+                                        sampleInfo={formulaInfo}
                                         onChange={onChange}
                                         />
            
