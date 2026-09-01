@@ -33,3 +33,15 @@ export const postSampleData = async(name:SampleResponseKeys | SampleUnitKeys,
     return data
     
   }
+
+
+export const getNewFormula = async(formula_list:string[],
+   ratios:number[]|string[]) => {
+
+  const response = await axios.post(
+    "/api/calculate/formula/mass-ratios",
+    {params: {formula_list: formula_list, ratios:ratios}}
+  );
+  if (response.status!=200){throw new Error("Failed to get new formula")}
+  return response
+}

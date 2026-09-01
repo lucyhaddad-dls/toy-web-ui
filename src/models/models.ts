@@ -73,3 +73,9 @@ export interface DataContextType {
   allAbsorptionData: TotalAbsorptionDataset | undefined
   setAllAbsorptionData: React.Dispatch<React.SetStateAction<TotalAbsorptionDataset>>
 }
+
+export interface SampleMassRatioType {
+  ratio: number
+  formula: string
+  index: number
+}
