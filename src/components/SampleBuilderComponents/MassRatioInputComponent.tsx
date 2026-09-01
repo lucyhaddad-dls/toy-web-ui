@@ -1,5 +1,5 @@
-import { Fab, Grid, Stack, TextField } from "@mui/material";
-import { useState, type Dispatch, type SetStateAction } from "react";
+import { Fab, Grid, Stack, TextField, Button } from "@mui/material";
+import { useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import { NumberInput } from "@diamondlightsource/sci-react-ui";
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
@@ -9,24 +9,16 @@ import type { SampleMassRatioType } from "../../models/models";
 
 function MassRatioInputComponent (props:{componentNumber:number,
                                 sampleInfo:SampleMassRatioType[],
-                                setSampleInfo: Dispatch<SetStateAction<SampleMassRatioType[]>>
+                                onChange:(index: number, valuetype: "formula" | "ratio", value: string | number) => void
 }
                              ) {
-    const [formula, setFormula] = useState<string>("")
-    const [ratio, setRatio] = useState<number>(1)
+    const [formula, setFormula] = useState<string>(props.sampleInfo[props.componentNumber].formula)
+    const [ratio, setRatio] = useState<number>(props.sampleInfo[props.componentNumber].ratio)
 
-    
-    const updateSampleInfo = () => {
 
-    const indx = props.sampleInfo.findIndex(v => v.index == props.componentNumber)
-    console.log("index: ", indx)
-    const newSampleInfo = [...props.sampleInfo]
-    newSampleInfo[indx] = {index:props.componentNumber, formula:formula, ratio:ratio}
-
-    console.log("updated to: ", props.sampleInfo)
-
+    const UpdateInfo = (valuetype:"formula"|"ratio", value:string|number) => {
+        props.onChange(props.componentNumber, valuetype, value)
     }
-
 
     return (
         <Stack spacing={2}>
@@ -36,7 +28,8 @@ function MassRatioInputComponent (props:{componentNumber:number,
                 if (event.key == "Enter"){
                     const val = event.target as HTMLTextAreaElement
                     setFormula(val.value);
-                    updateSampleInfo();
+                    UpdateInfo("formula", val.value)
+                   
                     event.preventDefault() } 
                 } }>
                 {formula}
@@ -50,7 +43,8 @@ function MassRatioInputComponent (props:{componentNumber:number,
              numberMode="floating"
              commitOnReturn={true}
              onCommit={(number) => {setRatio(number); 
-                updateSampleInfo()}}
+                UpdateInfo("ratio", number)
+                }}
             />
         </Stack>
     )
@@ -72,7 +66,28 @@ export function MassRatioInputFields () {
         setFormulaInfo(data)
     }
 
+    const onCalculate = () => {
+        const formulaList = formulaInfo.map(i => i.formula)
+        const ratioList = formulaInfo.map(i => i.ratio)
+        console.log("formula list: ", formulaList, "\nratio list: ", ratioList)
+    }
+
+    // make an onChange fn. here instead
+    const onChange = (index:number, valuetype:"formula"|"ratio", value:string|number) => {
+
+        const data = [...formulaInfo]
+        data[index][valuetype] = value
+        setFormulaInfo(data)
+
+     }
+
     return (
+        <Stack spacing={2}>
+        <Grid>
+            Final Formula: 
+            <Button variant="contained"
+            onClick={() => onCalculate() }>Calculate?</Button>
+        </Grid>
         <Grid container
          rowSpacing={1} 
         columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -85,7 +100,8 @@ export function MassRatioInputFields () {
 
             <MassRatioInputComponent componentNumber={index}
                                     sampleInfo={formulaInfo}
-                                    setSampleInfo={setFormulaInfo} />
+                                    setSampleInfo={setFormulaInfo}
+                                    onChange={onChange} />
 
              <Fab
                 color="primary"
@@ -114,6 +130,7 @@ export function MassRatioInputFields () {
             <MassRatioInputComponent componentNumber={index}
                                         sampleInfo={formulaInfo} 
                                         setSampleInfo={setFormulaInfo}
+                                        onChange={onChange}
                                         />
            
         </Grid>)
@@ -123,5 +140,7 @@ export function MassRatioInputFields () {
         )}
 
     </Grid>
+
+    </Stack>
     )
 }
