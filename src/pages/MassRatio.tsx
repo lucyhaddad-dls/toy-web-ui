@@ -12,11 +12,18 @@ export function MassRatioPage () {
 
     const [inputCount, setInputCount] = useState<number>(1)
 
-    const { formula, values, setValues } = useContext(SampleContext) // add setFormula later.
+    const { values, setValues } = useContext(SampleContext) // add setFormula later.
 
     const [formulaInfo, setFormulaInfo] = useState<NewSampleMassRatioType[]>(defaultFormulaInfoValues)
 
-    if (formula != ""){
+    let initial = "";
+    if (values.filter(v => v.name=="formula")[0].value.val != null){
+        initial = values.filter(v => v.name=="formula")[0].value.val as string;
+    }
+    const formula = initial
+    initial = "stop"
+
+    if (formula != "" && initial != "stop"){
         const newInfo = [...formulaInfo]
         newInfo[0]["formula"] = formula
         setFormulaInfo(newInfo) }
@@ -26,12 +33,10 @@ export function MassRatioPage () {
 
         const data = [...formulaInfo]
 
-        if (valname == "formula"){
-            data[index][valname] = value as string
-        }
-        if (valname == "ratio"){
-            data[index][valname] = value as number
-        }
+        if (valname == "formula")
+            {data[index][valname] = value as string}
+        if (valname == "ratio")
+            {data[index][valname] = value as number}
 
         setFormulaInfo(data)  }
 
@@ -65,16 +70,18 @@ export function MassRatioPage () {
 
     return (
         <Stack spacing={2} sx={{width:"100vw"}}>
-        <Grid sx={{height:"20vh", width:"100vw"}}
-         justifyContent= "space-between">
             Final Formula: 
+        <Grid container  sx={{justifyContent:"space-between"}}>
+            <Grid sx={{bgcolor:"#fefefefe"}}>
             {values.filter(v =>v.name == "formula")[0].value.val}
-
-            <Button variant="contained"
-            justifyContent="flex-end"
+            </Grid>
+            <Grid>
+             <Button variant="contained"
+             
             onClick={() => onCalculate()}>
                 Calculate?
             </Button>
+            </Grid>
         </Grid>
         <Grid container
         rowSpacing={1} 

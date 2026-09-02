@@ -26,11 +26,6 @@ export function SampleBuilderPage () {
                 <ListItemText>From Mass Ratios</ListItemText>
                 </Link>
             </MenuItem>
-            <MenuItem onClick={toggleMenu(false)}>
-                <Link to="/placeholder">
-                <ListItemText>Placeholder</ListItemText>
-                </Link>
-            </MenuItem>
         </Menu>
         </Stack>
 
