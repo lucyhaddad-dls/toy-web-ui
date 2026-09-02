@@ -8,7 +8,7 @@ import { getSampleData, postSampleData } from "../models/queryFunctions";
 
 export function TransmissionPage () {
 
-    const { values, setValues, getValue } = useContext(SampleContext)
+    const { values, setValues } = useContext(SampleContext)
 
     const [currentValues, setCurrentValues] = 
                         useState<SampleValueResponse[]>(values)
