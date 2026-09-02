@@ -1,5 +1,6 @@
 import axios, { type AxiosResponse } from "axios";
-import { type AbsorptionType, type SampleResponseKeys, type SampleUnitKeys, type SampleValueResponse, sampleKeys } from "./models";
+import { type AbsorptionType, type SampleResponseKeys, type SampleUnitKeys,
+   type SampleValueResponse, sampleKeys } from "./models";
 
 
 export const getSampleData = async() => {
@@ -23,10 +24,9 @@ export const postSampleData = async(name:SampleResponseKeys | SampleUnitKeys,
 
   export const getAbsorptionData = async(abs_type:AbsorptionType) => {
 
-    const data = await axios.get("/api/absorption",
-       {params: {abs_type: abs_type}}
+    const data = await axios.get("/api/absorption", {params:{abs_type:abs_type}}
       ).then((response) => {return response.data})
-    .catch((err) => console.log(err));
+    .catch((err) => {console.log(err); return null});
     return data
     
   }

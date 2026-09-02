@@ -14,15 +14,17 @@ import { SampleContext } from "../context/SampleContext";
 import { getSampleData, postSampleData } from "../models/queryFunctions";
 import { UnitSelectField } from "../components/UnitInput";
 import { defaultSampleUnits } from "../models/defaults";
+import { PlotComponent } from "../components/PlotComponent";
 
 export function TransmissionPage() {
-  const { values, setValues } = useContext(SampleContext);
+  const { values, setValues, checkValues } = useContext(SampleContext);
 
   const [currentValues, setCurrentValues] =
     useState<SampleValueResponse[]>(values);
 
   const [currentUnits, setCurrentUnits] =
     useState<UnitValue[]>(defaultSampleUnits);
+
 
   const onChange = (name: SampleResponseKeys, value: string) => {
     const newData = currentValues.map((itm) => {
@@ -44,6 +46,7 @@ export function TransmissionPage() {
     });
 
     getSampleData().then((data) => setValues(data));
+    checkValues()
 
   };
 
@@ -115,6 +118,7 @@ export function TransmissionPage() {
           })}
         </Grid>
       </Stack>
+      <PlotComponent/>
     </Stack>
   );
 }
