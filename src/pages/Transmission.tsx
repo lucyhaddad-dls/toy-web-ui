@@ -25,6 +25,8 @@ export function TransmissionPage() {
   const [currentUnits, setCurrentUnits] =
     useState<UnitValue[]>(defaultSampleUnits);
 
+  const [currentData, setCurrentData] = useState({"mass":false, "linear":false, "total":false})
+
 
   const onChange = (name: SampleResponseKeys, value: string) => {
     const newData = currentValues.map((itm) => {
@@ -46,8 +48,7 @@ export function TransmissionPage() {
     });
 
     getSampleData().then((data) => setValues(data));
-    checkValues()
-
+    setCurrentData(checkValues())
   };
 
   const onUnitChange = (
@@ -118,7 +119,7 @@ export function TransmissionPage() {
           })}
         </Grid>
       </Stack>
-      <PlotComponent/>
+      <PlotComponent currentData={currentData}/>
     </Stack>
   );
 }

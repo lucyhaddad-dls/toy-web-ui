@@ -12,9 +12,7 @@ export const SampleContext = createContext<SampleContextType>({
     setAbsorption: function (): void {
         throw new Error("Function not implemented.")
     },
-    checkValues: function (): () => void {
-        throw new Error("Function not implemented.")
-    },
+    checkValues,
     getValue: function (): string {
         throw new Error("Function not implemented.")
     },

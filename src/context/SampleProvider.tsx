@@ -59,9 +59,9 @@ export function SampleProvider(props: { children: React.ReactNode }) {
 
     const out = {"mass": massAbsSuccess, "linear": linearAbsSuccess, "total": totalAbsSuccess}
     getAbsorptionValues(out)
-    return {"mass": massAbsSuccess, "linear": linearAbsSuccess, "total": totalAbsSuccess}
+    return out
   }
-
+  
   const getAbsorptionValues = (dataReady:{"mass":boolean,
                                           "linear":boolean,
                                             "total":boolean}) => {
