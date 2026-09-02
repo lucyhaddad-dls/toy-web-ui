@@ -1,4 +1,4 @@
-import type { AbsorptionDatasetType, SampleValueResponse, TotalAbsorptionDataset, UnitValue } from "./models";
+import type { AbsorptionDatasetType, NewSampleMassRatioType, SampleValueResponse, TotalAbsorptionDataset, UnitValue } from "./models";
 
 
 export const defaultSampleUnits: UnitValue[] = [
@@ -29,3 +29,7 @@ export const defaultSampleUnits: UnitValue[] = [
     linear: null,
     total: null
   }
+
+  export const defaultFormulaInfoValues: NewSampleMassRatioType[] = [
+    {formula: "", ratio:1}
+  ]

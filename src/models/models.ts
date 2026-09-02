@@ -97,3 +97,8 @@ export interface SampleMassRatioType {
   formula: string
   index: number
 }
+
+export interface NewSampleMassRatioType {
+  formula: string
+  ratio: number
+}
