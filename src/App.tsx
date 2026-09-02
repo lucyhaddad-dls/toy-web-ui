@@ -2,7 +2,7 @@
 import { Stack } from '@mui/material'
 import { DiamondDSTheme, ThemeProvider } from '@diamondlightsource/sci-react-ui'
 import { LinkDrawer } from './components/RouterComponent'
-import { SampleProvider } from './context/SampleContext'
+import { SampleProvider } from './context/SampleProvider'
 
 function App() {
 

@@ -58,28 +58,10 @@ export interface SampleAbsorptionErrorResponse {
   error: string
 }
 
-export interface TotalAbsorptionDataset {
-  mass: SampleAbsorptionErrorResponse | SampleAbsorptionResponse | undefined
-  linear: SampleAbsorptionErrorResponse | SampleAbsorptionResponse | undefined
-  total: SampleAbsorptionErrorResponse | SampleAbsorptionResponse | undefined
-}
-
 export interface AbsorptionDatasetType {
   mass: null | SampleAbsorptionResponse
   linear: null | SampleAbsorptionResponse
   total: null | SampleAbsorptionResponse
-}
-
-export interface DataContextType {
-
-  sampleValues: SampleValueResponse[]
-  setSampleValues: React.Dispatch<React.SetStateAction<SampleValueResponse[]>>
-  sampleUnits: UnitValue[]
-  setSampleUnits: React.Dispatch<React.SetStateAction<UnitValue[]>>
-  getSingleValue: (name: SampleResponseKeys) => string | null
-  getUnit: (name: SampleUnitKeys) => UnitValue
-  allAbsorptionData: TotalAbsorptionDataset | undefined
-  setAllAbsorptionData: React.Dispatch<React.SetStateAction<TotalAbsorptionDataset>>
 }
 
 export interface SampleContextType {
