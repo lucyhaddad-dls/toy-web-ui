@@ -1,6 +1,6 @@
 import {Box, Button, Grid, Stack } from "@mui/material";
 import { ValueField } from "../components/ValueFields";
-import type {  SampleResponseKeys, SampleValueResponse, UnitValue } from "../models/models";
+import type {  EnergyUnits, LengthUnits, MassUnits, SampleResponseKeys, SampleUnitKeys, SampleValueResponse, UnitValue } from "../models/models";
 import { useContext, useState } from "react";
 import { SampleContext } from "../context/DataContext";
 import { getSampleData, postSampleData } from "../models/queryFunctions";
@@ -39,6 +39,18 @@ export function TransmissionPage () {
         getSampleData().then(data => setValues(data))
         console.log(values)
 
+    }
+
+    const onUnitChange = (name:SampleUnitKeys, value:MassUnits|EnergyUnits|LengthUnits) => {
+        const newUnits = currentUnits.map(v => {
+            
+            if (v.name == name){
+                return {...v, value: value}
+            }
+            else { return v }
+        
+        });
+        setCurrentUnits(newUnits)
     }
 
 
@@ -80,7 +92,7 @@ export function TransmissionPage () {
             {return (<Grid key={k}>
                 <UnitSelectField key={k} default={
                     currentUnits.filter(c => c.name == k)[0]
-                }/>
+                } onChange={onUnitChange}/>
             </Grid>)}
         )
         }

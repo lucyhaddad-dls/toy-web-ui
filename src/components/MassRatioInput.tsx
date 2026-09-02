@@ -4,6 +4,7 @@ import { NumberInput } from "@diamondlightsource/sci-react-ui";
 
 export function MassRatioInput (props: {componentIndex: number,
                         defaults: NewSampleMassRatioType,
+                        // could add onChange props to provider...
                         onChange: (index: number,
                              valuetype: "formula" | "ratio",
                               value: string | number) => void

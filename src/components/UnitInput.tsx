@@ -1,12 +1,19 @@
 import { FormControl, InputLabel, MenuItem, Select, Stack } from "@mui/material";
-import type { EnergyUnits, LengthUnits, MassUnits, UnitValue } from "../models/models";
+import type { EnergyUnits, LengthUnits, MassUnits, SampleUnitKeys, UnitValue } from "../models/models";
 import { useState } from "react";
 
-export function UnitSelectField ( props: {key:string, default:UnitValue} ) {
+export function UnitSelectField ( props: {key:string, default:UnitValue,
+    // could add onChange props to provider...
+    onChange:(name: SampleUnitKeys, value: MassUnits | EnergyUnits | LengthUnits) => void
+} ) {
 
-    const [currentValue, setCurrentValue] = useState<string>(props.default.value)
+    const [currentValue, setCurrentValue] = useState<MassUnits|EnergyUnits|LengthUnits>(props.default.value)
     const options:MassUnits[]|LengthUnits[]|EnergyUnits[] = props.default.options
 
+    const valueSetter = (option:MassUnits|LengthUnits|EnergyUnits) => {
+        setCurrentValue(option);
+        props.onChange(props.default.name, currentValue)
+    }
 
     return (
         <Stack>
@@ -18,7 +25,7 @@ export function UnitSelectField ( props: {key:string, default:UnitValue} ) {
                 <MenuItem key={option}
                         value = {option}
                         selected = {currentValue === option}
-                        onClick={() => setCurrentValue(option)}>
+                        onClick={() => valueSetter(option)}>
                     {option}
                 </MenuItem>))
             }
