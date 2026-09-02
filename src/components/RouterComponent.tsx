@@ -1,11 +1,8 @@
 import { Button, Drawer, List, ListItem, ListItemText, Stack } from "@mui/material";
 import { useState } from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
-
 import { Navbar } from "@diamondlightsource/sci-react-ui";
-
 import { PlaceholderPage } from "../pages/Placeholder";
-import { SampleBuilderMenu } from "./SampleBuilderMenu";
 import { SampleBuilderPage } from "../pages/SampleBuilder";
 import { MassRatioPage } from "../pages/FormulaFromMassRatios";
 
