@@ -16,7 +16,6 @@ export function SampleBuilderPage () {
         <Stack direction="row">
         Sample Mass Page
         </Stack>
-
         <Stack>
             <Button open={open} onClick={toggleMenu(true)}>Method
 
