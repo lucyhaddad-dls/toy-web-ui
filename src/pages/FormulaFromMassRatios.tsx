@@ -35,11 +35,29 @@ export function MassRatioPage () {
         setFormulaInfo(data)
             }
 
+    const onAdd = () => {
+        setFormulaInfo([...formulaInfo, {formula:"", ratio:1}])
+    }
+
+    const onDelete = (index:number) => {
+        const data = [...formulaInfo]
+        data.splice(index, 1);
+        setFormulaInfo(data)
+    }
+
+    const onCalculate = () => {
+        const formulaList = formulaInfo.map(i => i.formula)
+        const ratioList = formulaInfo.map(i => i.ratio)
+
+        console.log("formula list: ", formulaList, 
+            "\nratio list: ", ratioList)
+    }
+
     return (
         <Stack spacing={2}>
         <Grid>
             Final Formula:
-            <Button variant="contained">
+            <Button variant="contained" onClick={onCalculate}>
                 Calculate?
             </Button>
         </Grid>
@@ -49,8 +67,10 @@ export function MassRatioPage () {
 
         {formulaInfo.map((_elm, index) => {
             if (index == inputCount - 1){
+
                 return (<Grid key={index}
                 rowSpacing={1} columnSpacing={1}>
+
                 <MassRatioInput componentIndex={index} 
                         defaults={formulaInfo[index]}
                                 onChange={onChange}/>
@@ -59,8 +79,8 @@ export function MassRatioPage () {
                 size="small"
                 variant="circular"
                 onClick={() => {setInputCount(inputCount+1)
-                    // onAdd() } 
-                        } }>
+                    onAdd() } 
+                        }>
                 <AddIcon/>
             </Fab>
             <Fab
@@ -69,7 +89,7 @@ export function MassRatioPage () {
             variant="circular"
             onClick={() => {if (inputCount > 1){
                 setInputCount(inputCount-1);
-                // onDelete(index)
+                onDelete(index)
             }}}>
                 <DeleteOutlinedIcon/>
             </Fab>

@@ -1,13 +1,13 @@
 import { Button, Drawer, List, ListItem, ListItemText, Stack } from "@mui/material";
 import { useState } from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
-import { AbsorptionCalcPage } from "../pages/AbsorptionCalcs";
 
 import { Navbar } from "@diamondlightsource/sci-react-ui";
-import { SampleBuilderPage } from "../pages/SampleBuilder";
+
 import { PlaceholderPage } from "../pages/Placeholder";
 import { SampleBuilderMenu } from "./SampleBuilderMenu";
-import { MassRatioInputFields } from "./SampleBuilderComponents/MassRatioInputComponent";
+import { SampleBuilderPage } from "../pages/SampleBuilder";
+import { MassRatioPage } from "../pages/FormulaFromMassRatios";
 
 const LinkList = (
     <Stack>
@@ -19,15 +19,11 @@ const LinkList = (
                 </ListItemText>
                 </Link>
             </ListItem>
-            <ListItem key={"absorption"}>
-                <Link  to="/absorption"> 
-                <ListItemText>calculate (1) </ListItemText>
-                </Link>
-            </ListItem>
-
-            <ListItem key={"sample"}> 
-                <Link  to="/sample-builder"> 
-                <ListItemText>Sample Builder </ListItemText>
+            <ListItem key={"builder"}>
+                <Link to="/placeholder">
+               <ListItemText>
+                Sample Builder
+               </ListItemText>
                 </Link>
             </ListItem>
         </List>
@@ -67,22 +63,19 @@ export function LinkDrawer () {
         </Stack>
         <Routes>
         <Route path="/" element  = {<div><PlaceholderPage/></div>}/>
-        <Route path="/absorption" element={<AbsorptionCalcPage/>} />
-        <Route path="/sample-builder" element={<SampleBuilderPage/>} />
-        <Route path="/sample-builder/formula-from-mass-ratios" 
-                    element={<div>
-                            <SampleBuilderMenu/>
-                            <MassRatioInputFields/>
-                            </div>}/>
         <Route path="/placeholder"
                     element={<div>
-                            <SampleBuilderMenu/>
+                            <SampleBuilderPage/>
                             <PlaceholderPage/>
                             </div>}/>
+        <Route path="/sample-builder/mass-ratios"
+                element={<div>
+                    <SampleBuilderPage/>
+                    <MassRatioPage/>
+                    </div>}>
+        </Route>
       </Routes>
       </Stack>
     </BrowserRouter>
-  
-
     )
 }
