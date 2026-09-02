@@ -13,8 +13,15 @@ const LinkList = (
     <Stack>
         <List>
             <ListItem key={"home"}>
-                <Link  to="/"> 
-                <ListItemText>Sample Mass (Home) </ListItemText>
+                <Link to = "/">
+                <ListItemText>
+                    Home (placeholder)
+                </ListItemText>
+                </Link>
+            </ListItem>
+            <ListItem key={"absorption"}>
+                <Link  to="/absorption"> 
+                <ListItemText>calculate (1) </ListItemText>
                 </Link>
             </ListItem>
 
@@ -59,7 +66,8 @@ export function LinkDrawer () {
         
         </Stack>
         <Routes>
-        <Route path="/" element={<AbsorptionCalcPage/>} />
+        <Route path="/" element  = {<div><PlaceholderPage/></div>}/>
+        <Route path="/absorption" element={<AbsorptionCalcPage/>} />
         <Route path="/sample-builder" element={<SampleBuilderPage/>} />
         <Route path="/sample-builder/formula-from-mass-ratios" 
                     element={<div>
