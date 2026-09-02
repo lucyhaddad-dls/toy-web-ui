@@ -81,7 +81,14 @@ export function MassRatioInputFields () {
     const onChange = (index:number, valuetype:"formula"|"ratio", value:string|number) => {
 
         const data = [...formulaInfo]
-        data[index][valuetype] = value
+
+        if (valuetype == "formula"){
+            data[index][valuetype] = value as string
+        }
+        if (valuetype == "ratio"){
+            data[index][valuetype] = value as number
+        }
+
         setFormulaInfo(data)
 
      }
