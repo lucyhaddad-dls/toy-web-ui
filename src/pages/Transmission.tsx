@@ -1,9 +1,11 @@
 import {Box, Button, Grid, Stack } from "@mui/material";
 import { ValueField } from "../components/ValueFields";
-import type {  SampleResponseKeys, SampleValueResponse } from "../models/models";
+import type {  SampleResponseKeys, SampleValueResponse, UnitValue } from "../models/models";
 import { useContext, useState } from "react";
 import { SampleContext } from "../context/DataContext";
 import { getSampleData, postSampleData } from "../models/queryFunctions";
+import { UnitSelectField } from "../components/UnitInput";
+import { defaultSampleUnits } from "../models/defaults";
 
 
 export function TransmissionPage () {
@@ -12,6 +14,8 @@ export function TransmissionPage () {
 
     const [currentValues, setCurrentValues] = 
                         useState<SampleValueResponse[]>(values)
+
+    const [currentUnits, setCurrentUnits] = useState<UnitValue[]>(defaultSampleUnits)
 
     const onChange = (name:SampleResponseKeys, value:string) => {
 
@@ -43,13 +47,13 @@ export function TransmissionPage () {
 
          <Box sx={{ p:4 }}>
             Sample Measurement Inputs
-
             <Button variant="contained"
             onClick={()=>{onPost()}}>
                 Update
             </Button>
          </Box>
 
+        <Stack direction="row" sx = {{ml:1}} >
         <Grid container
             rowSpacing={1} 
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -69,8 +73,19 @@ export function TransmissionPage () {
                                 values.filter(v => v.name == k)[0] }
                             onChange={onChange}/>
             </Grid>) } )}
-
         </Grid>
+        <Grid container rowSpacing={1} 
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        {["mass_unit", "length_unit", "energy_unit"].map(k=>
+            {return (<Grid key={k}>
+                <UnitSelectField key={k} default={
+                    currentUnits.filter(c => c.name == k)[0]
+                }/>
+            </Grid>)}
+        )
+        }
+        </Grid>
+        </Stack>
         </Stack>
     )
 }
