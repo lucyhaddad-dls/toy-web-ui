@@ -20,7 +20,7 @@ export const sampleKeys: SampleResponseKeys[] = [
 export type AbsorptionType = "mass" | "linear" | "total"
 
 export type SampleResponseKeys = "formula" | "absorber" | "edge" | "density" |
-"area" | "thickness" | "mass"
+"area" |  "mu_total" | "thickness" | "mass"
 
 export type SampleUnitKeys = "mass_unit" | "length_unit" | "energy_unit"
 
@@ -72,4 +72,10 @@ export interface DataContextType {
   getUnit: (name: SampleUnitKeys) => UnitValue
   allAbsorptionData: TotalAbsorptionDataset | undefined
   setAllAbsorptionData: React.Dispatch<React.SetStateAction<TotalAbsorptionDataset>>
+}
+
+export interface SampleMassRatioType {
+  ratio: number
+  formula: string
+  index: number
 }
