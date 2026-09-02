@@ -1,34 +1,30 @@
-import { useContext } from "react";
-import type { SampleResponseKeys } from "../models/models";
-import { SampleContext } from "../context/DataContext";
-import { postSampleData } from "../models/queryFunctions";
+import type { SampleValueResponse, SampleResponseKeys } from "../models/models";
+
 import { Box, TextField } from "@mui/material";
 
 export function ValueField ( 
-    props: {name:SampleResponseKeys, key:string}) {
+    props: {key:string,
+            default:SampleValueResponse,
+            onChange:(name: SampleResponseKeys, value: string) 
+                            => () => void}) {
 
-    const { getValue } = useContext(SampleContext)
-    
-    const initialValue = getValue(props.name)
 
-    const onUpdate = (value:string) => {
-        if (value != ""){
-            if (value != getValue(props.name)){
-                postSampleData(props.name, value)
-            }
-        }
-    }
+        let initial = ""
+        if (props.default != undefined){
+        if (props.default.value.val != null){
+            initial = props.default.value.val}}
+        const defaultValue = initial
 
     return (
         <Box>
             <TextField
-             defaultValue={initialValue} 
-             label={props.name}
+             defaultValue={defaultValue} 
+             label={props.default.name}
              variant="outlined"
              onKeyUp = {(event) => {
                 if(event.key == "Enter"){
                     const val = event.target as HTMLTextAreaElement
-                    onUpdate(val.value)
+                    props.onChange(props.default.name, val.value)
                     event.preventDefault()
                 }
              }} 

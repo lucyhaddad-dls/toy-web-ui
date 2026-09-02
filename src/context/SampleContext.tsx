@@ -10,8 +10,6 @@ import { SampleContext } from "./DataContext";
 export function SampleProvider( props: {children: React.ReactNode}) {
     const { children } = props;
 
-    const [sampleFormula, setSampleFormula] = useState<string>("")
-
     const [sampleValues, setSampleValues] = useState<SampleValueResponse[]>(nullSampleValues)
 
     const [absorptionData, setAbsorptionData] = useState<AbsorptionDatasetType>(defaultAbsorptionValues)
@@ -29,8 +27,7 @@ export function SampleProvider( props: {children: React.ReactNode}) {
 
     return (<SampleContext.Provider
         value = {{
-            formula: sampleFormula,
-            setFormula: setSampleFormula,
+
             values: sampleValues,
             setValues: setSampleValues,
             absorption: absorptionData,

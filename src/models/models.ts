@@ -83,8 +83,6 @@ export interface DataContextType {
 }
 
 export interface SampleContextType {
-  formula: string
-  setFormula: React.Dispatch<React.SetStateAction<string>>
   values: SampleValueResponse[]
   setValues: React.Dispatch<React.SetStateAction<SampleValueResponse[]>>
   absorption: AbsorptionDatasetType | undefined

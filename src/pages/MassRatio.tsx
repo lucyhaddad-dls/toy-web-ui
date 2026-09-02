@@ -12,8 +12,7 @@ export function MassRatioPage () {
 
     const [inputCount, setInputCount] = useState<number>(1)
 
-    const { values, setValues } = useContext(SampleContext) // add setFormula later.
-
+    const { values, setValues } = useContext(SampleContext)
     const [formulaInfo, setFormulaInfo] = useState<NewSampleMassRatioType[]>(defaultFormulaInfoValues)
 
     let initial = "";
