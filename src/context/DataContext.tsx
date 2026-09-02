@@ -1,5 +1,5 @@
-import { createContext, type SetStateAction} from "react"
-import type { AbsorptionDatasetType, DataContextType, SampleContextType, SampleResponseKeys, SampleValueResponse, UnitValue } from "../models/models"
+import { createContext } from "react"
+import type { DataContextType, SampleContextType, UnitValue } from "../models/models"
 
 export const DataContext = createContext<DataContextType>({
     sampleValues: [],
