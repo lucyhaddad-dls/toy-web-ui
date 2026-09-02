@@ -5,6 +5,7 @@ import { Navbar } from "@diamondlightsource/sci-react-ui";
 import { PlaceholderPage } from "../pages/Placeholder";
 import { SampleBuilderPage } from "../pages/SampleBuilder";
 import { MassRatioPage } from "../pages/MassRatio";
+import { TransmissionPage } from "../pages/Transmission";
 
 const LinkList = (
     <Stack>
@@ -21,6 +22,13 @@ const LinkList = (
                <ListItemText>
                 Sample Builder
                </ListItemText>
+                </Link>
+            </ListItem>
+            <ListItem key={"transmission"}>
+                <Link to="/transmission">
+                <ListItemText>
+                Transmission Calcs.
+                </ListItemText>
                 </Link>
             </ListItem>
         </List>
@@ -71,6 +79,9 @@ export function LinkDrawer () {
                     <MassRatioPage/>
                     </div>}>
         </Route>
+        <Route path="/transmission"
+               element = {<div><TransmissionPage/></div>}/>
+
       </Routes>
       </Stack>
     </BrowserRouter>
