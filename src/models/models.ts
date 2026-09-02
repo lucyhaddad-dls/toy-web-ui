@@ -1,3 +1,5 @@
+import type React from "react";
+
 export type MassUnits = "kg" | "g" | "mg" | "ug"
 export type LengthUnits = "m" | "cm" | "mm" | "um"
 export type EnergyUnits = "gev" | "kev" | "ev"
@@ -62,6 +64,12 @@ export interface TotalAbsorptionDataset {
   total: SampleAbsorptionErrorResponse | SampleAbsorptionResponse | undefined
 }
 
+export interface AbsorptionDatasetType {
+  mass: null | SampleAbsorptionResponse
+  linear: null | SampleAbsorptionResponse
+  total: null | SampleAbsorptionResponse
+}
+
 export interface DataContextType {
 
   sampleValues: SampleValueResponse[]
@@ -72,6 +80,16 @@ export interface DataContextType {
   getUnit: (name: SampleUnitKeys) => UnitValue
   allAbsorptionData: TotalAbsorptionDataset | undefined
   setAllAbsorptionData: React.Dispatch<React.SetStateAction<TotalAbsorptionDataset>>
+}
+
+export interface SampleContextType {
+  formula: string
+  setFormula: React.Dispatch<React.SetStateAction<string>>
+  values: SampleValueResponse[]
+  setValues: React.Dispatch<React.SetStateAction<SampleValueResponse[]>>
+  absorption: AbsorptionDatasetType | undefined
+  setAbsorption: React.Dispatch<React.SetStateAction<AbsorptionDatasetType>>
+  getValue: (name: SampleResponseKeys) => string
 }
 
 export interface SampleMassRatioType {

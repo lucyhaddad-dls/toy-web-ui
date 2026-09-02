@@ -1,4 +1,4 @@
-import type { SampleValueResponse, TotalAbsorptionDataset, UnitValue } from "./models";
+import type { AbsorptionDatasetType, SampleValueResponse, TotalAbsorptionDataset, UnitValue } from "./models";
 
 
 export const defaultSampleUnits: UnitValue[] = [
@@ -17,8 +17,15 @@ export const defaultSampleUnits: UnitValue[] = [
     {name:"mass", value:{val:null, dtype:"float"}}
   ];
 
+  // change to null?
   export const nullAbsorptionValues: TotalAbsorptionDataset = {
     mass: undefined,
     linear: undefined,
     total: undefined
+  }
+
+  export const defaultAbsorptionValues: AbsorptionDatasetType = {
+    mass: null,
+    linear: null,
+    total: null
   }
