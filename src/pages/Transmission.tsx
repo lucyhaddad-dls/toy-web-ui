@@ -44,7 +44,7 @@ export function TransmissionPage() {
     });
 
     getSampleData().then((data) => setValues(data));
-    console.log(values);
+
   };
 
   const onUnitChange = (

@@ -1,6 +1,3 @@
-// having a go at re-writing sample context for
-// using sample builder to make inputs for the api.
-
 import type React from "react";
 import { useState } from "react";
 import { defaultAbsorptionValues, nullSampleValues } from "../models/defaults";
@@ -31,6 +28,16 @@ export function SampleProvider(props: { children: React.ReactNode }) {
     }
   };
 
+  const setSingleValue = (name:SampleResponseKeys, value:string) => {
+    const newValues = sampleValues.map(itm => {
+      if (itm.name == name){
+        return {...itm, value: {...itm.value, val:value}};
+      } else { return itm; }
+    });
+    setSampleValues(newValues);
+    return () => {};
+  }
+
   return (
     <SampleContext.Provider
       value={{
@@ -39,6 +46,7 @@ export function SampleProvider(props: { children: React.ReactNode }) {
         absorption: absorptionData,
         setAbsorption: setAbsorptionData,
         getValue: getSingleValue,
+        setValue: setSingleValue,
       }}
     >
       {children}

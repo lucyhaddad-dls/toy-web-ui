@@ -70,6 +70,7 @@ export interface SampleContextType {
   absorption: AbsorptionDatasetType | undefined
   setAbsorption: React.Dispatch<React.SetStateAction<AbsorptionDatasetType>>
   getValue: (name: SampleResponseKeys) => string
+  setValue: (name: SampleResponseKeys, value: string) => () => void
 }
 
 export interface SampleMassRatioType {

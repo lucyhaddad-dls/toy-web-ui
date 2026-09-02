@@ -5,7 +5,6 @@ import { Box, TextField } from "@mui/material";
 export function ValueField ( 
     props: {key:string,
             default:SampleValueResponse,
-            // could add onChange props to provider...
             onChange:(name: SampleResponseKeys, value: string) 
                             => () => void}) {
 

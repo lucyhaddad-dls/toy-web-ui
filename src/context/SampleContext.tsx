@@ -3,7 +3,6 @@ import type { SampleContextType } from "../models/models"
 
 
 export const SampleContext = createContext<SampleContextType>({
-    
     values: [],
     setValues: function (): void {
         throw new Error("Function not implemented.")
@@ -13,6 +12,9 @@ export const SampleContext = createContext<SampleContextType>({
         throw new Error("Function not implemented.")
     },
     getValue: function (): string {
+        throw new Error("Function not implemented.")
+    },
+    setValue: function (): () => void {
         throw new Error("Function not implemented.")
     }
 })

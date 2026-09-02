@@ -11,7 +11,7 @@ import { getNewFormula } from "../models/queryFunctions";
 export function MassRatioPage() {
   const [inputCount, setInputCount] = useState<number>(1);
 
-  const { values, setValues } = useContext(SampleContext);
+  const { values, setValue } = useContext(SampleContext);
   const [formulaInfo, setFormulaInfo] = useState<NewSampleMassRatioType[]>(
     defaultFormulaInfoValues,
   );
@@ -62,14 +62,7 @@ export function MassRatioPage() {
 
     getNewFormula(formulaList, ratioList).then((data) => {
       if (data != "") {
-        const newValues = values.map((itm) => {
-          if (itm.name == "formula") {
-            return { ...itm, value: { ...itm.value, val: data } };
-          } else {
-            return itm;
-          }
-        });
-        setValues(newValues);
+        setValue("formula", data)
       }
     });
     return () => {};
