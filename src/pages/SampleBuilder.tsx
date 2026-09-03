@@ -29,7 +29,6 @@ export function SampleBuilderPage () {
     }
 
     
-
     return (
      
     <Stack>
@@ -66,9 +65,9 @@ export function SampleBuilderPage () {
         </Menu>
 
         <Menu open={sampleOpen}>
-            {sampleNames.map(name => {
+            {sampleNames.map((name, n) => {
                 return (
-                <MenuItem onClick={toggleSampleMenu(false)}>
+                <MenuItem onClick={toggleSampleMenu(false)} key={n.toString()}>
                     {name}
                 </MenuItem>)} 
                 )}
