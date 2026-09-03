@@ -1,8 +1,24 @@
 import { createContext } from "react"
-import type { checkedAbsorptionValues, SampleContextType } from "../models/models"
+import type { checkedAbsorptionValues, MultiSampleContextType, SampleContextType} from "../models/models"
 import { defaultAbsorptionValues, defaultCheckedAbsorptionValues, nullSampleValues} from "../models/defaults"
 
-export const MultiSampleContext = createContext({})
+export const MultiSampleContext = createContext<MultiSampleContextType>
+    ({
+        sampleList: [],
+        setSampleList: function (): void {
+            throw new Error("Function not implemented.")
+        },
+        addToSampleList: function (): void {
+            throw new Error("Function not implemented.")
+        },
+        focusedSample: {id:0, name:"_", values:nullSampleValues},
+        getSingleValue: function (): string {
+            throw new Error("Function not implemented.")
+        },
+        setSingleValue: function (): () => void {
+            throw new Error("Function not implemented.")
+        }
+    })
 
 export const SampleContext = createContext<SampleContextType>({
     values: nullSampleValues,

@@ -8,10 +8,7 @@ import { MultiSampleContext } from "../context/SampleContext";
 
 export function SampleBuilderPage () {
 
-    const { 
-        sampleList,
-        focusedSample, setFocusedSample
-      } = useContext(MultiSampleContext)
+    const { sampleList } = useContext(MultiSampleContext)
 
     const [open, setOpen] = useState<boolean>(false)
     const [sampleOpen, setSampleOpen] = useState<boolean>(false)

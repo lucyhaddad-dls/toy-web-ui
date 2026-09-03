@@ -82,6 +82,15 @@ export interface SampleContextType {
   setValue: (name: SampleResponseKeys, value: string) => () => void
 }
 
+export interface MultiSampleContextType{
+  sampleList: SampleResponse[]
+  setSampleList: React.Dispatch<React.SetStateAction<SampleResponse[]>>
+  addToSampleList: (values: SampleValueResponse[], name: string) => void
+  focusedSample: SampleResponse
+  getSingleValue: (name: SampleResponseKeys) => string
+  setSingleValue: (name: SampleResponseKeys, value: string) => () => void
+}
+
 export interface SampleMassRatioType {
   formula: string
   ratio: number
