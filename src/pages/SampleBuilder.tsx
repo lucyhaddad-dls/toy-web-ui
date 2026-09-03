@@ -1,6 +1,6 @@
 // sample builder to have options: 
 
-import { Box, Button, ListItemText, Menu, MenuItem, Stack, Typography } from "@mui/material";
+import { Button, ListItemText, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -12,18 +12,24 @@ export function SampleBuilderPage () {
     const toggleMenu = (val:boolean) => () => {setOpen(val)};
 
     return (
-        <Stack sx={{ alignItems: 'center' }}>
-        <Box sx={{ flexGrow: 1 }}>
-        <Typography >Sample Builder</Typography>
-        </Box>
-       
+    <Stack>
+         <Stack direction="row" 
+                sx = {{alignItems: "flex-start", 
+                justifyContent:"space-between" }}>
+            
+        <Stack direction="row">
+            <Typography variant="h5">Sample Builder</Typography>
             <Button open={open} onClick={toggleMenu(true)}>Method
             </Button>
+        </Stack>
+        
+            <Button>Saved Samples</Button>
+        </Stack>
         <Menu open={open} onClick={toggleMenu(false)} 
             anchorOrigin={{vertical: 'top',
-                        horizontal: 'center'}}
+                        horizontal: 'left'}}
             transformOrigin=
-                        {{vertical: 'center',
+                        {{vertical: 'top',
                         horizontal: 'right'}}>
 
             <MenuItem onClick={toggleMenu(false)}>
@@ -37,6 +43,8 @@ export function SampleBuilderPage () {
                 </Link>
             </MenuItem>
         </Menu>
+
         </Stack>
+
     )
 }

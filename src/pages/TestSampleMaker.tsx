@@ -1,14 +1,11 @@
-import { Stack } from "@mui/material";
-import { MassRatioPage } from "./MassRatio";
+import { Button, Grid } from "@mui/material";
 
 export function TestSamplePage () {
 
     return (
-        <Stack>
-            Test page!
-            <Stack>
-                <MassRatioPage/>
-            </Stack>
-        </Stack>
+        <Grid>
+            <Button variant="contained">Make new sample</Button>
+        </Grid>
+        
     )
 }
