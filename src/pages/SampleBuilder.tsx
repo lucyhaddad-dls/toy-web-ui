@@ -9,19 +9,40 @@ import { MultiSampleContext } from "../context/MultiSampleProvider";
 export function SampleBuilderPage () {
 
     const { 
-        sampleList, setSampleList, 
+        sampleList,
         focusedSample, setFocusedSample
       } = useContext(MultiSampleContext)
-
 
     const [open, setOpen] = useState<boolean>(false)
     const [sampleOpen, setSampleOpen] = useState<boolean>(false)
     
     const toggleMenu = (val:boolean) => () => {setOpen(val)};
-    const toggleSampleMenu = (val:boolean) => () => {setSampleOpen(val)};
+    const toggleSampleMenu = (val:boolean) => () => {getSampleNames();setSampleOpen(val)};
+
+    
+      // should be moved to provider!?
+    const getSampleNames = () => {
+        const out = [""]
+        if (sampleList.length > 0){
+            sampleList.map(tmp => {
+                if (Object.hasOwn(tmp, "values")){
+                    const formula = tmp.values.filter(i => i.name == "formula")[0].value.val
+                    if (formula != null){
+                        out.push(formula)
+                    } 
+                }
+            })
+        }
+        setSampleNames(out)
+    }
+
+    const [sampleNames, setSampleNames] = useState<string[]>([""])
 
     return (
+     
     <Stack>
+
+       
          <Stack direction="row" 
                 sx = {{alignItems: "flex-start", 
                 justifyContent:"space-between" }}>
@@ -31,9 +52,9 @@ export function SampleBuilderPage () {
             <Button open={open} onClick={toggleMenu(true)}>
                 Method </Button>
         </Stack>
-        
             <Button onClick={toggleSampleMenu(true)}>Saved Samples</Button>
         </Stack>
+
         <Menu open={open} onClick={() => toggleMenu(false)} 
             anchorOrigin={{vertical: 'top',
                         horizontal: 'left'}}
@@ -54,15 +75,9 @@ export function SampleBuilderPage () {
         </Menu>
 
         <Menu open={sampleOpen}>
-            <MenuItem onClick={toggleSampleMenu(false)}>
-                A value
-            </MenuItem>
+            {sampleNames.map(name => {
+                return (<MenuItem>{name}</MenuItem> )} )}
         </Menu>
-        {sampleList.map((i, n) => {
-            <MenuItem onClick={toggleSampleMenu(false)}>
-                value {n}
-            </MenuItem>
-        })}
         </Stack>
 
     )

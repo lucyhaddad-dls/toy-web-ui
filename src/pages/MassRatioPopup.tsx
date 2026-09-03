@@ -71,8 +71,10 @@ export function PopUpBuilderPage() {
 
                 <Button variant="contained" color="secondary"
                 onClick={onCalculate}>Calculate?</Button>
-                <Button variant="contained" sx={{bgcolor:"#277932"}}>
-                    Add to list?</Button>
+                <Button variant="contained" sx={{bgcolor:"#277932"}}
+                onClick={() => addToSampleList(values)} >
+                    Add to list?
+                </Button>
             </Stack>
            
         <Grid container

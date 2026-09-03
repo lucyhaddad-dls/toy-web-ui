@@ -38,7 +38,7 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
         const id = sampleList? sampleList.length: 0
      
         setSampleList([...sampleList, {id:id, values:values}])
-       
+
     }
     
 
