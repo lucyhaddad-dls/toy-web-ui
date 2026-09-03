@@ -1,6 +1,6 @@
 import type React from "react";
 import { useState } from "react";
-import { defaultAbsorptionValues, nullSampleValues } from "../models/defaults";
+import { defaultAbsorptionValues, defaultCheckedAbsorptionValues, nullSampleValues } from "../models/defaults";
 import {
   sampleKeys,
   type AbsorptionDatasetType,
@@ -22,6 +22,8 @@ export function SampleProvider(props: { children: React.ReactNode }) {
   const [absorptionData, setAbsorptionData] = useState<AbsorptionDatasetType>(
     defaultAbsorptionValues,
   );
+
+  const [absoprtionAvailable, setAbsorptionAvailable] = useState<checkedAbsorptionValues>(defaultCheckedAbsorptionValues)
 
   const getSingleValue = (name: SampleResponseKeys) => {
     const value = sampleValues.filter((v) => v.name == name);
@@ -48,7 +50,7 @@ export function SampleProvider(props: { children: React.ReactNode }) {
 
     sampleKeys.map(key => {
       const tmp:string|null = sampleValues.filter(v => v.name == key)[0].value.val
-      if (tmp != null){
+      if (tmp != null && tmp != "" && tmp != "None"){
         nonNull = [...nonNull, key]
         }
       
@@ -58,26 +60,30 @@ export function SampleProvider(props: { children: React.ReactNode }) {
     const totalAbsSuccess =  ["formula", "absorber", "edge",
                    "density", "thickness"].every(i => nonNull.includes(i));
 
-    const out:checkedAbsorptionValues = {"mass": massAbsSuccess, "linear": linearAbsSuccess, "total": totalAbsSuccess}
-    getAbsorptionValues(out)
-    return out
+    const out:checkedAbsorptionValues = {"mass": massAbsSuccess, 
+                                        "linear": linearAbsSuccess, 
+                                        "total": totalAbsSuccess}
+    setAbsorptionAvailable(out)
   }
 
-  const getAbsorptionValues = (dataReady:{"mass":boolean,
-                                          "linear":boolean,
-                                            "total":boolean}) => {
-        if (dataReady.mass == true){
+  const getAbsorptionValues = () => {
+
+    if (absoprtionAvailable.mass == true){
           getAbsorptionData("mass").then(data =>
              setAbsorptionData({...absorptionData, mass:data}));
-        }
-        if (dataReady.linear == true){
+        };
+        if (absoprtionAvailable.linear == true){
           getAbsorptionData("linear").then(data =>
-             setAbsorptionData({...absorptionData, linear:data}));
-        }
-        if (dataReady.total == true){
+          {const err = Object.keys(data).filter(k => k=="error")
+            if (err.length > 1){console.log("ERR (linear")}
+
+             setAbsorptionData({...absorptionData, linear:data})
+          });
+        };
+        if (absoprtionAvailable.total == true){
           getAbsorptionData("total").then(data =>
              setAbsorptionData({...absorptionData, total:data}));
-        }
+        };
   }
 
   return (
@@ -86,7 +92,9 @@ export function SampleProvider(props: { children: React.ReactNode }) {
         values: sampleValues,
         setValues: setSampleValues,
         absorption: absorptionData,
+        availableAbs: absoprtionAvailable,
         setAbsorption: setAbsorptionData,
+        getAbsorption: getAbsorptionValues,
         checkValues: checkSampleValues,
         getValue: getSingleValue,
         setValue: setSingleValue,

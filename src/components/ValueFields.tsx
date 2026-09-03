@@ -8,10 +8,14 @@ export function ValueField (
             onChange:(name: SampleResponseKeys, value: string) 
                             => () => void}) {
 
+        // eslint-disable-next-line no-useless-assignment
         let initial = ""
-        if (props.default != undefined){
-        if (props.default.value.val != null){
-            initial = props.default.value.val}}
+    
+        if (props.default == undefined || props.default.value.val == null || 
+            props.default.value.val == "None" || props.default.value.val == ""
+        ) {  initial = ""}
+        else { initial = props.default.value.val}
+
         const defaultValue = initial
 
     return (

@@ -25,10 +25,10 @@ export const postSampleData = async(name:SampleResponseKeys | SampleUnitKeys,
   export const getAbsorptionData = async(abs_type:AbsorptionType) => {
 
     const data = await axios.get("/api/absorption", {params:{abs_type:abs_type}}
-      ).then((response) => {return response.data})
+      ).then((response) => {
+        return response.data})
     .catch((err) => {console.log(err); return null});
     return data
-    
   }
 
 

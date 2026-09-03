@@ -13,11 +13,11 @@ import { useContext, useState } from "react";
 import { SampleContext } from "../context/SampleContext";
 import { getSampleData, postSampleData } from "../models/queryFunctions";
 import { UnitSelectField } from "../components/UnitInput";
-import { defaultSampleUnits } from "../models/defaults";
+import { defaultAbsorptionValues, defaultSampleUnits } from "../models/defaults";
 import { PlotComponent } from "../components/PlotComponent";
 
 export function TransmissionPage() {
-  const { values, setValues, checkValues } = useContext(SampleContext);
+  const { values, setValues, setAbsorption, checkValues } = useContext(SampleContext);
 
   const [currentValues, setCurrentValues] =
     useState<SampleValueResponse[]>(values);
@@ -25,11 +25,10 @@ export function TransmissionPage() {
   const [currentUnits, setCurrentUnits] =
     useState<UnitValue[]>(defaultSampleUnits);
 
-  const [currentData, setCurrentData] = useState({"mass":false, "linear":false, "total":false})
-
 
   const onChange = (name: SampleResponseKeys, value: string) => {
     const newData = currentValues.map((itm) => {
+    if (value.length < 1){return { ...itm, value: { ...itm.value, val: null } }}
       if (itm.name == name) {
         return { ...itm, value: { ...itm.value, val: value } };
       } else {
@@ -45,10 +44,14 @@ export function TransmissionPage() {
       if (k.value.val != null) {
         postSampleData(k.name, k.value.val as string);
       }
+      else { postSampleData(k.name, "None") }
     });
+    // reset absorption data:
+    setAbsorption(defaultAbsorptionValues)
 
     getSampleData().then((data) => setValues(data));
-    setCurrentData(checkValues())
+    checkValues()
+    
   };
 
   const onUnitChange = (
@@ -119,7 +122,7 @@ export function TransmissionPage() {
           })}
         </Grid>
       </Stack>
-      <PlotComponent currentData={currentData}/>
+      <PlotComponent/>
     </Stack>
   );
 }
