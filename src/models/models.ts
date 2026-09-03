@@ -42,6 +42,11 @@ export interface SampleValueResponse {
     name: SampleResponseKeys 
 }
 
+export interface SampleResponse {
+  id: number
+  values: SampleValueResponse[]
+}
+
 export interface ElementAbsorptionResponse {
   name: string
   y: string

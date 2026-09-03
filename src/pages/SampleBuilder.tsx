@@ -1,15 +1,24 @@
 // sample builder to have options: 
 
 import { Button, ListItemText, Menu, MenuItem, Stack, Typography } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState, type Dispatch, type SetStateAction } from "react";
 import { Link } from "react-router-dom";
+import { MultiSampleContext } from "../context/MultiSampleProvider";
 
 
 export function SampleBuilderPage () {
 
+    const { 
+        sampleList, setSampleList, 
+        focusedSample, setFocusedSample
+      } = useContext(MultiSampleContext)
+
+
     const [open, setOpen] = useState<boolean>(false)
+    const [sampleOpen, setSampleOpen] = useState<boolean>(false)
     
     const toggleMenu = (val:boolean) => () => {setOpen(val)};
+    const toggleSampleMenu = (val:boolean) => () => {setSampleOpen(val)};
 
     return (
     <Stack>
@@ -19,13 +28,13 @@ export function SampleBuilderPage () {
             
         <Stack direction="row">
             <Typography variant="h5">Sample Builder</Typography>
-            <Button open={open} onClick={toggleMenu(true)}>Method
-            </Button>
+            <Button open={open} onClick={toggleMenu(true)}>
+                Method </Button>
         </Stack>
         
-            <Button>Saved Samples</Button>
+            <Button onClick={toggleSampleMenu(true)}>Saved Samples</Button>
         </Stack>
-        <Menu open={open} onClick={toggleMenu(false)} 
+        <Menu open={open} onClick={() => toggleMenu(false)} 
             anchorOrigin={{vertical: 'top',
                         horizontal: 'left'}}
             transformOrigin=
@@ -44,6 +53,16 @@ export function SampleBuilderPage () {
             </MenuItem>
         </Menu>
 
+        <Menu open={sampleOpen}>
+            <MenuItem onClick={toggleSampleMenu(false)}>
+                A value
+            </MenuItem>
+        </Menu>
+        {sampleList.map((i, n) => {
+            <MenuItem onClick={toggleSampleMenu(false)}>
+                value {n}
+            </MenuItem>
+        })}
         </Stack>
 
     )
