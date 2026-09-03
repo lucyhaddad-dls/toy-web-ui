@@ -70,7 +70,7 @@ export interface SampleContextType {
   availableAbs: checkedAbsorptionValues
   absorption: AbsorptionDatasetType
   setAbsorption: React.Dispatch<React.SetStateAction<AbsorptionDatasetType>>
-  getAbsorption: (dataReady: checkedAbsorptionValues) => void
+  getAbsorption: () => void
   checkValues: () => void
   getValue: (name: SampleResponseKeys) => string
   setValue: (name: SampleResponseKeys, value: string) => () => void

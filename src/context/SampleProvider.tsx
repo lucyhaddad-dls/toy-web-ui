@@ -70,19 +70,26 @@ export function SampleProvider(props: { children: React.ReactNode }) {
 
     if (absoprtionAvailable.mass == true){
           getAbsorptionData("mass").then(data =>
-             setAbsorptionData({...absorptionData, mass:data}));
+            {
+             setAbsorptionData({...absorptionData, mass:data});
+            });
         };
+        
         if (absoprtionAvailable.linear == true){
           getAbsorptionData("linear").then(data =>
           {const err = Object.keys(data).filter(k => k=="error")
-            if (err.length > 1){console.log("ERR (linear")}
-
+            if (err.length < 1){
              setAbsorptionData({...absorptionData, linear:data})
+            }
           });
         };
+
         if (absoprtionAvailable.total == true){
           getAbsorptionData("total").then(data =>
-             setAbsorptionData({...absorptionData, total:data}));
+            {const err = Object.keys(data).filter(k => k=="error")
+            if (err.length < 1){
+             setAbsorptionData({...absorptionData, total:data})
+            }});
         };
   }
 

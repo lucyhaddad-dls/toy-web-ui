@@ -17,7 +17,7 @@ import { defaultAbsorptionValues, defaultSampleUnits } from "../models/defaults"
 import { PlotComponent } from "../components/PlotComponent";
 
 export function TransmissionPage() {
-  const { values, setValues, setAbsorption, checkValues } = useContext(SampleContext);
+  const { values, setValues, setAbsorption, checkValues, getAbsorption } = useContext(SampleContext);
 
   const [currentValues, setCurrentValues] =
     useState<SampleValueResponse[]>(values);
@@ -51,6 +51,7 @@ export function TransmissionPage() {
 
     getSampleData().then((data) => setValues(data));
     checkValues()
+    getAbsorption()
     
   };
 
@@ -122,7 +123,9 @@ export function TransmissionPage() {
           })}
         </Grid>
       </Stack>
+    <Stack>
       <PlotComponent/>
+    </Stack>
     </Stack>
   );
 }
