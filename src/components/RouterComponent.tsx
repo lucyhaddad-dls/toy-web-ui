@@ -18,7 +18,7 @@ const LinkList = (
                 </Link>
             </ListItem>
             <ListItem key={"builder"}>
-                <Link to="/placeholder">
+                <Link to="/sample-builder/mass-ratios">
                <ListItemText>
                 Sample Builder
                </ListItemText>
