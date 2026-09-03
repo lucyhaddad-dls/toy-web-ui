@@ -31,6 +31,11 @@ export function SampleBuilderPage () {
                 <ListItemText>From Mass Ratios</ListItemText>
                 </Link>
             </MenuItem>
+            <MenuItem onClick={toggleMenu(false)}>
+                <Link to="/sample-builder/test">
+                <ListItemText>From Mass Ratios (TEST)</ListItemText>
+                </Link>
+            </MenuItem>
         </Menu>
         </Stack>
     )

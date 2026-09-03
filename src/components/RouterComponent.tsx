@@ -6,6 +6,7 @@ import { PlaceholderPage } from "../pages/Placeholder";
 import { SampleBuilderPage } from "../pages/SampleBuilder";
 import { MassRatioPage } from "../pages/MassRatio";
 import { TransmissionPage } from "../pages/Transmission";
+import { TestSamplePage } from "../pages/TestSampleMaker";
 
 const LinkList = (
     <Stack>
@@ -77,8 +78,11 @@ export function LinkDrawer () {
                 element={<div>
                     <SampleBuilderPage/>
                     <MassRatioPage/>
-                    </div>}>
-        </Route>
+                    </div>}/>
+        <Route path="sample-builder/test"
+                element = {<div><SampleBuilderPage/>
+                            <TestSamplePage/>
+                            </div>}/>
         <Route path="/transmission"
                element = {<div><TransmissionPage/></div>}/>
 
