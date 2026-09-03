@@ -44,6 +44,7 @@ export interface SampleValueResponse {
 
 export interface SampleResponse {
   id: number
+  name: string
   values: SampleValueResponse[]
 }
 
@@ -82,12 +83,6 @@ export interface SampleContextType {
 }
 
 export interface SampleMassRatioType {
-  ratio: number
-  formula: string
-  index: number
-}
-
-export interface NewSampleMassRatioType {
   formula: string
   ratio: number
 }

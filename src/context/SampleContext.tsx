@@ -2,6 +2,7 @@ import { createContext } from "react"
 import type { checkedAbsorptionValues, SampleContextType } from "../models/models"
 import { defaultAbsorptionValues, defaultCheckedAbsorptionValues, nullSampleValues} from "../models/defaults"
 
+export const MultiSampleContext = createContext({})
 
 export const SampleContext = createContext<SampleContextType>({
     values: nullSampleValues,

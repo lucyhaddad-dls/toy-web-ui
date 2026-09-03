@@ -1,18 +1,19 @@
 import type React from "react";
-import { createContext, useState } from "react";
+import { useState } from "react";
 import type { SampleResponse, SampleResponseKeys, SampleValueResponse  } from "../models/models";
 import { nullSampleValues } from "../models/defaults";
+import { MultiSampleContext } from "./SampleContext";
 
-export const MultiSampleContext = createContext({})
 
 export function MultiSampleProvider( props: {children:React.ReactNode}){
     const { children } = props;
 
     const [sampleList, setSampleList] = useState<SampleResponse[]>([])
-     // do want to add absorption data?
+     // do want to add absorption data nested?
 
      const [ focusedSample, setFocusedSample ] = useState<SampleResponse>({id:0, 
-                                                                            values:nullSampleValues});
+                                                                        values:nullSampleValues,
+                                                                        name:"_"});
 
     const getSingleValue = (name:SampleResponseKeys) => {
         const value = focusedSample.values.filter((v) => v.name == name);
@@ -33,12 +34,11 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
         return () => {};
     }
 
-    const addToSampleList = (values:SampleValueResponse[]) => {
+    const addToSampleList = (values:SampleValueResponse[], name:string) => {
 
         const id = sampleList? sampleList.length: 0
      
-        setSampleList([...sampleList, {id:id, values:values}])
-
+        setSampleList([...sampleList, {id:id, values:values, name:name}])
     }
     
 

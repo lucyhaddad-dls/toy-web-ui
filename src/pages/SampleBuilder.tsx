@@ -1,9 +1,9 @@
 // sample builder to have options: 
 
 import { Button, ListItemText, Menu, MenuItem, Stack, Typography } from "@mui/material";
-import { useContext, useState, type Dispatch, type SetStateAction } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { MultiSampleContext } from "../context/MultiSampleProvider";
+import { MultiSampleContext } from "../context/SampleContext";
 
 
 export function SampleBuilderPage () {
@@ -19,30 +19,24 @@ export function SampleBuilderPage () {
     const toggleMenu = (val:boolean) => () => {setOpen(val)};
     const toggleSampleMenu = (val:boolean) => () => {getSampleNames();setSampleOpen(val)};
 
-    
-      // should be moved to provider!?
+    const [sampleNames, setSampleNames] = useState<string[]>([""])
+
+      // should be moved to provider!? AND change to use tmp.name instead!
     const getSampleNames = () => {
         const out = [""]
+        console.log(sampleList.map(i => i.name))
         if (sampleList.length > 0){
-            sampleList.map(tmp => {
-                if (Object.hasOwn(tmp, "values")){
-                    const formula = tmp.values.filter(i => i.name == "formula")[0].value.val
-                    if (formula != null){
-                        out.push(formula)
-                    } 
-                }
-            })
+            sampleList.map(i => out.push(i.name))
         }
         setSampleNames(out)
     }
 
-    const [sampleNames, setSampleNames] = useState<string[]>([""])
+    
 
     return (
      
     <Stack>
-
-       
+    
          <Stack direction="row" 
                 sx = {{alignItems: "flex-start", 
                 justifyContent:"space-between" }}>
@@ -76,7 +70,11 @@ export function SampleBuilderPage () {
 
         <Menu open={sampleOpen}>
             {sampleNames.map(name => {
-                return (<MenuItem>{name}</MenuItem> )} )}
+                return (
+                <MenuItem onClick={toggleSampleMenu(false)}>
+                    {name}
+                </MenuItem>)} 
+                )}
         </Menu>
         </Stack>
 

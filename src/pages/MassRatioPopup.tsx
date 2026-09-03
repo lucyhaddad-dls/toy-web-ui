@@ -1,12 +1,13 @@
 import { useContext, useState } from "react";
-import { MultiSampleContext } from "../context/MultiSampleProvider";
+import { MultiSampleContext } from "../context/SampleContext";
 import { defaultFormulaInfoValues, nullSampleValues } from "../models/defaults";
-import type { NewSampleMassRatioType, SampleValueResponse } from "../models/models";
+import type { SampleMassRatioType, SampleValueResponse } from "../models/models";
 import { Button, Fab, Grid, Stack } from "@mui/material";
 import { MassRatioInput } from "../components/MassRatioInput";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { getNewFormula } from "../models/queryFunctions";
+import { NameSamplePopUp } from "./TestSampleMaker";
 
 export function PopUpBuilderPage() {
 
@@ -14,11 +15,11 @@ export function PopUpBuilderPage() {
 
     const [values, setValues] = useState<SampleValueResponse[]>(nullSampleValues)
 
-      const [formulaInfo, setFormulaInfo] = useState<NewSampleMassRatioType[]>(
+      const [formulaInfo, setFormulaInfo] = useState<SampleMassRatioType[]>(
         defaultFormulaInfoValues,
       );
 
-    const { addToSampleList } = useContext(MultiSampleContext)
+    const { addToSampleList, sampleList } = useContext(MultiSampleContext)
 
 
     const onAdd = () => {
@@ -63,6 +64,11 @@ export function PopUpBuilderPage() {
         return () => {};
       };
 
+
+    const onNameChange = (name:string) => {
+        addToSampleList(values, name)
+    }
+
     return (
         <Stack>Formula:
        
@@ -71,10 +77,8 @@ export function PopUpBuilderPage() {
 
                 <Button variant="contained" color="secondary"
                 onClick={onCalculate}>Calculate?</Button>
-                <Button variant="contained" sx={{bgcolor:"#277932"}}
-                onClick={() => addToSampleList(values)} >
-                    Add to list?
-                </Button>
+ 
+                <NameSamplePopUp defaultName={`sample ${sampleList.length.toString()}`} onName={onNameChange}/>
             </Stack>
            
         <Grid container
