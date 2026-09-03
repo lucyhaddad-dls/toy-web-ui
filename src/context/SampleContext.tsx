@@ -1,6 +1,6 @@
 import { createContext } from "react"
-import type { SampleContextType } from "../models/models"
-import { defaultAbsorptionValues, nullSampleValues } from "../models/defaults"
+import type { checkedAbsorptionValues, SampleContextType } from "../models/models"
+import { defaultAbsorptionValues, nullSampleValues} from "../models/defaults"
 
 
 export const SampleContext = createContext<SampleContextType>({
@@ -12,7 +12,9 @@ export const SampleContext = createContext<SampleContextType>({
     setAbsorption: function (): void {
         throw new Error("Function not implemented.")
     },
-    checkValues,
+    checkValues: function(): checkedAbsorptionValues {
+        throw new Error("Funtion not implemented")
+    },
     getValue: function (): string {
         throw new Error("Function not implemented.")
     },

@@ -4,6 +4,7 @@ import { defaultAbsorptionValues, nullSampleValues } from "../models/defaults";
 import {
   sampleKeys,
   type AbsorptionDatasetType,
+  type checkedAbsorptionValues,
   type SampleResponseKeys,
   type SampleValueResponse,
 } from "../models/models";
@@ -57,11 +58,11 @@ export function SampleProvider(props: { children: React.ReactNode }) {
     const totalAbsSuccess =  ["formula", "absorber", "edge",
                    "density", "thickness"].every(i => nonNull.includes(i));
 
-    const out = {"mass": massAbsSuccess, "linear": linearAbsSuccess, "total": totalAbsSuccess}
+    const out:checkedAbsorptionValues = {"mass": massAbsSuccess, "linear": linearAbsSuccess, "total": totalAbsSuccess}
     getAbsorptionValues(out)
     return out
   }
-  
+
   const getAbsorptionValues = (dataReady:{"mass":boolean,
                                           "linear":boolean,
                                             "total":boolean}) => {

@@ -69,11 +69,7 @@ export interface SampleContextType {
   setValues: React.Dispatch<React.SetStateAction<SampleValueResponse[]>>
   absorption: AbsorptionDatasetType
   setAbsorption: React.Dispatch<React.SetStateAction<AbsorptionDatasetType>>
-  checkValues: () =>  {
-                          mass: boolean;
-                          linear: boolean;
-                          total: boolean;
-                      } // should probably type this..
+  checkValues: () => checkedAbsorptionValues
   getValue: (name: SampleResponseKeys) => string
   setValue: (name: SampleResponseKeys, value: string) => () => void
 }
@@ -87,4 +83,10 @@ export interface SampleMassRatioType {
 export interface NewSampleMassRatioType {
   formula: string
   ratio: number
+}
+
+export interface checkedAbsorptionValues {
+  mass: boolean
+  linear: boolean
+  total: boolean
 }

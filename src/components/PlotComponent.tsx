@@ -14,7 +14,7 @@ export function PlotComponent (props: {currentData: {"mass":boolean,
         Object.entries(props.currentData).filter(([_key, value]) => {if(value == true){return _key}}))))
 
     
-    const [currentValue, setCurrentValue] = useState<AbsorptionType>("mass")
+    const [currentValue, setCurrentValue] = useState<AbsorptionType>('mass')
 
 
     return (
@@ -31,7 +31,7 @@ export function PlotComponent (props: {currentData: {"mass":boolean,
                 onClick = {() => {setCurrentValue(val as AbsorptionType)}}
                 >{val}</MenuItem>
                ))
-
+               
                }
             </Select>
         </Stack>
