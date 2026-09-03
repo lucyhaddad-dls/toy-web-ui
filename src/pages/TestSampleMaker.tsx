@@ -1,6 +1,6 @@
 import { Box, Button, Grid, Popper } from "@mui/material";
 import React, { useState } from "react";
-import { MassRatioPage } from "./MassRatio";
+import { PopUpBuilderPage } from "./MassRatioPopup";
 
 function SampleMakerPopUp () {
     
@@ -30,7 +30,7 @@ function SampleMakerPopUp () {
                 open={open} 
                 anchorEl={anchorEl}>
         <Box sx={{ border:1, p:1, bgcolor:"secondary" }}>
-            <MassRatioPage/>
+            <PopUpBuilderPage/>
         </Box>  
         </Popper>
         </div>
