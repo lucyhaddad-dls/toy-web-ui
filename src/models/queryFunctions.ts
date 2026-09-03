@@ -1,5 +1,6 @@
 import axios, { type AxiosResponse } from "axios";
-import { type AbsorptionType, type SampleResponseKeys, type SampleUnitKeys, type SampleValueResponse, sampleKeys } from "./models";
+import { type AbsorptionType, type SampleResponseKeys, type SampleUnitKeys,
+   type SampleValueResponse, sampleKeys } from "./models";
 
 
 export const getSampleData = async() => {
@@ -14,34 +15,30 @@ export const getSampleData = async() => {
 
 export const postSampleData = async(name:SampleResponseKeys | SampleUnitKeys,
   value: string,) => {
-    // should maybe add check in here if the input is valid?
-    const response = await axios.post("/api/input", {},
-      {params: {name, value}}
-     );
-    if (response.status != 200){
-      throw new Error("Failed to post new data")
-    };
+    await axios.post("/api/input", null,
+       {params:{name, value}}
+     ).then((response) => {return response.data})
+     .catch(error => {return error})
+
   }
 
   export const getAbsorptionData = async(abs_type:AbsorptionType) => {
 
-    const data = await axios.get("/api/absorption",
-       {params: {abs_type: abs_type}}
-      ).then((response) => {return response.data})
-    .catch((err) => console.log(err));
-      
+    const data = await axios.get("/api/absorption", {params:{abs_type:abs_type}}
+      ).then((response) => {
+        return response.data})
+    .catch((err) => {console.log(err); return null});
     return data
-    
   }
 
 
 export const getNewFormula = async(formula_list:string[],
    ratios:number[]|string[]) => {
 
-  const response = await axios.post(
-    "/api/calculate/formula/mass-ratios", {},
-    {params: {formula_list:formula_list, ratios:ratios}}
-  );
-  if (response.status!=200){throw new Error("Failed to get new formula")}
-  return response
+  const data:string = await axios.post("/api/calculate/formula/mass-ratios",
+    {formula_list, ratios})
+    .then(data => {return data.data})
+    .catch(error => {console.log(error); return ""});
+    
+    return data
 }

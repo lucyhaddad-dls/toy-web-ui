@@ -1,4 +1,5 @@
-import type { SampleValueResponse, TotalAbsorptionDataset, UnitValue } from "./models";
+import type { AbsorptionDatasetType, checkedAbsorptionValues, NewSampleMassRatioType, SampleValueResponse, 
+              UnitValue } from "./models";
 
 
 export const defaultSampleUnits: UnitValue[] = [
@@ -7,18 +8,27 @@ export const defaultSampleUnits: UnitValue[] = [
     { name: "energy_unit", value: "kev", options: ["gev", "kev", "ev"] },
   ];
 
-  export const nullSampleValues: SampleValueResponse[] = [
-    {name:"formula", value:{val:null, dtype:"str"}},
-    {name:"absorber", value:{val:null, dtype:"str"}},
-    {name:"edge", value:{val:null, dtype:"str"}},
-    {name:"density", value:{val:null, dtype:"float"}},
-    {name:"area", value:{val:null, dtype:"float"}},
-    {name:"thickness", value:{val:null, dtype:"float"}},
-    {name:"mass", value:{val:null, dtype:"float"}}
-  ];
+export const nullSampleValues: SampleValueResponse[] = [
+  {name:"formula", value:{val:null, dtype:"str"}},
+  {name:"absorber", value:{val:null, dtype:"str"}},
+  {name:"edge", value:{val:null, dtype:"str"}},
+  {name:"density", value:{val:null, dtype:"float"}},
+  {name:"area", value:{val:null, dtype:"float"}},
+  {name:"thickness", value:{val:null, dtype:"float"}},
+  {name:"mass", value:{val:null, dtype:"float"}}
+];
 
-  export const nullAbsorptionValues: TotalAbsorptionDataset = {
-    mass: undefined,
-    linear: undefined,
-    total: undefined
-  }
+export const defaultAbsorptionValues: AbsorptionDatasetType = {
+  mass: null,
+  linear: null,
+  total: null
+}
+
+export const defaultFormulaInfoValues: NewSampleMassRatioType[] = [
+  {formula: "", ratio:1}
+]
+
+export const defaultCheckedAbsorptionValues: checkedAbsorptionValues = {
+  mass: false, linear: false, total: false
+}
+

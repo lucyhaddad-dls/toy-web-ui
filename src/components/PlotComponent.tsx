@@ -1,109 +1,77 @@
 import { useContext, useState } from "react";
-import { DataContext } from "../context/DataContext";
-import { type SampleAbsorptionResponse, type AbsorptionType, type ElementAbsorptionResponse, type TotalAbsorptionDataset } from "../models/models";
-import { getAbsorptionData } from "../models/queryFunctions";
-import { InputLabel, MenuItem, Stack, Select } from "@mui/material";
+import { InputLabel, MenuItem, Select, Stack } from "@mui/material";
+import type { AbsorptionType, SampleAbsorptionResponse } from "../models/models";
+import { SampleContext } from "../context/SampleContext";
 import ndarray from "ndarray";
 import { DataPlot } from "./PlotCanvas";
 
-export function PlotComponent() {
+export function PlotComponent () {
 
-    const { allAbsorptionData, setAllAbsorptionData } = useContext(DataContext)
+    const { availableAbs, absorption } = useContext(SampleContext)
+    const [currentValue, setCurrentValue] = useState<AbsorptionType|"">("")
+    const [currentElement] = useState<string>("total")
 
-    const [absorptionData, setAbsorptionData] = useState<SampleAbsorptionResponse>()
-
-    const [currentValue, setCurrentValue] = useState<AbsorptionType>("mass")
-
-    const [elementList, setElementList] = useState<string[]>(["total"])
-
-    const [currentElement, setCurrentElement] = useState<string>("total")
-
-    const setCurrentData = () => {
-    getAbsorptionData(currentValue).then(
-        data => {setAbsorptionData(data);
-
-        if (absorptionData != undefined){
-
-        if (allAbsorptionData != undefined && 
-            Object.hasOwn(allAbsorptionData, currentValue)){
-        const out:TotalAbsorptionDataset = {...allAbsorptionData,
-                            [currentValue]: absorptionData}
-        setAllAbsorptionData(out);}
-        };
-  
-        if (absorptionData == undefined){
-            setElementList(["total"])
-        }
-        else if (Object.hasOwn(absorptionData, "y")){
-            setElementList(data.y.map((e:ElementAbsorptionResponse) => e.name))}
-        else {setElementList(["total"]); setCurrentElement("total")}
-        });
-        return () => {}}
-
-
-    const [xdata, setXdata] = useState<ndarray.NdArray<number[]> |null>(null)
-    const [ydata, setYdata] = useState<ndarray.NdArray<number[]> | null>(null)
+    const [xdata, setXdata] = useState<ndarray.NdArray<number[]>|null>(null)
+    const [ydata, setYdata] = useState<ndarray.NdArray<number[]>|null>(null)
     const [xlabel, setXlabel] = useState<string>("")
     const [ylabel, setYlabel] = useState<string>("")
 
-
-    const handleAbsorptionData = () => {
-        if (absorptionData != undefined && Object.hasOwn(absorptionData, "y")){
-            const tmpX = absorptionData.x.split(",").map((n) => parseFloat(n))
-            const tmpY = absorptionData.y.filter((n)=> (n.name == currentElement))[0]
-            const tmpY2 = tmpY.y.split(",").map((n) => parseFloat(n))
-
-            setXdata(ndarray(tmpX)); setYdata(ndarray(tmpY2))
-            setXlabel(absorptionData.xlabel); setYlabel(absorptionData.ylabel)
-        }
+    const plotOption = () => {
+        const vals = [""]
+        Object.keys(availableAbs).map(k => {
+            if (availableAbs[k as AbsorptionType] == true){
+                vals.push(k)
+            }
+        })
+    return vals
     }
 
+    const [currentData, setCurrentData] = useState<null|SampleAbsorptionResponse>(null)
+
+    const resetData = (val:string) => {
+        if (val != ""){
+            setCurrentValue(val as AbsorptionType)
+            setCurrentData(absorption[val as AbsorptionType])
+
+        }
+    else {setCurrentValue(val); setCurrentData(null)}
+
+    handleCurrentData()
+    }
+
+    const handleCurrentData = () => {
+        if (currentData != null && Object.hasOwn(currentData, "x")){
+            const tmpX = currentData.x.split(",").map(x => parseFloat(x));
+            const tmpY = currentData.y.filter(y => y.name == currentElement)[0]
+                                            .y.split(",").map(y => parseFloat(y))
+            setXdata(ndarray(tmpX)); setYdata(ndarray(tmpY))
+            setXlabel(currentData.xlabel); setYlabel(currentData.ylabel)
+        }
+
+    }
 
     return (
-
-
-    <Stack spacing={5}>
-        
-    <Stack direction="row" spacing={5}>
-        <InputLabel>
-        Value to plot
-        </InputLabel>
-        <Select value = {currentValue}>
-            {["mass", "linear", "total"].map((val) => 
-            (
-            <MenuItem key={val}
+        <Stack direction="row" sx={{p:1}}>
+            <Stack>
+              <InputLabel>Values Available</InputLabel>
+            <Select value={currentValue} defaultValue="">
+            {plotOption().map(val => (<MenuItem
+                key = {val}
                 label={currentValue}
                 value = {val}
-                selected={currentValue === val}
-                onClick = {() => {setCurrentValue(val as AbsorptionType);
-                setCurrentData(); handleAbsorptionData() }}> {val}
-            </MenuItem> )
-            )}
-        </Select>
-
-         <InputLabel>Elements to plot</InputLabel> 
-         <Select value = {currentElement}>
-
-            {elementList.map((element) => (
-                <MenuItem key = {element}
-                label= {currentElement}
-                value = {element}
-                selected = {currentElement === element}
-                onClick = {() => {setCurrentElement(element);
-                    handleAbsorptionData()
-                }}>
-                    {element}
-                </MenuItem>
-            ))}
-        </Select>
-
-            </Stack>
-        <DataPlot 
-                xdata={xdata}
+                selected = {currentValue===val}
+                onClick = {() => resetData(val)}
+                >{val}</MenuItem>
+               ))}
+            </Select>
+        </Stack>
+            <Stack >
+            <DataPlot 
+            xdata={xdata}
                 ydata={ydata}
                 xlabel={xlabel}
                 ylabel={ylabel}/>
-        </Stack>
-
+            </Stack>
+    </Stack>
     )
-}
+}   

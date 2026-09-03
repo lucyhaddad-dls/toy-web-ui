@@ -1,26 +1,34 @@
 import { Button, Drawer, List, ListItem, ListItemText, Stack } from "@mui/material";
 import { useState } from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
-import { AbsorptionCalcPage } from "../pages/AbsorptionCalcs";
-
 import { Navbar } from "@diamondlightsource/sci-react-ui";
-import { SampleBuilderPage } from "../pages/SampleBuilder";
 import { PlaceholderPage } from "../pages/Placeholder";
-import { SampleBuilderMenu } from "./SampleBuilderMenu";
-import { MassRatioInputFields } from "./SampleBuilderComponents/MassRatioInputComponent";
+import { SampleBuilderPage } from "../pages/SampleBuilder";
+import { MassRatioPage } from "../pages/MassRatio";
+import { TransmissionPage } from "../pages/Transmission";
 
 const LinkList = (
     <Stack>
         <List>
             <ListItem key={"home"}>
-                <Link  to="/"> 
-                <ListItemText>Sample Mass (Home) </ListItemText>
+                <Link to = "/">
+                <ListItemText>
+                    Home (placeholder)
+                </ListItemText>
                 </Link>
             </ListItem>
-
-            <ListItem key={"sample"}> 
-                <Link  to="/sample-builder"> 
-                <ListItemText>Sample Builder </ListItemText>
+            <ListItem key={"builder"}>
+                <Link to="/placeholder">
+               <ListItemText>
+                Sample Builder
+               </ListItemText>
+                </Link>
+            </ListItem>
+            <ListItem key={"transmission"}>
+                <Link to="/transmission">
+                <ListItemText>
+                Transmission Calcs.
+                </ListItemText>
                 </Link>
             </ListItem>
         </List>
@@ -59,22 +67,23 @@ export function LinkDrawer () {
         
         </Stack>
         <Routes>
-        <Route path="/" element={<AbsorptionCalcPage/>} />
-        <Route path="/sample-builder" element={<SampleBuilderPage/>} />
-        <Route path="/sample-builder/formula-from-mass-ratios" 
-                    element={<div>
-                            <SampleBuilderMenu/>
-                            <MassRatioInputFields/>
-                            </div>}/>
+        <Route path="/" element  = {<div><PlaceholderPage/></div>}/>
         <Route path="/placeholder"
                     element={<div>
-                            <SampleBuilderMenu/>
+                            <SampleBuilderPage/>
                             <PlaceholderPage/>
                             </div>}/>
+        <Route path="/sample-builder/mass-ratios"
+                element={<div>
+                    <SampleBuilderPage/>
+                    <MassRatioPage/>
+                    </div>}>
+        </Route>
+        <Route path="/transmission"
+               element = {<div><TransmissionPage/></div>}/>
+
       </Routes>
       </Stack>
     </BrowserRouter>
-  
-
     )
 }

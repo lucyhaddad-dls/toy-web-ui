@@ -9,7 +9,7 @@ export function DataPlot(props: {xdata:ndarray.NdArray<number[]>|null,
     const ydomain:Domain|undefined = props.ydata ? getDomain(props.ydata): [0, 1];
     const xdomain:Domain|undefined = props.xdata ? getDomain(props.xdata): [0, 1];
 
-
+                            
     return ( <VisCanvas
         abscissaConfig={{
           visDomain: xdomain ? xdomain: [0, 1], 
