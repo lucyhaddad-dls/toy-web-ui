@@ -48,7 +48,6 @@ export function PlotComponent () {
             setXlabel(currentData.xlabel); setYlabel(currentData.ylabel)
         }
 
-        console.log(xdata)
     }
 
     return (
@@ -66,7 +65,7 @@ export function PlotComponent () {
                ))}
             </Select>
         </Stack>
-            <Stack>
+            <Stack >
             <DataPlot 
             xdata={xdata}
                 ydata={ydata}
