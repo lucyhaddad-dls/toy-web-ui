@@ -21,7 +21,7 @@ export function PopUpBuilderPage() {
     defaultFormulaInfoValues,
   );
 
-  const { addToSampleList, sampleList } = useContext(MultiSampleContext);
+  const { addToSampleList } = useContext(MultiSampleContext);
 
   const onAdd = () => {
     setFormulaInfo([...formulaInfo, { formula: "", ratio: 1 }]);
@@ -84,7 +84,6 @@ export function PopUpBuilderPage() {
         </Button>
 
         <NameSamplePopUp
-          defaultName={`sample ${sampleList.length.toString()}`}
           onName={onNameChange}
         />
       </Stack>

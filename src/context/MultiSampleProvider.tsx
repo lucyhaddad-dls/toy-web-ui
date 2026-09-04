@@ -15,6 +15,15 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
                                                                         values:nullSampleValues,
                                                                         name:"_"});
 
+
+
+    const [sampleNames, setSampleNames] = useState<string[]>(sampleList.map(i => i.name))
+
+    const getSampleNames = () => {
+        const names = sampleList.map(i => i.name)
+        setSampleNames(names)
+    }
+    
     const getSingleValue = (name:SampleResponseKeys) => {
         const value = focusedSample.values.filter((v) => v.name == name);
         const out = value[0].value.val;
@@ -37,6 +46,7 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
     const addToSampleList = (values:SampleValueResponse[], name:string) => {
 
         const id = sampleList? sampleList.length: 0
+
      
         setSampleList([...sampleList, {id:id, values:values, name:name}])
     }
@@ -47,6 +57,8 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
                 setSampleList: setSampleList,
                 addToSampleList: addToSampleList,
                 focusedSample: focusedSample,
+                sampleNames: sampleNames,
+                getSampleNames: getSampleNames,
                 getSingleValue: getSingleValue,
                 setSingleValue: setSingleValue
         }} >

@@ -1,32 +1,19 @@
 // sample builder to have options: 
 
 import { Button, ListItemText, Menu, MenuItem, Stack, Typography } from "@mui/material";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { MultiSampleContext } from "../context/SampleContext";
+import { SavedSampleList } from "../components/SavedSampleList";
 
 
 export function SampleBuilderPage () {
 
-    const { sampleList } = useContext(MultiSampleContext)
 
     const [open, setOpen] = useState<boolean>(false)
-    const [sampleOpen, setSampleOpen] = useState<boolean>(false)
+
     
     const toggleMenu = (val:boolean) => () => {setOpen(val)};
-    const toggleSampleMenu = (val:boolean) => () => {getSampleNames();setSampleOpen(val)};
 
-    const [sampleNames, setSampleNames] = useState<string[]>([""])
-
-      // should be moved to provider!?
-    const getSampleNames = () => {
-        const out = [""]
-        console.log(sampleList.map(i => i.name))
-        if (sampleList.length > 0){
-            sampleList.map(i => out.push(i.name))
-        }
-        setSampleNames(out)
-    }
 
     return (
      
@@ -41,7 +28,7 @@ export function SampleBuilderPage () {
             <Button onClick={toggleMenu(true)}>
                 Method </Button>
         </Stack>
-            <Button onClick={toggleSampleMenu(true)}>Saved Samples</Button>
+            <SavedSampleList/>
         </Stack>
 
         <Menu open={open} onClick={() => toggleMenu(false)} 
@@ -57,15 +44,6 @@ export function SampleBuilderPage () {
                 <ListItemText>From Mass Ratios (TEST)</ListItemText>
                 </Link>
             </MenuItem>
-        </Menu>
-
-        <Menu open={sampleOpen}>
-            {sampleNames.map((name, n) => {
-                return (
-                <MenuItem onClick={toggleSampleMenu(false)} key={n.toString()}>
-                    {name}
-                </MenuItem>)} 
-                )}
         </Menu>
         </Stack>
 
