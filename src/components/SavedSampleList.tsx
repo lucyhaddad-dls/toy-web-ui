@@ -8,7 +8,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 
 export function SavedSampleList (){
 
-    const { sampleList, deleteFromSampleList, setSampleList } = useContext(MultiSampleContext)
+    const { sampleList, deleteFromSampleList } = useContext(MultiSampleContext)
     const [selected, setSelected] = useState<string>("")
 
     const [hoverInfo, setHoverInfo] = useState<string[]>(["Hello!!!"])
@@ -40,7 +40,7 @@ export function SavedSampleList (){
 
     <Stack >
         <Paper sx = {{width: 320, maxWidth: "50%", justifyContent:"center"}} >
-            Saved samples 
+          <Typography align="center"><b>Saved Samples</b></Typography>
             <MenuList dense >
                 {sampleList.map(i => (
     <MenuItem key={i.name} role="menuitemradio"
