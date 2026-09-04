@@ -11,6 +11,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { getNewFormula } from "../models/queryFunctions";
 import { NameSamplePopUp } from "./SampleNameInput";
+import Grow from '@mui/material/Grow'
 
 export function PopUpBuilderPage() {
   const [inputCount, setInputCount] = useState<number>(1);
@@ -90,6 +91,7 @@ export function PopUpBuilderPage() {
         {formulaInfo.map((_elm, indx) => {
           if (indx == inputCount - 1) {
             return (
+            <Grow in={true}>
               <Grid key={indx} rowSpacing={1} columnSpacing={1}>
                 <MassRatioInput
                   componentIndex={indx}
@@ -127,10 +129,12 @@ export function PopUpBuilderPage() {
                   </Fab>{" "}
                 </Stack>
               </Grid>
+              </Grow>
             );
           }
           if (indx != inputCount) {
             return (
+            <Grow in={true}>
               <Grid key={indx}>
                 <MassRatioInput
                   componentIndex={indx}
@@ -138,6 +142,7 @@ export function PopUpBuilderPage() {
                   onChange={onChange}
                 />
               </Grid>
+              </Grow>
             );
           }
         })}
