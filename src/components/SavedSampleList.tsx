@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
 import { MultiSampleContext } from "../context/SampleContext";
-import { ListItemIcon, ListItemText, MenuItem,
+import { ListItemIcon, MenuItem,
  MenuList, Paper, Popover, Stack, Typography } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 export function SavedSampleList (){
 
-    const { sampleList } = useContext(MultiSampleContext)
+    const { sampleList, deleteFromSampleList, setSampleList } = useContext(MultiSampleContext)
     const [selected, setSelected] = useState<string>("")
 
     const [hoverInfo, setHoverInfo] = useState<string[]>(["Hello!!!"])
@@ -31,30 +32,38 @@ export function SavedSampleList (){
     }
 
     const infoOpen = Boolean(infoPosition)
+
+    const handleDeleteSample = (name:string
+    ) => { deleteFromSampleList(name) }
     
     return (
-    <Stack>
-        <Typography variant="h5">Saved Samples</Typography>
-        <Stack>
-        <Paper sx = {{width: 320, maxWidth: "50%"}}>
-            hello
-            <MenuList>
+
+    <Stack >
+        <Paper sx = {{width: 320, maxWidth: "50%", justifyContent:"center"}} >
+            Saved samples 
+            <MenuList dense >
                 {sampleList.map(i => (
     <MenuItem key={i.name} role="menuitemradio"
                 selected = {selected == i.name}
-                onClick={() => setSelected(i.name)}>
-                <ListItemIcon>
-                {selected === i.name ? (
+                onClick={() => setSelected(i.name)}
+                >
+        <ListItemIcon>
+            {selected === i.name ? (
                 <FavoriteIcon fontSize="small" />
               ) : (  <FavoriteBorderIcon fontSize="small" /> )}
-             </ListItemIcon>
-        <ListItemText 
-            aria-owns={infoOpen ? 'show-info' : undefined}
+        </ListItemIcon>
+        <Typography aria-owns={infoOpen ? 'show-info' : undefined}
             aria-haspopup="true"
             onMouseEnter={handleInfoOpen}
-            onMouseLeave={handleInfoClose}>
-            {i.name}
-        </ListItemText>
+            onMouseLeave={handleInfoClose}
+            sx = {{ fontSize:".9rem" }}
+            >{i.name}</Typography>
+
+        <ListItemIcon sx={{ justifyContent:"flex-end"}}
+        onClick={() => handleDeleteSample(i.name)}>
+            <DeleteOutlineOutlinedIcon/>
+        </ListItemIcon>
+
      <Popover
         id="show-info"
         sx={{ pointerEvents: 'none' }}
@@ -67,13 +76,14 @@ export function SavedSampleList (){
         onClose={handleInfoClose}
         disableRestoreFocus >
             {hoverInfo.map(i =>
-            <Typography sx={{ p:0.5 ,fontSize: '0.8rem'}} >{i}</Typography>)}
+            <Typography sx={{ p:0.5 ,fontSize: '0.8rem'}} key={i}>
+                {i}</Typography>)}
       </Popover>
-    </MenuItem> )
-            )}
+
+    </MenuItem> )   )}
             </MenuList>
         </Paper>
-        </Stack>
     </Stack>
+
     )
 }

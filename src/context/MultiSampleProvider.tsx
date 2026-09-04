@@ -50,12 +50,27 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
      
         setSampleList([...sampleList, {id:id, values:values, name:name}])
     }
+
+    const deleteFromSampleList = (name:string|undefined=undefined,   
+        id:number|undefined = undefined) => {
+
+        let newSamples = sampleList
+            if (name != undefined){
+                newSamples = sampleList.filter(i => i.name != name)
+            }
+            if (id != undefined){
+                newSamples = sampleList.filter(i => i.id != id)
+            }
+        setSampleList(newSamples)
+
+        }
     
 
     return ( <MultiSampleContext.Provider
         value = {{sampleList: sampleList,
                 setSampleList: setSampleList,
                 addToSampleList: addToSampleList,
+                deleteFromSampleList: deleteFromSampleList,
                 focusedSample: focusedSample,
                 sampleNames: sampleNames,
                 getSampleNames: getSampleNames,
