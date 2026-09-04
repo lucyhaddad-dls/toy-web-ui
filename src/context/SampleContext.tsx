@@ -11,7 +11,17 @@ export const MultiSampleContext = createContext<MultiSampleContextType>
         addToSampleList: function (): void {
             throw new Error("Function not implemented.")
         },
+        deleteFromSampleList: function (): void {
+            throw new Error("Function not implemented.")
+        },
         focusedSample: {id:0, name:"_", values:nullSampleValues},
+        setFocusedSample: function (): void {
+            throw new Error("Function not implemented.")
+        },
+        sampleNames: [],
+        getSampleNames: function (): void {
+            throw new Error("Function not implemented.")
+        },
         getSingleValue: function (): string {
             throw new Error("Function not implemented.")
         },

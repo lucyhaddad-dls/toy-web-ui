@@ -1,17 +1,25 @@
-// page for editing physical values 
-// mass, density, ect 
-// do similar to sample builder where the user selects from a
-// dropdown list ?
-
-import { Stack, Typography } from "@mui/material";
-import { useContext } from "react";
+import { Button, Menu, MenuItem, Stack, Typography } from "@mui/material";
+import { useContext, useState } from "react";
 import { MultiSampleContext } from "../context/SampleContext";
 import { Link } from "react-router-dom";
+import { sampleKeys } from "../models/models";
+import AddIcon from '@mui/icons-material/Add';
 
 export function EditSamplePage() {
 
     const { focusedSample } = useContext(MultiSampleContext)
+    
+    const [menuOpen, setMenuOpen] = useState<boolean>(false)
 
+    const [ menuAnchor, setMenuAnchor ] = useState<null | HTMLElement>(null);
+
+    const toggleMenu = (event:null|React.MouseEvent<HTMLButtonElement>=null) => {
+        if (event!=null){
+            setMenuAnchor(event.currentTarget)}
+        else {setMenuAnchor(null)}
+
+        setMenuOpen(!menuOpen)
+    }
 
     if (focusedSample.name == "_"){
         return (
@@ -44,6 +52,27 @@ export function EditSamplePage() {
                 {focusedSample.values.map((k) => 
                     `${k.name} = ${k.value.val}, `)}
                     </Typography>
+                </Stack>
+
+           <Stack sx = {{maxWidth:"15%", marginLeft:"2%"}}>
+            <Button variant="contained" 
+            sx = {{ bgcolor:"#337e42"}}
+            onClick={(event)=>toggleMenu(event)}>
+            <Stack direction="row" sx = {{ alignContent:"center",
+                justifyContent:"center"
+            }}>
+                Add new property
+            <Stack  sx = {{ alignContent:"center",
+                justifyContent:"center"}}><AddIcon/> </Stack>
+            </Stack>
+            </Button>
+
+           <Menu open={menuOpen} onClick={() => toggleMenu()}
+            anchorEl={menuAnchor}>
+            {sampleKeys.filter(i => i!="formula").map( i => (
+                <MenuItem>{i}</MenuItem>
+            ) )}
+           </Menu>
            </Stack>
         </Stack>
     )
