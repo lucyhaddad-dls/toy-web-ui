@@ -2,14 +2,11 @@ import { useContext, useState } from "react";
 import { MultiSampleContext } from "../context/SampleContext";
 import { ListItemIcon, MenuItem,
  MenuList, Paper, Popover, Stack, Typography } from "@mui/material";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 export function SavedSampleList (){
 
     const { sampleList, deleteFromSampleList } = useContext(MultiSampleContext)
-    const [selected, setSelected] = useState<string>("")
 
     const [hoverInfo, setHoverInfo] = useState<string[]>(["Hello!!!"])
 
@@ -43,15 +40,7 @@ export function SavedSampleList (){
           <Typography align="center"><b>Saved Samples</b></Typography>
             <MenuList dense >
                 {sampleList.map(i => (
-    <MenuItem key={i.name} role="menuitemradio"
-                selected = {selected == i.name}
-                onClick={() => setSelected(i.name)}
-                >
-        <ListItemIcon>
-            {selected === i.name ? (
-                <FavoriteIcon fontSize="small" />
-              ) : (  <FavoriteBorderIcon fontSize="small" /> )}
-        </ListItemIcon>
+    <MenuItem key={i.name}>
         <Typography aria-owns={infoOpen ? 'show-info' : undefined}
             aria-haspopup="true"
             onMouseEnter={handleInfoOpen}

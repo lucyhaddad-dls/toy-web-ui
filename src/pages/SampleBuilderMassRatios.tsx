@@ -1,5 +1,3 @@
-// sample builder to have options: 
-
 import { Button, ListItemText, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";

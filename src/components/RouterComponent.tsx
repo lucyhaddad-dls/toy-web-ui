@@ -3,8 +3,8 @@ import { useState } from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import { Navbar } from "@diamondlightsource/sci-react-ui";
 import { PlaceholderPage } from "../pages/Placeholder";
-import { SampleBuilderPage } from "../pages/SampleBuilder";
-import { TestSamplePage } from "../pages/SampleMaker";
+import { SampleBuilderPage } from "../pages/SampleBuilderMassRatios";
+import { MassRatioBuilderPage } from "../pages/SampleMaker";
 
 const LinkList = (
     <Stack>
@@ -69,7 +69,7 @@ export function LinkDrawer () {
 
         <Route path="sample-builder/test"
                 element = {<div><SampleBuilderPage/>
-                            <TestSamplePage/>
+                            <MassRatioBuilderPage/>
                             </div>}/>
       </Routes>
       </Stack>
