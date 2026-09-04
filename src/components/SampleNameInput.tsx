@@ -13,6 +13,8 @@ export function NameSamplePopUp(props: {onName:(name: string) => void}) {
     }
 
     return (
+
+        // change to not be popper - portal?
         <div>
             <Button variant="contained" sx={{bgcolor:"#277932"}}
             onClick = {onClick}>Save Current Sample?</Button>
