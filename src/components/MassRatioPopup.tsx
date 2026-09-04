@@ -98,7 +98,7 @@ export function PopUpBuilderPage() {
         </Typography>
         </Stack>
         <Stack direction="row" spacing={{ xs: 1, sm: 2 }}
-        sx={{ maxHeight:"10%", p:1}} >
+        sx={{ maxHeight:"10%"}} >
           
         <SetNameBox onName={onNameChange}/>
         {/* add default input ^ */}
@@ -108,7 +108,8 @@ export function PopUpBuilderPage() {
             Clear Sample Data</Button>
         </Stack>
       
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+      sx = {{ p:2 }}>
         {formulaInfo.map((_elm, indx) => {
           if (indx == inputCount - 1) {
             return (
@@ -118,7 +119,6 @@ export function PopUpBuilderPage() {
                   componentIndex={indx}
                   defaults={formulaInfo[indx]}
                   onChange={onChange} />
-
                 <Stack
                   direction="row"
                   spacing={1}
