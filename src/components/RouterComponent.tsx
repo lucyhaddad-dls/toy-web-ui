@@ -3,8 +3,9 @@ import { useState } from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import { Navbar } from "@diamondlightsource/sci-react-ui/navigation";
 import { PlaceholderPage } from "../pages/Placeholder";
-import { SampleBuilderPage } from "../pages/SampleBuilderMassRatios";
+import { SampleBuilderPage } from "../pages/FormulaMaking";
 import { MassRatioBuilderPage } from "../pages/SampleMaker";
+import { EditSamplePage } from "../pages/EditPropertiesPage";
 
 const LinkList = (
     <Stack>
@@ -16,11 +17,18 @@ const LinkList = (
                 </ListItemText>
                 </Link>
             </ListItem>
-            <ListItem key={"builder"}>
-                <Link to="/sample-builder/test">
+            <ListItem key={"builder-formula-massRatio"}>
+                <Link to="sample-builder/mass-ratio">
                <ListItemText>
                 Sample Builder
                </ListItemText>
+                </Link>
+            </ListItem>
+            <ListItem key={"builder-edit"}>
+                <Link to="sample-builder/edit">
+                <ListItemText>
+                Sample Editor
+                </ListItemText>
                 </Link>
             </ListItem>
           
@@ -36,22 +44,33 @@ export function LinkDrawer () {
         {setShowMenu(newVal); };
 
     return (
-        <BrowserRouter>
-        <Stack>
         <Stack direction="row">
+        <BrowserRouter>
+            <Stack>
+        <Stack direction="row" sx={{ minWidth:"100vw" }}>
             <Navbar sx={{backgroundColor: "primary",
-                         color: "primary",
-                         width: '100%'
-                         }}>
+                         color: "primary"}}>
+                <Stack direction="row"
+                 sx = {{ justifyContent:"space-between" ,
+                    alignItems:"center",
+                    minWidth:"100vw",
+                 }}>
                 <Button onClick={toggleDrawer(true)}
                         variant="contained"
                         sx={{ backgroundColor: "inherit",
-                            color: "inherit" ,
-                            flexShrink: 1}}>
-                        Open Menu
+                            color: "inherit",
+                            marginLeft:"20px" }}>
+                        <b>Nav Menu</b>
                 </Button>
+
+                <Button variant="contained" 
+                sx={{ backgroundColor: "inherit",
+                            color: "inherit",
+                            marginRight:"60px" }}>
+                    <b>Sample List</b>
+                    </Button>
+                </Stack>
             </Navbar>
-                    
         </Stack>
         <Stack>
         <Drawer open={showMenu} onClose={toggleDrawer(false)}>
@@ -67,12 +86,17 @@ export function LinkDrawer () {
                             <PlaceholderPage/>
                             </div>}/>
 
-        <Route path="sample-builder/test"
+        <Route path="sample-builder/mass-ratio"
                 element = {<div><SampleBuilderPage/>
                             <MassRatioBuilderPage/>
                             </div>}/>
+        <Route path="sample-builder/edit"
+        element = {<div><EditSamplePage/></div>}/>
       </Routes>
       </Stack>
+
     </BrowserRouter>
+
+    </Stack>
     )
 }

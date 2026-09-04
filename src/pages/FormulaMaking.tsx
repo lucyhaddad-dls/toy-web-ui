@@ -33,7 +33,7 @@ export function SampleBuilderPage () {
 
         
             <MenuItem onClick={toggleMenu(false)}>
-                <Link to="/sample-builder/test">
+                <Link to="/sample-builder/mass-ratio/">
                 <ListItemText>From Mass Ratios (TEST)</ListItemText>
                 </Link>
             </MenuItem>
