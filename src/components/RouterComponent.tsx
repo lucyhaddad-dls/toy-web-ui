@@ -4,7 +4,7 @@ import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import { Navbar } from "@diamondlightsource/sci-react-ui";
 import { PlaceholderPage } from "../pages/Placeholder";
 import { SampleBuilderPage } from "../pages/SampleBuilder";
-import { TestSamplePage } from "../pages/TestSampleMaker";
+import { TestSamplePage } from "../pages/SampleMaker";
 
 const LinkList = (
     <Stack>

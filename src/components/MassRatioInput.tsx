@@ -1,9 +1,9 @@
-import type { NewSampleMassRatioType } from "../models/models";
+import type { SampleMassRatioType } from "../models/models";
 import { Stack, TextField } from "@mui/material";
 import { NumberInput } from "@diamondlightsource/sci-react-ui";
 
 export function MassRatioInput (props: {componentIndex: number,
-                        defaults: NewSampleMassRatioType,
+                        defaults: SampleMassRatioType,
                         // could add onChange props to provider...
                         onChange: (index: number,
                              valuetype: "formula" | "ratio",

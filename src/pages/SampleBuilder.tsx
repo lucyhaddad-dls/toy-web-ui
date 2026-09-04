@@ -18,7 +18,7 @@ export function SampleBuilderPage () {
 
     const [sampleNames, setSampleNames] = useState<string[]>([""])
 
-      // should be moved to provider!? AND change to use tmp.name instead!
+      // should be moved to provider!?
     const getSampleNames = () => {
         const out = [""]
         console.log(sampleList.map(i => i.name))

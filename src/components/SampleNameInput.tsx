@@ -19,15 +19,17 @@ export function NameSamplePopUp(props: {defaultName:string, onName:(name: string
         <Popper id={id} 
                 open={open} 
                 anchorEl={anchorEl}>
-        <Box sx={{ border:1, p:1, bgcolor:"secondary" }}>
+        <Box sx={{ border:1, p:1, bgcolor:"#fefefe" }}>
         <TextField label="Sample Name: " 
         defaultValue={props.defaultName}
             onKeyUp = {(event) => {if(event.key == "Enter"){
             const val = event.target as HTMLTextAreaElement
             setName(val.value)
-            props.onName(name); setAnchorEl(null)}; event.preventDefault();
+            props.onName(name); setAnchorEl(null)}
+            event.preventDefault();}
             
-        }}> {props.defaultName}
+            
+            }> {props.defaultName}
         </TextField>
         </Box>  
         </Popper>
