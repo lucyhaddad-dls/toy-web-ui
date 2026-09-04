@@ -60,27 +60,6 @@ export interface SampleAbsorptionResponse {
   y: ElementAbsorptionResponse[]
 }
 
-export interface SampleAbsorptionErrorResponse {
-  error: string
-}
-
-export interface AbsorptionDatasetType {
-  mass: null | SampleAbsorptionResponse
-  linear: null | SampleAbsorptionResponse
-  total: null | SampleAbsorptionResponse
-}
-
-export interface SampleContextType {
-  values: SampleValueResponse[]
-  setValues: React.Dispatch<React.SetStateAction<SampleValueResponse[]>>
-  availableAbs: checkedAbsorptionValues
-  absorption: AbsorptionDatasetType
-  setAbsorption: React.Dispatch<React.SetStateAction<AbsorptionDatasetType>>
-  getAbsorption: () => void
-  checkValues: () => void
-  getValue: (name: SampleResponseKeys) => string
-  setValue: (name: SampleResponseKeys, value: string) => () => void
-}
 
 export interface MultiSampleContextType{
   sampleList: SampleResponse[]
@@ -94,10 +73,4 @@ export interface MultiSampleContextType{
 export interface SampleMassRatioType {
   formula: string
   ratio: number
-}
-
-export interface checkedAbsorptionValues {
-  mass: boolean
-  linear: boolean
-  total: boolean
 }
