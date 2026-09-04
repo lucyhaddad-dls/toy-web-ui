@@ -1,7 +1,11 @@
 import { Stack } from "@mui/material"
+import { SavedSampleList } from "../components/SavedSampleList"
 
 export function PlaceholderPage () {
     return (
-    <Stack>A placeholder</Stack>
+    <Stack direction="row">A placeholder
+        <SavedSampleList/>
+    </Stack>
+    
     )
 }

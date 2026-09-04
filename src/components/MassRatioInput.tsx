@@ -1,6 +1,6 @@
 import type { SampleMassRatioType } from "../models/models";
 import { Stack, TextField } from "@mui/material";
-import { NumberInput } from "@diamondlightsource/sci-react-ui/controls";
+import { NumberInput } from "@diamondlightsource/sci-react-ui";
 
 export function MassRatioInput (props: {componentIndex: number,
                         defaults: SampleMassRatioType,
