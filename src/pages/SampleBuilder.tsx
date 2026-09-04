@@ -28,18 +28,17 @@ export function SampleBuilderPage () {
         setSampleNames(out)
     }
 
-    
     return (
      
     <Stack>
-    
          <Stack direction="row" 
                 sx = {{alignItems: "flex-start", 
                 justifyContent:"space-between" }}>
             
         <Stack direction="row">
             <Typography variant="h5">Sample Builder</Typography>
-            <Button open={open} onClick={toggleMenu(true)}>
+  
+            <Button onClick={toggleMenu(true)}>
                 Method </Button>
         </Stack>
             <Button onClick={toggleSampleMenu(true)}>Saved Samples</Button>
@@ -52,11 +51,7 @@ export function SampleBuilderPage () {
                         {{vertical: 'top',
                         horizontal: 'right'}}>
 
-            <MenuItem onClick={toggleMenu(false)}>
-                <Link to="/sample-builder/mass-ratios">
-                <ListItemText>From Mass Ratios</ListItemText>
-                </Link>
-            </MenuItem>
+        
             <MenuItem onClick={toggleMenu(false)}>
                 <Link to="/sample-builder/test">
                 <ListItemText>From Mass Ratios (TEST)</ListItemText>

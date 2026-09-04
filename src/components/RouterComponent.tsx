@@ -4,8 +4,6 @@ import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import { Navbar } from "@diamondlightsource/sci-react-ui";
 import { PlaceholderPage } from "../pages/Placeholder";
 import { SampleBuilderPage } from "../pages/SampleBuilder";
-import { MassRatioPage } from "../pages/MassRatio";
-import { TransmissionPage } from "../pages/Transmission";
 import { TestSamplePage } from "../pages/TestSampleMaker";
 
 const LinkList = (
@@ -19,19 +17,13 @@ const LinkList = (
                 </Link>
             </ListItem>
             <ListItem key={"builder"}>
-                <Link to="/sample-builder/mass-ratios">
+                <Link to="/sample-builder/test">
                <ListItemText>
                 Sample Builder
                </ListItemText>
                 </Link>
             </ListItem>
-            <ListItem key={"transmission"}>
-                <Link to="/transmission">
-                <ListItemText>
-                Transmission Calcs.
-                </ListItemText>
-                </Link>
-            </ListItem>
+          
         </List>
     </Stack>
 )
@@ -74,18 +66,11 @@ export function LinkDrawer () {
                             <SampleBuilderPage/>
                             <PlaceholderPage/>
                             </div>}/>
-        <Route path="/sample-builder/mass-ratios"
-                element={<div>
-                    <SampleBuilderPage/>
-                    <MassRatioPage/>
-                    </div>}/>
+
         <Route path="sample-builder/test"
                 element = {<div><SampleBuilderPage/>
                             <TestSamplePage/>
                             </div>}/>
-        <Route path="/transmission"
-               element = {<div><TransmissionPage/></div>}/>
-
       </Routes>
       </Stack>
     </BrowserRouter>

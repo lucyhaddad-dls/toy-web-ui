@@ -7,7 +7,7 @@ import { MassRatioInput } from "../components/MassRatioInput";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { getNewFormula } from "../models/queryFunctions";
-import { NameSamplePopUp } from "./TestSampleMaker";
+import { NameSamplePopUp } from "../components/SampleNameInput";
 
 export function PopUpBuilderPage() {
 
