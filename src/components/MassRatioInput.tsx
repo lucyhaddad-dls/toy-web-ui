@@ -1,6 +1,6 @@
 import type { SampleMassRatioType } from "../models/models";
 import { Stack, TextField } from "@mui/material";
-import { NumberInput } from "@diamondlightsource/sci-react-ui";
+import { NumberInput } from "@diamondlightsource/sci-react-ui/controls";
 
 export function MassRatioInput (props: {componentIndex: number,
                         defaults: SampleMassRatioType,
@@ -34,7 +34,7 @@ export function MassRatioInput (props: {componentIndex: number,
             minValue={0} maxValue={1}
             numberMode="floating"
             commitOnReturn={true}
-            onCommit={(number) => UpdateInfo("ratio", number)}
+            onCommit={(number:number) => UpdateInfo("ratio", number)}
             />
         </Stack>
     )
