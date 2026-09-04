@@ -1,46 +1,38 @@
-import { Box, Button, Grid, Popper, Fade } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Button, Grid, Stack } from "@mui/material";
+import { useState } from "react";
 import { PopUpBuilderPage } from "../components/MassRatioPopup";
+import { SavedSampleList } from "../components/SavedSampleList";
+import Collapse from '@mui/material/Collapse';
 
 function SampleMakerPopUp() {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [titleText, setTitleText] = useState("Make New Sample");
 
-  const onClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-    if (!open) {
-      setTitleText("Close");
-    } else {
-      setTitleText("Make New Sample");
-    }
-  };
+  const onClick = () => { setShowBuilder(!showBuilder) };
 
-  const open = Boolean(anchorEl);
-  const id = open ? "sample-maker-popper" : undefined;
+  const [showBuilder, setShowBuilder] = useState(false)
 
   return (
-    <div>
-      <Button variant="contained" onClick={onClick} aria-describedby={id}>
-        {titleText}
-      </Button>
-      <Popper id={id} open={open} anchorEl={anchorEl}
-      transition>
-        {({ TransitionProps }) => (    
-          <Fade {...TransitionProps} timeout={300}> 
-
-        <Box sx={{ border: 1, p: 1, bgcolor: "secondary" }}>
-          <PopUpBuilderPage />
-        </Box>
-        </Fade> )}
-      </Popper>
-    </div>
+    <Stack sx = {{ p:1 }}>
+      <Button onClick={onClick} variant="contained">
+        {showBuilder ? 'Close Sample Maker' : 'Open Sample Maker'}
+    </Button>
+    <Collapse in = {showBuilder}>
+      <Box sx={{ p: 0.5 }} />
+      <PopUpBuilderPage/>
+    </Collapse>
+   
+    </Stack>
   );
 }
 
 export function TestSamplePage() {
   return (
-    <Grid>
+    <Grid container sx = {{display: "flex",  justifyContent: 'space-between' }}>
+      <Grid sx = {{maxWidth: "60%"}}>
       <SampleMakerPopUp />
+      </Grid>
+      <Grid>
+      <SavedSampleList/>
+      </Grid>
     </Grid>
   );
 }

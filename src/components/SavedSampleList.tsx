@@ -2,9 +2,8 @@ import { useContext, useState } from "react";
 import { MultiSampleContext } from "../context/SampleContext";
 import { ListItemIcon, ListItemText, MenuItem,
  MenuList, Paper, Stack, Typography } from "@mui/material";
-
- import RadioButtonChecked from '@mui/icons-material/RadioButtonChecked';
-import RadioButtonUnchecked from '@mui/icons-material/RadioButtonUnchecked';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 export function SavedSampleList (){
 
@@ -24,9 +23,9 @@ export function SavedSampleList (){
                 onClick={() => setSelected(i.name)}>
                 <ListItemIcon>
                 {selected === i.name ? (
-                <RadioButtonChecked fontSize="small" />
+                <FavoriteIcon fontSize="small" />
               ) : (
-                <RadioButtonUnchecked fontSize="small" />
+                <FavoriteBorderIcon fontSize="small" />
               )}
                 </ListItemIcon>
                 <ListItemText>{i.name}</ListItemText>

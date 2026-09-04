@@ -3,11 +3,9 @@
 import { Button, ListItemText, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { SavedSampleList } from "../components/SavedSampleList";
 
 
 export function SampleBuilderPage () {
-
 
     const [open, setOpen] = useState<boolean>(false)
 
@@ -20,16 +18,13 @@ export function SampleBuilderPage () {
     <Stack>
          <Stack direction="row" 
                 sx = {{alignItems: "flex-start", 
-                justifyContent:"space-between" }}>
+                justifyContent:"center" }}>
             
-        <Stack direction="row">
             <Typography variant="h5">Sample Builder</Typography>
   
             <Button onClick={toggleMenu(true)}>
                 Method </Button>
-        </Stack>
-            <SavedSampleList/>
-        </Stack>
+    </Stack>
 
         <Menu open={open} onClick={() => toggleMenu(false)} 
             anchorOrigin={{vertical: 'top',
