@@ -1,40 +1,38 @@
-import { Box, Button, Popper, TextField } from "@mui/material";
+import { Box, Button, Popper, Stack, TextField } from "@mui/material";
 import { useState } from "react";
+import Fade from "@mui/material/Fade";
 
+export function SetNameBox(props: {onName:(name: string) => void}) {
+    const [open, setOpen] = useState<boolean>(false)
+    
+    const onClick = () => {
+        setOpen(!open)
 
-export function NameSamplePopUp(props: {onName:(name: string) => void}) {
-    const [anchorEl, setAnchorEl] = useState<null|HTMLElement>(null);
-    const open = Boolean(anchorEl)
-    const id = open ? "name-sample-popper": undefined;
-
-
-    const onClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(anchorEl ? null: event.currentTarget)
     }
 
     return (
-
-        // change to not be popper - portal?
-        <div>
+        <Stack>
             <Button variant="contained" sx={{bgcolor:"#277932"}}
             onClick = {onClick}>Save Current Sample?</Button>
-        <Popper id={id} 
-                open={open} 
-                anchorEl={anchorEl}>
-        <Box sx={{ border:1, p:1, bgcolor:"#fefefe" }}>
-        <TextField label="Sample Name: " 
+
+            <Popper id = "0" open={open}
+            style={{ position: 'fixed',
+             bottom: "50%", right: "50%", 
+             top: 'unset', left: 'unset' }}>
+           <Fade in={open}>
+            <Box sx={{ border:1, p:1, bgcolor:"#fefefe" }}>
+            <TextField label="Sample Name: "
             onKeyUp = {(event) => {if(event.key == "Enter"){
             const val = event.target as HTMLTextAreaElement
             if (val.value != ""){
             props.onName(val.value);
-            setAnchorEl(null)}
-            event.preventDefault();}}
-            
-            }>
-        </TextField>
-        </Box>  
-        </Popper>
-        </div>
+            onClick();
+            event.preventDefault()}}}}/>
+            </Box>
+            </Fade>
+            </Popper>
+    
+        </Stack>
     )
 
 }

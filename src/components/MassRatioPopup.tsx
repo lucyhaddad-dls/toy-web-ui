@@ -10,7 +10,7 @@ import { MassRatioInput } from "./MassRatioInput";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { getNewFormula } from "../models/queryFunctions";
-import { NameSamplePopUp } from "./SampleNameInput";
+import { SetNameBox } from "./SampleNameInput";
 import Grow from '@mui/material/Grow'
 
 export function PopUpBuilderPage() {
@@ -100,7 +100,7 @@ export function PopUpBuilderPage() {
         <Stack direction="row" spacing={{ xs: 1, sm: 2 }}
         sx={{ maxHeight:"10%", p:1}} >
           
-        <NameSamplePopUp onName={onNameChange}/>
+        <SetNameBox onName={onNameChange}/>
         {/* add default input ^ */}
 
         <Button variant="contained"

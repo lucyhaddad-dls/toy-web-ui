@@ -8,7 +8,7 @@ function SampleMakerPopUp() {
 
   const onClick = () => { setShowBuilder(!showBuilder) };
 
-  const [showBuilder, setShowBuilder] = useState(false)
+  const [showBuilder, setShowBuilder] = useState<boolean>(false)
 
   return (
     <Stack sx = {{ p:1 }}>
