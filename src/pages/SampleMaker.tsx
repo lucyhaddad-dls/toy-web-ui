@@ -1,8 +1,6 @@
 import { Button, Fab, Grid, Stack, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 
-import { SavedSampleList } from "../components/SavedSampleList";
-
 import { MultiSampleContext } from "../context/SampleContext";
 import { defaultFormulaInfoValues, nullSampleValues } from "../models/defaults";
 import type {
@@ -179,9 +177,6 @@ export function MassRatioBuilderPage() {
     <Grid container sx = {{display: "flex",  justifyContent: 'space-between' }}>
       <Grid sx = {{maxWidth: "60%"}}>
       <FormulaBuilderPage/>
-      </Grid>
-      <Grid>
-      <SavedSampleList/>
       </Grid>
     </Grid>
   );

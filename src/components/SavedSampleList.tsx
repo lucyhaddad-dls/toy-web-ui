@@ -40,8 +40,7 @@ export function SavedSampleList (){
     
     return (
 
-    <Stack >
-        <Paper sx = {{width: 320, maxWidth: "90%", justifyContent:"center"}} >
+    <Stack>
           <Typography align="center"><b>Saved Samples</b></Typography>
             <MenuList dense >
                 {sampleList.map(i => (
@@ -84,7 +83,7 @@ export function SavedSampleList (){
     </Stack>
     </MenuItem> )   )}
             </MenuList>
-        </Paper>
+      
     </Stack>
 
     )
