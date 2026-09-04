@@ -21,7 +21,7 @@ export function PopUpBuilderPage() {
     defaultFormulaInfoValues,
   );
 
-  const { addToSampleList } = useContext(MultiSampleContext);
+  const { addToSampleList, getSampleNames } = useContext(MultiSampleContext);
 
   const onAdd = () => {
     setFormulaInfo([...formulaInfo, { formula: "", ratio: 1 }]);
@@ -71,6 +71,7 @@ export function PopUpBuilderPage() {
 
   const onNameChange = (name: string) => {
     addToSampleList(values, name);
+    getSampleNames();
   };
 
   return (
@@ -82,10 +83,8 @@ export function PopUpBuilderPage() {
         <Button variant="contained" color="secondary" onClick={onCalculate}>
           Calculate?
         </Button>
-
-        <NameSamplePopUp
-          onName={onNameChange}
-        />
+        <NameSamplePopUp onName={onNameChange}/>
+        {/* add default input ^ */}
       </Stack>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         {formulaInfo.map((_elm, indx) => {

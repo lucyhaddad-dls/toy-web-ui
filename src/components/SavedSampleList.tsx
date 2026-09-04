@@ -11,7 +11,6 @@ export function SavedSampleList (){
     const { sampleList } = useContext(MultiSampleContext)
     const [selected, setSelected] = useState<string>("")
     
-
     return (
     <Stack>
         <Typography variant="h5">Saved Samples</Typography>

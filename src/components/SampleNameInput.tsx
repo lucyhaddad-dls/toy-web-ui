@@ -7,7 +7,6 @@ export function NameSamplePopUp(props: {onName:(name: string) => void}) {
     const open = Boolean(anchorEl)
     const id = open ? "name-sample-popper": undefined;
 
-    const [name, setName] = useState<string>("")
 
     const onClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(anchorEl ? null: event.currentTarget)
@@ -25,8 +24,8 @@ export function NameSamplePopUp(props: {onName:(name: string) => void}) {
             onKeyUp = {(event) => {if(event.key == "Enter"){
             const val = event.target as HTMLTextAreaElement
             if (val.value != ""){
-            setName(val.value)
-            props.onName(name); setAnchorEl(null)}
+            props.onName(val.value);
+            setAnchorEl(null)}
             event.preventDefault();}}
             
             }>
