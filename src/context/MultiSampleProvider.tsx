@@ -72,6 +72,7 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
                 addToSampleList: addToSampleList,
                 deleteFromSampleList: deleteFromSampleList,
                 focusedSample: focusedSample,
+                setFocusedSample: setFocusedSample,
                 sampleNames: sampleNames,
                 getSampleNames: getSampleNames,
                 getSingleValue: getSingleValue,

@@ -67,6 +67,7 @@ export interface MultiSampleContextType{
   addToSampleList: (values: SampleValueResponse[], name: string) => void
   deleteFromSampleList: (name?: string | undefined, id?: number | undefined) => void
   focusedSample: SampleResponse
+  setFocusedSample: React.Dispatch<React.SetStateAction<SampleResponse>>
   sampleNames: string[]
   getSampleNames: () => void
   getSingleValue: (name: SampleResponseKeys) => string

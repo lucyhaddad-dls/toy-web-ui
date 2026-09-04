@@ -1,19 +1,19 @@
 import { useContext, useState } from "react";
 import { MultiSampleContext } from "../context/SampleContext";
 import { Button, ListItemIcon, MenuItem,
- MenuList, Paper, Popover, Stack, Typography } from "@mui/material";
+ MenuList, Popover, Stack, Typography } from "@mui/material";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { Link } from "react-router-dom";
 
 export function SavedSampleList (){
 
-    const { sampleList, deleteFromSampleList } = useContext(MultiSampleContext)
+    const { sampleList, deleteFromSampleList, setFocusedSample } = useContext(MultiSampleContext)
 
     const [hoverInfo, setHoverInfo] = useState<string[]>(["Hello!!!"])
 
     const [infoPosition, setInfoPosition] = useState<HTMLElement|null>(null);
 
-    const editLink = "/placeholder"
+    const editLink = "/sample-builder/edit"
 
     const handleInfoOpen = (event: React.MouseEvent<HTMLElement>) => {
        
@@ -37,6 +37,11 @@ export function SavedSampleList (){
     ) => { deleteFromSampleList(name) }
 
 
+    const handleLinkClicked = (name:string) => {
+        const sample = sampleList.filter(i => i.name == name)[0]
+        setFocusedSample(sample)
+    }
+
     
     return (
 
@@ -56,7 +61,7 @@ export function SavedSampleList (){
 
     
     <Button size="small" variant="contained">
-        <Link to={editLink}>
+        <Link to={editLink} onClick={()=>handleLinkClicked(i.name)}>
         <Typography sx={{color:"#f3f3f3"}}>Edit Properties</Typography>
         </Link>
     </Button>
