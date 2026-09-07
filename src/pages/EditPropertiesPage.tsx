@@ -1,7 +1,6 @@
 import { Button, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { MultiSampleContext } from "../context/SampleContext";
-import { Link } from "react-router-dom";
 import { sampleKeys } from "../models/models";
 import AddIcon from '@mui/icons-material/Add';
 
@@ -13,6 +12,11 @@ export function EditSamplePage() {
 
     const [ menuAnchor, setMenuAnchor ] = useState<null | HTMLElement>(null);
 
+    let samplePropsList = sampleKeys.filter(k => k != "formula") as string[]
+    if (focusedSample.name == "_" || focusedSample == undefined)
+        {samplePropsList = ["formula", ...samplePropsList]}
+
+
     const toggleMenu = (event:null|React.MouseEvent<HTMLButtonElement>=null) => {
         if (event!=null){
             setMenuAnchor(event.currentTarget)}
@@ -21,24 +25,6 @@ export function EditSamplePage() {
         setMenuOpen(!menuOpen)
     }
 
-    if (focusedSample.name == "_"){
-        return (
-            <Stack>
-                <Typography align="center">
-                     Sample list is empty! ...
-                </Typography>
-                <Typography align="center">
-                    
-                    Make a sample at (one of) the page(s) here:
-                <Typography>
-                    <Link to = "/sample-builder/mass-ratio">
-                    Via Mass-Ratios</Link>
-            </Typography>
-                </Typography></Stack>
-        )
-    }
-
-    else {
     return (
         <Stack >
             <Typography align="center">Hello !! edit sample here. </Typography>
@@ -69,12 +55,12 @@ export function EditSamplePage() {
 
            <Menu open={menuOpen} onClick={() => toggleMenu()}
             anchorEl={menuAnchor}>
-            {sampleKeys.filter(i => i!="formula").map( i => (
+                
+            {samplePropsList.map( i => (
                 <MenuItem>{i}</MenuItem>
             ) )}
            </Menu>
            </Stack>
         </Stack>
     )
-    }
 }
