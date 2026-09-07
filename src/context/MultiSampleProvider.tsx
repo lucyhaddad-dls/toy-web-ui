@@ -39,7 +39,16 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
             else {return itm;}
 
         })
-        setFocusedSample({...focusedSample, values:newValue});
+        setFocusedSample({...focusedSample, values:newValue})
+
+        const newSampleList = sampleList.map(i => {
+            if (i.name == focusedSample.name){
+                return focusedSample
+            }
+            else {return i}
+        })
+        setSampleList(newSampleList);
+      
         return () => {};
     }
 

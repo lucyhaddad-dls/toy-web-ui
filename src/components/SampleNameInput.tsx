@@ -12,8 +12,8 @@ export function SetNameBox(props: {onName:(name: string) => void}) {
 
     return (
         <Stack>
-            <Button variant="contained" sx={{bgcolor:"#277932"}}
-            onClick = {onClick}>Save Current Sample?</Button>
+            <Button variant="contained" sx={{bgcolor:"#477a51"}}
+            onClick = {onClick}>Save as New Sample</Button>
 
             <Popper id = "0" open={open}
             style={{ position: 'fixed',
