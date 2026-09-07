@@ -1,17 +1,21 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { MultiSampleContext } from "../context/SampleContext";
-import { Button, ListItemIcon, MenuItem,
+import { Button, ListItemIcon, Menu, MenuItem,
  MenuList, Popover, Stack, Typography } from "@mui/material";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { Link } from "react-router-dom";
+import AddIcon from '@mui/icons-material/Add';
 
 export function SavedSampleList (){
 
     const { sampleList, deleteFromSampleList, setFocusedSample } = useContext(MultiSampleContext)
 
-    const [hoverInfo, setHoverInfo] = useState<string[]>(["Hello!!!"])
+    const [hoverInfo, setHoverInfo] = useState<string[]>(["Hello!!!"]);
 
     const [infoPosition, setInfoPosition] = useState<HTMLElement|null>(null);
+
+    const [addSampleOpen, setAddSampleOpen] = useState<boolean>(false);
+    const [addSamplePosition, setAddSamplePosition] = useState<HTMLElement|null>(null);
 
     const editLink = "/sample-builder/edit"
 
@@ -42,12 +46,20 @@ export function SavedSampleList (){
         setFocusedSample(sample)
     }
 
+    const handleAddMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAddSampleOpen(!addSampleOpen)
+        if (!addSampleOpen){
+
+        setAddSamplePosition(event.currentTarget)}
+        else {setAddSamplePosition(null)}
+    }
+
     
     return (
 
     <Stack>
-          <Typography align="center"><b>Saved Samples</b></Typography>
-            <MenuList dense >
+    <Typography align="center"><b>Saved Samples</b></Typography>
+    <MenuList dense >
                 {sampleList.map(i => (
     <MenuItem key={i.name}>
         <Stack direction="row" spacing={2} 
@@ -86,10 +98,43 @@ export function SavedSampleList (){
                 {i}</Typography>)}
       </Popover>
     </Stack>
-    </MenuItem> )   )}
-            </MenuList>
-      
+    </MenuItem> 
+    ))}
+    </MenuList>
+
+    <Button variant="contained" sx={{bgcolor:"#477a51"}}
+    onClick={handleAddMenuClick}
+    >
+    <Stack sx={{alignContent:"center",
+     justifyContent:"space-between",}}
+     direction="row" spacing={1}>
+        <Typography>Create New Sample</Typography>
+        <AddIcon fontSize="small"/>
     </Stack>
+
+    </Button>
+    <Menu id={"addSampleMenu"}
+    open = {addSampleOpen}
+    onClick={handleAddMenuClick}
+    anchorEl={addSamplePosition}
+     anchorOrigin={{ vertical: 'bottom',
+                        horizontal: 'right',}}
+    transformOrigin={{ vertical: 'top',
+                            horizontal: 'left',}}
+    disableRestoreFocus>
+    <Stack sx={{bgcolor:"grey"}}>
+    <MenuItem sx={{bgcolor:"#477a51", color:"white"}}>
+    <Link to="/sample-builder/mass-ratio"><Typography sx={{color:"white"}}>
+        From Mass Ratios</Typography></Link>
+    </MenuItem>
+    <MenuItem sx={{bgcolor:"#477a51", color:"white"}}>
+    <Link to="/sample-builder/edit"><Typography sx={{color:"white"}}>
+        From Formula</Typography>
+    </Link>
+    </MenuItem>
+    </Stack>
+    </Menu>
+  </Stack>
 
     )
 }
