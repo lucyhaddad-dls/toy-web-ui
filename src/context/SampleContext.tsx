@@ -1,5 +1,5 @@
 import { createContext } from "react"
-import type {MultiSampleContextType } from "../models/models"
+import type {MultiSampleContextType, SampleResponseKeys } from "../models/models"
 import { nullSampleValues} from "../models/defaults"
 
 export const MultiSampleContext = createContext<MultiSampleContextType>
@@ -14,7 +14,7 @@ export const MultiSampleContext = createContext<MultiSampleContextType>
         deleteFromSampleList: function (): void {
             throw new Error("Function not implemented.")
         },
-        focusedSample: {id:0, name:"_", values:nullSampleValues},
+        focusedSample: { id: 0, name: "_", values: nullSampleValues },
         setFocusedSample: function (): void {
             throw new Error("Function not implemented.")
         },
@@ -28,7 +28,7 @@ export const MultiSampleContext = createContext<MultiSampleContextType>
         setSingleValue: function (): () => void {
             throw new Error("Function not implemented.")
         },
-        getAvailableCalcs: function (): () => void {
+        getAvailableCalcs: function (): SampleResponseKeys[] {
             throw new Error("Function not implemented.")
         }
     })

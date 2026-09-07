@@ -9,7 +9,7 @@ import { UnitSelectComponent } from "../components/UnitInput";
 
 export function EditSamplePage() {
 
-    const { focusedSample, addToSampleList, sampleList } = useContext(MultiSampleContext)
+    const { focusedSample, addToSampleList, sampleList, getAvailableCalcs } = useContext(MultiSampleContext)
     
     const [menuOpen, setMenuOpen] = useState<boolean>(false)
 
@@ -48,6 +48,15 @@ export function EditSamplePage() {
                     </Typography>
 
                 </Stack>
+
+<Stack
+sx={{alignContent:"center", justifyContent:"center"}}>
+<Typography align="center">
+    <b>(tmp) Current Available Values:</b>
+</Typography>
+{getAvailableCalcs().map(response => <Typography>{response}</Typography>)}
+
+</Stack>
 
            <Stack>
 

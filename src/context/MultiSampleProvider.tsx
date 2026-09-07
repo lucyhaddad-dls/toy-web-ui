@@ -1,7 +1,7 @@
 import type React from "react";
 import { useState } from "react";
 import type { SampleResponse, SampleResponseKeys, SampleValueResponse  } from "../models/models";
-import { nullSampleValues } from "../models/defaults";
+import { calcDependencies, nullSampleValues } from "../models/defaults";
 import { MultiSampleContext } from "./SampleContext";
 
 
@@ -75,10 +75,39 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
 
     const getAvailableCalcs = () => {
         const nonNull = focusedSample.values.filter(v =>
-             v.value != null && v.value != undefined).map(v => v.name)
+             v.value.val != null && v.value.val != undefined
+            && v.value.val != "").map(v => v.name)
 
-        console.log("non null are: ", nonNull)
+    const matches:string[] = []
+    Object.keys(calcDependencies).map(key => {
+        const tmpVals = calcDependencies[key as keyof typeof calcDependencies]
+        let nested = false
+        if (tmpVals.length != tmpVals.flat().length){
+            nested = true
+        }
 
+       if (nested){
+        let match:boolean = false
+        tmpVals.map(arr => {
+            if (Array(arr).every(i => nonNull.includes(i as SampleResponseKeys))){
+                //this doesn't work 
+                match = true; matches.push(key)}}
+        )
+        if (match)(matches.push(key))
+       }
+
+       else {
+        if (tmpVals.every(i => nonNull.includes(
+            i as SampleResponseKeys))===true){
+            matches.push(key)
+        }
+       }
+
+       console.log(matches)
+    })
+
+
+    return nonNull
     }
     
 
