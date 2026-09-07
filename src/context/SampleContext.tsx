@@ -1,6 +1,6 @@
 import { createContext } from "react"
-import type {MultiSampleContextType, SampleResponseKeys } from "../models/models"
-import { nullSampleValues} from "../models/defaults"
+import type { MultiSampleContextType } from "../models/models"
+import { nullSampleValues } from "../models/defaults"
 
 export const MultiSampleContext = createContext<MultiSampleContextType>
     ({
@@ -28,7 +28,7 @@ export const MultiSampleContext = createContext<MultiSampleContextType>
         setSingleValue: function (): () => void {
             throw new Error("Function not implemented.")
         },
-        getAvailableCalcs: function (): SampleResponseKeys[] {
+        getAvailableCalcs: function (): string[] {
             throw new Error("Function not implemented.")
         }
     })

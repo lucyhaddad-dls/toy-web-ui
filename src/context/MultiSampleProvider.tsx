@@ -87,15 +87,16 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
         }
 
        if (nested){
-        let match:boolean = false
+     
         tmpVals.map(arr => {
-            if (Array(arr).every(i => nonNull.includes(i as SampleResponseKeys))){
-                //this doesn't work 
-                match = true; matches.push(key)}}
-        )
-        if (match)(matches.push(key))
+            const arr1 = arr as string[]
+            const myFilter = arr1.every(i => nonNull.includes(
+                i as SampleResponseKeys))
+            if (myFilter){
+                matches.push(key)
+            }
+        })
        }
-
        else {
         if (tmpVals.every(i => nonNull.includes(
             i as SampleResponseKeys))===true){
@@ -103,11 +104,10 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
         }
        }
 
-       console.log(matches)
     })
 
 
-    return nonNull
+    return matches
     }
     
 
