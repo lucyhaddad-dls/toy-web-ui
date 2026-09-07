@@ -8,7 +8,7 @@ import { SetNameBox } from "../components/SampleNameInput";
 
 export function EditSamplePage() {
 
-    const { focusedSample, addToSampleList } = useContext(MultiSampleContext)
+    const { focusedSample, addToSampleList, sampleList } = useContext(MultiSampleContext)
     
     const [menuOpen, setMenuOpen] = useState<boolean>(false)
 
@@ -32,7 +32,7 @@ export function EditSamplePage() {
     const values = focusedSample.values
     addToSampleList(values, name)};
 
-    if (samplePropsList.filter(i => i == "formula").length > 0){
+    if (samplePropsList.filter(i => i == "formula").length > 0 || sampleList.length <= 0){
 
     return (
         <Stack spacing={2}>
