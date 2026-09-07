@@ -5,6 +5,7 @@ import { sampleKeys, type SampleResponseKeys } from "../models/models";
 import AddIcon from '@mui/icons-material/Add';
 import { TextInput } from "../components/TextInput";
 import { SetNameBox } from "../components/SampleNameInput";
+import { UnitSelectComponent } from "../components/UnitInput";
 
 export function EditSamplePage() {
 
@@ -50,9 +51,9 @@ export function EditSamplePage() {
 
                 </Stack>
 
-           <Stack sx = {{maxWidth:"30%", marginLeft:"2%"}}>
+           <Stack sx = {{maxWidth:"100%", marginLeft:"10%"}}>
 
-            <Stack spacing={1} direction="row">
+            <Stack spacing={1} direction="row" sx={{marginLeft:"2%"}}>
             <Button variant="contained" 
             sx = {{ bgcolor:"#586fbb"}}
             onClick={(event)=>toggleMenu(event)}>
@@ -65,7 +66,8 @@ export function EditSamplePage() {
             </Stack>
             </Button>
         
-            <SetNameBox onName={onSaveSample}/>
+            <UnitSelectComponent/>
+                <SetNameBox onName={onSaveSample}/>
             </Stack>
 
            <Menu open={menuOpen} onClick={() => toggleMenu()}
@@ -109,7 +111,8 @@ else {
 
                 </Stack>
 
-           <Stack sx = {{maxWidth:"15%", marginLeft:"2%"}}>
+           <Stack sx = {{maxWidth:"100%", marginLeft:"2%"}}>
+            <Stack direction="row" spacing={2} sx={{marginLeft:"2%"}}>
             <Button variant="contained" 
             sx = {{ bgcolor:"#337e42"}}
             onClick={(event)=>toggleMenu(event)}>
@@ -121,6 +124,9 @@ else {
                 justifyContent:"center"}}><AddIcon/> </Stack>
             </Stack>
             </Button>
+            
+            <UnitSelectComponent/>
+            </Stack>
 
            <Menu open={menuOpen} onClick={() => toggleMenu()}
             anchorEl={menuAnchor}>
