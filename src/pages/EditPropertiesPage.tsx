@@ -49,14 +49,14 @@ export function EditSamplePage() {
 
                 </Stack>
 
-<Stack
-sx={{alignContent:"center", justifyContent:"center"}}>
-<Typography align="center">
-    <b>(tmp) Current Available Values:</b>
-</Typography>
-{getAvailableCalcs().map(response => <Typography>{response}</Typography>)}
+        <Stack
+        sx={{alignContent:"center", justifyContent:"center"}}>
+        <Typography align="center">
+            <b>(tmp) Current Available Values to calculate are:</b>
+        </Typography>
+        {getAvailableCalcs(focusedSample.name).map(response => <Typography align="center">{response}</Typography>)}
 
-</Stack>
+        </Stack>
 
            <Stack>
 

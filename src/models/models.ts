@@ -72,7 +72,7 @@ export interface MultiSampleContextType{
   getSampleNames: () => void
   getSingleValue: (name: SampleResponseKeys) => string
   setSingleValue: (name: SampleResponseKeys, value: string) => () => void
-  getAvailableCalcs: () => string[]
+  getAvailableCalcs: (name:string) => string[]
 }
 
 export interface SampleMassRatioType {

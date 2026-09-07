@@ -73,8 +73,12 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
 
         }
 
-    const getAvailableCalcs = () => {
-        const nonNull = focusedSample.values.filter(v =>
+    const getAvailableCalcs = (name:string) => {
+
+        const currentSample = sampleList.filter(i => i.name === name)[0]
+        if (currentSample === undefined){return [""]}
+
+        const nonNull = currentSample.values.filter(v =>
              v.value.val != null && v.value.val != undefined
             && v.value.val != "").map(v => v.name)
 

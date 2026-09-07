@@ -77,6 +77,8 @@ export function SavedSampleList (){
         <Typography sx={{color:"#f3f3f3"}}>Edit Properties</Typography>
         </Link>
     </Button>
+
+    <Button size="small" variant="contained">Calculate</Button>
         <ListItemIcon
         onClick={() => handleDeleteSample(i.name)}>
             <DeleteOutlineOutlinedIcon/>
