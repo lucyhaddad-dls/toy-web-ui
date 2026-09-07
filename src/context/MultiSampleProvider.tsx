@@ -9,7 +9,6 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
     const { children } = props;
 
     const [sampleList, setSampleList] = useState<SampleResponse[]>([])
-     // do want to add absorption data nested?
 
      const [ focusedSample, setFocusedSample ] = useState<SampleResponse>({id:0, 
                                                                         values:nullSampleValues,
@@ -73,6 +72,14 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
         setSampleList(newSamples)
 
         }
+
+    const getAvailableCalcs = () => {
+        const nonNull = focusedSample.values.filter(v =>
+             v.value != null && v.value != undefined).map(v => v.name)
+
+        console.log("non null are: ", nonNull)
+
+    }
     
 
     return ( <MultiSampleContext.Provider
@@ -85,7 +92,8 @@ export function MultiSampleProvider( props: {children:React.ReactNode}){
                 sampleNames: sampleNames,
                 getSampleNames: getSampleNames,
                 getSingleValue: getSingleValue,
-                setSingleValue: setSingleValue
+                setSingleValue: setSingleValue,
+                getAvailableCalcs: getAvailableCalcs
         }} >
         {children}
         </MultiSampleContext.Provider> )

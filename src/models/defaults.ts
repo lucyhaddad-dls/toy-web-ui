@@ -23,3 +23,10 @@ export const defaultFormulaInfoValues: SampleMassRatioType[] = [
   {formula: "", ratio:1}
 ]
 
+export const calcDependencies = {
+  "density": [["mass", "thickness", "area"], ["mass", "radius", "thickness"]],
+  "mass": ["area", "thickness", "density"],
+  "mass_absorption": ["formula", "absorber", "edge"],
+  "linear_absorption": ["formula", "absorber", "edge", "density"],
+  "total_absorption": ["formula", "absorber", "edge", "density", "thickness"]
+}

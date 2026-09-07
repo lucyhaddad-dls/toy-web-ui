@@ -27,5 +27,8 @@ export const MultiSampleContext = createContext<MultiSampleContextType>
         },
         setSingleValue: function (): () => void {
             throw new Error("Function not implemented.")
+        },
+        getAvailableCalcs: function (): () => void {
+            throw new Error("Function not implemented.")
         }
     })

@@ -33,10 +33,8 @@ export function EditSamplePage() {
     const values = focusedSample.values
     addToSampleList(values, name)};
 
-    if (samplePropsList.filter(i => i == "formula").length > 0 || sampleList.length <= 0){
-
     return (
-        <Stack spacing={2}>
+        <Stack spacing={2} sx = {{maxWidth:"100%", marginLeft:"2%", marginRight:"2%"}}>
             <Typography align="center">Hello !! edit sample here. </Typography>
                 <Stack sx={{alignContent:"center", 
                     justifyContent:"center"}}>
@@ -51,9 +49,9 @@ export function EditSamplePage() {
 
                 </Stack>
 
-           <Stack sx = {{maxWidth:"100%", marginLeft:"10%"}}>
+           <Stack>
 
-            <Stack spacing={1} direction="row" sx={{marginLeft:"2%"}}>
+            <Stack spacing={1} direction="row" sx={{justifyContent:"space-evenly"}}>
             <Button variant="contained" 
             sx = {{ bgcolor:"#586fbb"}}
             onClick={(event)=>toggleMenu(event)}>
@@ -67,65 +65,10 @@ export function EditSamplePage() {
             </Button>
         
             <UnitSelectComponent/>
-                <SetNameBox onName={onSaveSample}/>
-            </Stack>
-
-           <Menu open={menuOpen} onClick={() => toggleMenu()}
-            anchorEl={menuAnchor}>
-                
-            {samplePropsList.map( i => (
-                <MenuItem
-                key = {i}
-                onClick={() => {
-                    const tmpFilter = paramsList.filter(val => val == i)
-                    if (tmpFilter.length == 0){
-                        setParamsList([...paramsList, i])
-                    } }
-                    }>
-                {i}
-                </MenuItem>))}
-           </Menu>
-           </Stack>    
-
-        <Grid key="props-list"
-        container spacing={2}>
-        {paramsList.map(i => <TextInput name = {i}/>)}
-        </Grid>
-        </Stack>
-    )
-}
-else {
-    return (
-              <Stack spacing={2}>
-            <Typography align="center">Hello !! edit sample here. </Typography>
-                <Stack sx={{alignContent:"center", 
-                    justifyContent:"center"}}>
-              
-                    <Typography align="center">
-                        <b>{focusedSample.name}</b>
-                        </Typography>
-                <Typography align="center">
-                {focusedSample.values.map((k) => 
-                    `${k.name} = ${k.value.val}, `)}
-                    </Typography>
-
-                </Stack>
-
-           <Stack sx = {{maxWidth:"100%", marginLeft:"2%"}}>
-            <Stack direction="row" spacing={2} sx={{marginLeft:"2%"}}>
-            <Button variant="contained" 
-            sx = {{ bgcolor:"#337e42"}}
-            onClick={(event)=>toggleMenu(event)}>
-            <Stack direction="row" sx = {{ alignContent:"center",
-                justifyContent:"center"
-            }}>
-                Add new property
-            <Stack  sx = {{ alignContent:"center",
-                justifyContent:"center"}}><AddIcon/> </Stack>
-            </Stack>
-            </Button>
             
-            <UnitSelectComponent/>
+        {(samplePropsList.filter(i => i == "formula").length > 0 
+            || sampleList.length <= 0)
+             && <SetNameBox onName={onSaveSample}/>}
             </Stack>
 
            <Menu open={menuOpen} onClick={() => toggleMenu()}
@@ -149,9 +92,6 @@ else {
         container spacing={2}>
         {paramsList.map(i => <TextInput name = {i}/>)}
         </Grid>
-
-        
         </Stack>
     )
-}
 }

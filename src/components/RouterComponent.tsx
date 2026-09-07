@@ -109,19 +109,25 @@ export function LinkDrawer () {
         
         </Stack>
         <Routes>
-        <Route path="/" element  = {<div><PlaceholderPage/></div>}/>
+        <Route path="/" element  = {<Stack sx={{maxWidth:"100%"}}>
+                                    <PlaceholderPage/>
+                                    </Stack>}/>
         <Route path="/placeholder"
-                    element={<div>
+                    element={<Stack sx={{maxWidth:"100%"}}>
                             <SampleBuilderPage/>
                             <PlaceholderPage/>
-                            </div>}/>
+                            </Stack>}/>
 
         <Route path="sample-builder/mass-ratio"
-                element = {<div><SampleBuilderPage/>
+                element = {<Stack sx={{maxWidth:"100%"}}>
+                    <SampleBuilderPage/>
                             <MassRatioBuilderPage/>
-                            </div>}/>
+                            </Stack>}/>
         <Route path="sample-builder/edit"
-        element = {<div><EditSamplePage/></div>}/>
+        element = {
+            <Stack sx = {{maxWidth:"100%"}}>
+            <EditSamplePage/>
+            </Stack>}/>
       </Routes>
       </Stack>
 
