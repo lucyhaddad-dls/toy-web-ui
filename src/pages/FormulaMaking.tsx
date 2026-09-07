@@ -1,40 +1,46 @@
 import { Button, ListItemText, Menu, MenuItem, Stack, Typography } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 
 export function SampleBuilderPage () {
 
     const [open, setOpen] = useState<boolean>(false)
+    const [menuPosition, setMenuPosition] = useState<HTMLElement|null>(null)
 
-    
-    const toggleMenu = (val:boolean) => () => {setOpen(val)};
+
+    const handleMenuOpen = (event:React.MouseEvent<HTMLElement>) => {
+        setOpen(!open)
+        if (!open){
+            setMenuPosition(event.currentTarget)
+        }
+        else {setMenuPosition(null)}
+    }
 
 
     return (
      
-    <Stack>
+    <Stack sx={{minWidth:"100%"}}>
          <Stack direction="row" 
                 sx = {{alignItems: "flex-start", 
-                justifyContent:"center" }}>
+                justifyContent:"center", maxWidth:"100%"}}>
             
             <Typography variant="h5">Sample Builder</Typography>
   
-            <Button onClick={toggleMenu(true)}>
+            <Button onClick={handleMenuOpen}>
                 Method </Button>
     </Stack>
-
-        <Menu open={open} onClick={() => toggleMenu(false)} 
-            anchorOrigin={{vertical: 'top',
-                        horizontal: 'left'}}
+        <Menu open={open} onClick={handleMenuOpen}
+            anchorEl={menuPosition} 
+            anchorOrigin={{vertical: 'bottom',
+                        horizontal: 'center'}}
             transformOrigin=
                         {{vertical: 'top',
-                        horizontal: 'right'}}>
-
+                        horizontal: 'center'}}>
         
-            <MenuItem onClick={toggleMenu(false)}>
+            <MenuItem onClick={handleMenuOpen}>
                 <Link to="/sample-builder/mass-ratio/">
-                <ListItemText>From Mass Ratios (TEST)</ListItemText>
+                <ListItemText>From Mass Ratios</ListItemText>
                 </Link>
             </MenuItem>
         </Menu>

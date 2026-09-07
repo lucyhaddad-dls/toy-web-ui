@@ -91,7 +91,7 @@ function FormulaBuilderPage() {
   }
 
   return (
-    <Stack>
+    <Stack sx = {{ minWidth:"100vw" }}>
       <Stack spacing={2} sx={{ p: 2,
          justifyContent:"space-evenly",
          maxWidth:"40%" }} direction="row">
@@ -101,7 +101,7 @@ function FormulaBuilderPage() {
         </Typography>
         </Stack>
         <Stack direction="row" spacing={{ xs: 1, sm: 2 }}
-        sx={{ maxHeight:"10%"}} >
+        sx={{ maxHeight:"10%", marginLeft:"2%"}} >
           
         <SetNameBox onName={onNameChange}/>
         {/* add default input ^ */}
@@ -111,13 +111,14 @@ function FormulaBuilderPage() {
             Clear Sample Data</Button>
         </Stack>
       
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+      <Grid container rowSpacing={1}
+       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
       sx = {{ p:2 }}>
         {formulaInfo.map((_elm, indx) => {
           if (indx == inputCount - 1) {
             return (
             <Grow in={true} key={indx}>
-              <Grid key={indx} rowSpacing={1} columnSpacing={1}>
+              <Grid key={`${indx}-child`} rowSpacing={1} columnSpacing={1}>
                 <MassRatioInput
                   componentIndex={indx}
                   defaults={formulaInfo[indx]}

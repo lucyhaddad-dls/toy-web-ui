@@ -1,4 +1,5 @@
-import { Button, Drawer, List, ListItem, ListItemText, Menu, Paper, Popper, Stack } from "@mui/material";
+import { Button, Drawer, List, ListItem, ListItemText, Menu,
+     Paper, Popper, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import { Navbar } from "@diamondlightsource/sci-react-ui/navigation";
@@ -11,26 +12,36 @@ import { SavedSampleList } from "./SavedSampleList";
 
 
 const LinkList = (
-    <Stack>
-        <List>
+    <Stack sx = {{bgcolor:"primary.dark",
+        minHeight:"100%", justifyContent:"start"
+    }}>
+        <Typography align="center"
+        sx= {{color:"white", marginTop:"10%"}}
+        ><b>Nav Menu</b></Typography>
+        <List sx = {{ bgcolor:"primary.dark", color:"white",
+            alignContent:"center", marginTop:"20%"
+        }}>
             <ListItem key={"home"}>
                 <Link to = "/">
-                <ListItemText>
-                    Home (placeholder)
+                <ListItemText  
+                sx = {{ bgcolor:"primary.dark", color:"white"}}>
+                   <b>Home (placeholder)</b>
                 </ListItemText>
                 </Link>
             </ListItem>
             <ListItem key={"builder-formula-massRatio"}>
                 <Link to="sample-builder/mass-ratio">
-               <ListItemText>
-                Sample Builder
+               <ListItemText
+                sx = {{ bgcolor:"primary.dark", color:"white"}}>
+                <b>Sample Builder</b>
                </ListItemText>
                 </Link>
             </ListItem>
             <ListItem key={"builder-edit"}>
                 <Link to="sample-builder/edit">
-                <ListItemText>
-                Sample Editor
+                <ListItemText
+                 sx = {{ bgcolor:"primary.dark", color:"white"}}>
+                <b>Sample Editor</b>
                 </ListItemText>
                 </Link>
             </ListItem>
@@ -73,14 +84,14 @@ export function LinkDrawer () {
                         variant="contained"
                         sx={{ backgroundColor: "inherit",
                             color: "inherit",
-                            marginLeft:"20px" }}>
+                            marginLeft:"0%" }}>
                         <b>Nav Menu</b>
                 </Button>
 
                 <Button variant="contained" 
                 sx={{ backgroundColor: "inherit",
                             color: "inherit",
-                            marginRight:"60px" }}
+                            marginRight:"-15%" }}
                 onClick={toggleSampleMenu}>
                     <b>Sample List</b>
                     </Button>
