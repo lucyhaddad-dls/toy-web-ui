@@ -29,7 +29,7 @@ export function TransmissionPropertiesPage() {
             id="select-focus" value={focusedSample.name}>
             {sampleList.map(i =>
                  <MenuItem value={i.name}
-                 key = {i.name}
+                 key = {`${i.name}-menu`}
                  selected = {focusedSample.name == i.name}
                  onClick={() =>onSampleChange(i.name)} >
                     {i.name}</MenuItem>)}

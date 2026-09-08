@@ -27,7 +27,6 @@ function FormulaBuilderPage() {
 
   const { addToSampleList, getSampleNames } = useContext(MultiSampleContext);
 
-
   const onAdd = () => {
     setFormulaInfo([...formulaInfo, { formula: "", ratio: 1 }]);
   };
@@ -82,16 +81,12 @@ function FormulaBuilderPage() {
   };
 
   const onClear = () => {
-    setValues(nullSampleValues)
-    const data = [...formulaInfo];
-    data[0]["formula"] = ""
-    data[0]["ratio"] = 1
-    setFormulaInfo(data)
     setInputCount(1)
+    setFormulaInfo(defaultFormulaInfoValues)
   }
 
   return (
-    <Stack sx = {{ minWidth:"100vw" }}>
+    <Stack sx = {{ minWidth:"100vw"}}>
       <Stack spacing={2} sx={{ p: 2,
          justifyContent:"space-evenly",
          maxWidth:"40%" }} direction="row">
@@ -100,8 +95,8 @@ function FormulaBuilderPage() {
         <b> Formula: {values.filter((v) => v.name == "formula")[0].value.val}</b>
         </Typography>
         </Stack>
-        <Stack direction="row" spacing={{ xs: 1, sm: 2 }}
-        sx={{ maxHeight:"10%", marginLeft:"2%"}} >
+        <Stack direction="row" spacing={1}
+        sx={{ justifyContent:"flex-end", margin:"1vw"}} >
           
         <SetNameBox onName={onNameChange}/>
         {/* add default input ^ */}
@@ -157,7 +152,7 @@ function FormulaBuilderPage() {
           if (indx != inputCount) {
             return (
             <Grow in={true}>
-              <Grid key={indx}>
+              <Grid key={`${indx}-child`}>
                 <MassRatioInput
                   componentIndex={indx}
                   defaults={formulaInfo[indx]}
