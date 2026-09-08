@@ -9,7 +9,7 @@ import { UnitSelectComponent } from "../components/UnitInput";
 
 export function EditSamplePage() {
 
-    const { focusedSample, addToSampleList, sampleList, getAvailableCalcs } = useContext(MultiSampleContext)
+    const { focusedSample, addToSampleList, sampleList } = useContext(MultiSampleContext)
     
     const [menuOpen, setMenuOpen] = useState<boolean>(false)
 
@@ -48,32 +48,25 @@ export function EditSamplePage() {
                     </Typography>
 
                 </Stack>
-
-        <Stack
-        sx={{alignContent:"center", justifyContent:"center"}}>
-        <Typography align="center">
-            <b>(tmp) Current Available Values to calculate are:</b>
-        </Typography>
-        {getAvailableCalcs(focusedSample.name).map(response => <Typography align="center">{response}</Typography>)}
-
-        </Stack>
-
            <Stack>
 
-            <Stack spacing={1} direction="row" sx={{justifyContent:"space-evenly"}}>
+            <Stack spacing={1} direction="row" sx={{justifyContent:"space-around"}}>
             <Button variant="contained" 
             sx = {{ bgcolor:"#586fbb"}}
             onClick={(event)=>toggleMenu(event)}>
             <Stack direction="row" sx = {{ alignContent:"center",
                 justifyContent:"center"
             }}>
-                Add new property
+                <b>Add new property</b>
             <Stack  sx = {{ alignContent:"center",
                 justifyContent:"center"}}><AddIcon/> </Stack>
             </Stack>
             </Button>
         
             <UnitSelectComponent/>
+            <Button variant="contained" sx = {{ bgcolor:"#586fbb"}}>
+                <b>Calculate Available Properties?</b>
+            </Button>
             
         {(samplePropsList.filter(i => i == "formula").length > 0 
             || sampleList.length <= 0)
@@ -82,9 +75,9 @@ export function EditSamplePage() {
 
            <Menu open={menuOpen} onClick={() => toggleMenu()}
             anchorEl={menuAnchor}>
-                
+  
             {samplePropsList.map( i => (
-                <MenuItem
+                <MenuItem  sx = {{minWidth:"15vw"}}
                 key = {i}
                 onClick={() => {
                     const tmpFilter = paramsList.filter(val => val == i)
