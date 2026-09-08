@@ -6,12 +6,16 @@ import { useContext, useState } from "react";
 import { MultiSampleContext } from "../context/SampleContext";
 import { getAbsorptionData } from "../models/queryFunctions";
 import { type AbsorptionType, type SampleAbsorptionResponse } from "../models/models";
+import ndarray from "ndarray";
+import { DataPlot } from "./PhotoPlotComponent";
 
 export function PlotValuesPage() {
 
     const { focusedSample, getAvailableCalcs, photoData, setPhotoData } = useContext(MultiSampleContext)
 
     const [currentPlotValue, setCurrentPlotValue] = useState<AbsorptionType|"">("")
+
+    const [currentElement] = useState<string>("total")
 
     const currentData = () => {
         if (currentPlotValue != ""){
@@ -30,13 +34,27 @@ export function PlotValuesPage() {
         }
 
         setPlotData(currentData())
-        console.log(plotData)
+        handlePlotData()
     }
 
     const iSplit = (value:string) => {
         return value.split("_")[0]
     }
 
+    const [xdata, setXdata] = useState<ndarray.NdArray<number[]>|null>(null)
+    const [ydata, setYdata] = useState<ndarray.NdArray<number[]>|null>(null)
+    const [xlabel, setXlabel] = useState<string>("")
+    const [ylabel, setYlabel] = useState<string>("")
+
+    const handlePlotData = () => {
+        if (plotData != null && Object.hasOwn(plotData, "x")){{
+            const tmpX = plotData.x.split(",").map(x=>parseFloat(x));
+            const tmpY = plotData.y.filter(y => y.name == currentElement)[0]
+                                            .y.split(",").map(y => parseFloat(y));
+            setXdata(ndarray(tmpX)); setYdata(ndarray(tmpY))
+            setXlabel(plotData.xlabel); setYlabel(plotData.ylabel)
+        }}
+    }
 
 
     return (
@@ -55,12 +73,11 @@ export function PlotValuesPage() {
                     selected={currentPlotValue === iSplit(i)}
                     onClick={() => onPlotValueChange(iSplit(i))}
                 >{i}</MenuItem>)}
-
-
             </Select>
             </FormControl>
 
         </Grid>
+        <DataPlot xdata={xdata} ydata={ydata} xlabel={xlabel} ylabel={ylabel}/>
         </Grid>
         </Stack>
 

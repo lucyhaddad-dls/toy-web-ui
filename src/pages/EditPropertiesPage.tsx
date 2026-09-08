@@ -65,7 +65,7 @@ export function EditSamplePage() {
             <Stack spacing={1} direction="row" sx={{justifyContent:"space-around"}}>
             <Button variant="contained" 
             sx = {{ bgcolor:"#586fbb"}}
-            onClick={(event)=>toggleMenu(event)}>
+            onClick={(event:React.MouseEvent<HTMLButtonElement>)=>toggleMenu(event)}>
             <Stack direction="row" sx = {{ alignContent:"center",
                 justifyContent:"center"
             }}>
@@ -134,7 +134,7 @@ export function EditSamplePage() {
 
         <Grid key="props-list"
         container spacing={2}>
-        {paramsList.map(i => <TextInput name = {i}/>)}
+        {paramsList.map(i => <TextInput key={i} name = {i}/>)}
         </Grid>
         </Stack>
     )
