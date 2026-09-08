@@ -8,37 +8,58 @@ import AddIcon from '@mui/icons-material/Add';
 
 export function SavedSampleList (){
 
-    const { sampleList, deleteFromSampleList, setFocusedSample } = useContext(MultiSampleContext)
+    const { sampleList, deleteFromSampleList, setFocusedSample, getAvailableCalcs } = useContext(MultiSampleContext)
 
     const [hoverInfo, setHoverInfo] = useState<string[]>(["Hello!!!"]);
+    const [paramsInfo, setParamsInfo] = useState<string[]>([])
 
     const [infoPosition, setInfoPosition] = useState<HTMLElement|null>(null);
+    const [paramsPosition, setParamsPosition] = useState<HTMLElement|null>(null);
 
     const [addSampleOpen, setAddSampleOpen] = useState<boolean>(false);
     const [addSamplePosition, setAddSamplePosition] = useState<HTMLElement|null>(null);
 
     const editLink = "/sample-builder/edit"
 
-    const handleInfoOpen = (event: React.MouseEvent<HTMLElement>) => {
-       
-        const hoverName = event.currentTarget.textContent
-        const valueInfo = sampleList.filter(i =>i.name == hoverName)[0]
-        
-        const filt = 
-            valueInfo.values.map((k) =>
-        (`${k.name} = ${k.value.val}`))
-        setHoverInfo(filt)
-        setInfoPosition(event.currentTarget)
-    }
 
-    const handleInfoClose = () => {
+    const handlePopovers = (event: React.MouseEvent<HTMLElement>,
+         name: string | null = null, eventType: "info" | "params") => {
+
+        let hoverName = name
+        if (hoverName == null){
+            hoverName = event.currentTarget.textContent}
+
+        if (eventType == "info"){
+            const valueInfo = sampleList.filter(i =>i.name == hoverName)[0]
+        
+            const filt =  valueInfo.values.map((k) => (`${k.name} = ${k.value.val}`))
+            setHoverInfo(filt)
+            setInfoPosition(event.currentTarget)
+        }
+
+        if (eventType == "params"){
+            setParamsInfo(getAvailableCalcs(hoverName))
+            setParamsPosition(event.currentTarget)
+        }
+        
+         }
+
+    const handleInfoClose = (eventType:"info"|"params") => {
+        if (eventType == "info"){
         setInfoPosition(null)
+        }
+        if (eventType == "params"){
+            setParamsPosition(null)
+        }
     }
 
     const infoOpen = Boolean(infoPosition)
+    const paramsOpen = Boolean(paramsPosition)
 
-    const handleDeleteSample = (name:string
-    ) => { deleteFromSampleList(name) }
+    const handleDeleteSample = (name:string) => {
+         deleteFromSampleList(name) 
+    
+    }
 
 
     const handleLinkClicked = (name:string) => {
@@ -54,7 +75,6 @@ export function SavedSampleList (){
         else {setAddSamplePosition(null)}
     }
 
-    
     return (
 
     <Stack>
@@ -64,21 +84,33 @@ export function SavedSampleList (){
     <MenuItem key={i.name}>
         <Stack direction="row" spacing={2} 
         sx={{justifyContent: "space-around", alignItems: "center", }}>
-        <Typography aria-owns={infoOpen ? 'show-info' : undefined}
-            aria-haspopup="true"
-            onMouseEnter={handleInfoOpen}
-            onMouseLeave={handleInfoClose}
-            sx = {{ fontSize:".9rem" }}
-            >{i.name}</Typography>
+        <Typography sx = {{ fontSize:".9rem" }}>{i.name}</Typography>
 
     
     <Button size="small" variant="contained">
         <Link to={editLink} onClick={()=>handleLinkClicked(i.name)}>
-        <Typography sx={{color:"#f3f3f3"}}>Edit Properties</Typography>
+
+
+        <Typography sx={{color:"#f3f3f3"}}
+        aria-owns={infoOpen ? 'show-info' : undefined}
+            aria-haspopup="true"
+            onMouseEnter=
+            {(event: React.MouseEvent<HTMLElement>) => 
+                handlePopovers(event, i.name, "info")}
+            onMouseLeave = {() => handleInfoClose("info")}
+        >Edit Properties</Typography>
         </Link>
     </Button>
 
-    <Button size="small" variant="contained">Calculate</Button>
+    <Button size="small" variant="contained">
+        <Typography sx={{color:"#f3f3f3"}}
+        aria-owns={paramsOpen ? 'show-params' : undefined}
+            aria-haspopup="true"
+            onMouseEnter={(event: React.MouseEvent<HTMLElement>) =>
+                 handlePopovers(event, i.name, "params")}
+            onMouseLeave={()=>handleInfoClose("params")}
+        >Calculate</Typography>
+    </Button>
         <ListItemIcon
         onClick={() => handleDeleteSample(i.name)}>
             <DeleteOutlineOutlinedIcon/>
@@ -93,9 +125,31 @@ export function SavedSampleList (){
                         horizontal: 'left',}}
         transformOrigin={{ vertical: 'top',
                             horizontal: 'left',}}
-        onClose={handleInfoClose}
+        onClose={()=>handleInfoClose("info")}
         disableRestoreFocus >
+        <Typography sx={{ p:0.5 ,fontSize: '0.8rem'}}>
+            <b>Current Properties</b>
+        </Typography>
             {hoverInfo.map(i =>
+            <Typography sx={{ p:0.5 ,fontSize: '0.8rem'}} key={i}>
+                {i}</Typography>)}
+      </Popover>
+
+      <Popover
+      id="show-params"
+      sx ={{pointerEvents: "none"}}
+      open={paramsOpen}
+      anchorEl={paramsPosition}
+      anchorOrigin={{ vertical: 'bottom',
+                        horizontal: 'left',}}
+        transformOrigin={{ vertical: 'top',
+                            horizontal: 'left',}}
+        onClose={()=>handleInfoClose("params")}
+        disableRestoreFocus >
+        <Typography sx={{ p:0.5 ,fontSize: '0.8rem'}}>
+            <b>Available To Calculate</b>
+        </Typography>
+            {paramsInfo.map(i =>
             <Typography sx={{ p:0.5 ,fontSize: '0.8rem'}} key={i}>
                 {i}</Typography>)}
       </Popover>
