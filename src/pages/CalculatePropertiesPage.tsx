@@ -26,11 +26,12 @@ export function TransmissionPropertiesPage() {
                 Select Sample
                 </InputLabel>
             <Select labelId="select-focus-label"
-            id="select-focus" value={""}>
+            id="select-focus" value={focusedSample.name}>
             {sampleList.map(i =>
                  <MenuItem value={i.name}
-                 onClick={() =>onSampleChange(i.name)}
-                 >
+                 key = {i.name}
+                 selected = {focusedSample.name == i.name}
+                 onClick={() =>onSampleChange(i.name)} >
                     {i.name}</MenuItem>)}
             </Select>
             </FormControl>
