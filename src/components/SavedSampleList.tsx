@@ -6,10 +6,12 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { Link } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
 import { nullSampleValues } from "../models/defaults";
+import { postFocusedSample } from "../models/queryFunctions";
 
 export function SavedSampleList (){
 
-    const { sampleList, deleteFromSampleList, setFocusedSample, getAvailableCalcs } = useContext(MultiSampleContext)
+    const { sampleList, deleteFromSampleList, setFocusedSample, getAvailableCalcs,
+        focusedSample } = useContext(MultiSampleContext)
 
     const [hoverInfo, setHoverInfo] = useState<string[]>(["Hello!!!"]);
     const [paramsInfo, setParamsInfo] = useState<string[]>([])
@@ -66,6 +68,7 @@ export function SavedSampleList (){
     const handleLinkClicked = (name:string) => {
         const sample = sampleList.filter(i => i.name == name)[0]
         setFocusedSample(sample)
+        postFocusedSample(focusedSample)
     }
 
     const handleAddMenuClick = (event: React.MouseEvent<HTMLElement>) => {

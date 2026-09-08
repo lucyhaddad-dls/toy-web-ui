@@ -7,6 +7,7 @@ import { TextInput } from "../components/TextInput";
 import { SetNameBox } from "../components/SampleNameInput";
 import { UnitSelectComponent } from "../components/UnitInput";
 import { Link } from "react-router-dom";
+import { postFocusedSample } from "../models/queryFunctions";
 
 export function EditSamplePage() {
 
@@ -75,7 +76,10 @@ export function EditSamplePage() {
             </Button>
         
             <UnitSelectComponent/>
-            <Button variant="contained" sx = {{ bgcolor:"#586fbb"}}>
+            <Button variant="contained" sx = {{ bgcolor:"#586fbb"}}
+            onClick={()=>{postFocusedSample(focusedSample)}
+        }
+            >
             <Link to="/sample-builder/calculate"
             aria-owns={paramsOpen ? "show-params" : undefined}
             aria-haspopup="true"

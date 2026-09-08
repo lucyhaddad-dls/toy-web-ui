@@ -1,5 +1,5 @@
 import axios, { type AxiosResponse } from "axios";
-import { type AbsorptionType, type SampleResponseKeys, type SampleUnitKeys,
+import { type AbsorptionType, type SampleResponse, type SampleResponseKeys, type SampleUnitKeys,
    type SampleValueResponse, sampleKeys } from "./models";
 
 
@@ -20,6 +20,14 @@ export const postSampleData = async(name:SampleResponseKeys | SampleUnitKeys,
      ).then((response) => {return response.data})
      .catch(error => {return error})
 
+  }
+
+  export const postFocusedSample = async(sample:SampleResponse) => {
+    sample.values.map(value => {
+      if (value.value.val != null){
+      postSampleData(value.name, value.value.val)
+      }
+    })
   }
 
   export const getAbsorptionData = async(abs_type:AbsorptionType) => {
