@@ -9,8 +9,6 @@ import { MassRatioBuilderPage } from "../pages/SampleMaker";
 import { EditSamplePage } from "../pages/EditPropertiesPage";
 import { SavedSampleList } from "./SavedSampleList";
 
-
-
 const LinkList = (
     <Stack sx = {{bgcolor:"primary.dark",
         minHeight:"100%", justifyContent:"start"
@@ -45,7 +43,14 @@ const LinkList = (
                 </ListItemText>
                 </Link>
             </ListItem>
-          
+             <ListItem key={"builder-calculate"}>
+                <Link to="sample-builder/calculate">
+                <ListItemText
+                 sx = {{ bgcolor:"primary.dark", color:"white"}}>
+                <b>Calculate Things! (Transmission)</b>
+                </ListItemText>
+                </Link>
+            </ListItem>
         </List>
     </Stack>
 )
@@ -139,6 +144,12 @@ export function LinkDrawer () {
             <Stack sx = {{maxWidth:"100%"}}>
             <EditSamplePage/>
             </Stack>}/>
+
+        <Route path="sample-builder/calculate"
+                element = {
+                <Stack sx = {{maxWidth:"100%"}}>
+                <PlaceholderPage/>
+                </Stack>}/>
       </Routes>
       </Stack>
 

@@ -6,6 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { TextInput } from "../components/TextInput";
 import { SetNameBox } from "../components/SampleNameInput";
 import { UnitSelectComponent } from "../components/UnitInput";
+import { Link } from "react-router-dom";
 
 export function EditSamplePage() {
 
@@ -65,7 +66,11 @@ export function EditSamplePage() {
         
             <UnitSelectComponent/>
             <Button variant="contained" sx = {{ bgcolor:"#586fbb"}}>
+            <Link to="/sample-builder/calculate">
+            <Typography sx = {{color:"white"}}>
                 <b>Calculate Available Properties?</b>
+            </Typography>
+            </Link>
             </Button>
             
         {(samplePropsList.filter(i => i == "formula").length > 0 
@@ -88,7 +93,7 @@ export function EditSamplePage() {
                 {i}
                 </MenuItem>))}
            </Menu>
-           </Stack>    
+           </Stack>
 
         <Grid key="props-list"
         container spacing={2}>

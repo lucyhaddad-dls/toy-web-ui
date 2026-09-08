@@ -103,6 +103,7 @@ export function SavedSampleList (){
     </Button>
 
     <Button size="small" variant="contained">
+    <Link to = "/sample-builder/calculate">
         <Typography sx={{color:"#f3f3f3"}}
         aria-owns={paramsOpen ? 'show-params' : undefined}
             aria-haspopup="true"
@@ -110,6 +111,7 @@ export function SavedSampleList (){
                  handlePopovers(event, i.name, "params")}
             onMouseLeave={()=>handleInfoClose("params")}
         >Calculate</Typography>
+    </Link>
     </Button>
         <ListItemIcon
         onClick={() => handleDeleteSample(i.name)}>
