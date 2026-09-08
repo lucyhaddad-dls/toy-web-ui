@@ -26,12 +26,10 @@ export function PlotValuesPage() {
 
     getPhotoData()
 
-
     return (
         <Stack spacing={2} sx={{alignItems:"center"}}>
             This is a page to plot some stuff.
         <Grid container spacing={2} sx={{width:"100vw"}}>
-
         <Grid size={{xs:1, md:2}} sx = {{margin:1}}>
             <FormControl fullWidth>
             <InputLabel id="photo-select-label">
@@ -42,7 +40,6 @@ export function PlotValuesPage() {
             {availablePhoto.map(i => <MenuItem value={i}>{i}</MenuItem>)}
 
             </Select>
-
             </FormControl>
 
         </Grid>
