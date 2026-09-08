@@ -1,33 +1,54 @@
-import { Button, Drawer, List, ListItem, ListItemText, Stack } from "@mui/material";
+import { Button, Drawer, List, ListItem, ListItemText, Menu,
+     Paper, Popper, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
-import { Navbar } from "@diamondlightsource/sci-react-ui";
+import { Navbar } from "@diamondlightsource/sci-react-ui/navigation";
 import { PlaceholderPage } from "../pages/Placeholder";
-import { SampleBuilderPage } from "../pages/SampleBuilder";
-import { MassRatioPage } from "../pages/MassRatio";
-import { TransmissionPage } from "../pages/Transmission";
+import { SampleBuilderPage } from "../pages/FormulaMaking";
+import { MassRatioBuilderPage } from "../pages/SampleMaker";
+import { EditSamplePage } from "../pages/EditPropertiesPage";
+import { SavedSampleList } from "./SavedSampleList";
+import { TransmissionPropertiesPage } from "../pages/CalculatePropertiesPage";
 
 const LinkList = (
-    <Stack>
-        <List>
+    <Stack sx = {{bgcolor:"primary.dark",
+        minHeight:"100%", justifyContent:"start"
+    }}>
+        <Typography align="center"
+        sx= {{color:"white", marginTop:"10%"}}
+        ><b>Nav Menu</b></Typography>
+        <List sx = {{ bgcolor:"primary.dark", color:"white",
+            alignContent:"center", marginTop:"20%"
+        }}>
             <ListItem key={"home"}>
                 <Link to = "/">
-                <ListItemText>
-                    Home (placeholder)
+                <ListItemText  
+                sx = {{ bgcolor:"primary.dark", color:"white"}}>
+                   <b>Home (placeholder)</b>
                 </ListItemText>
                 </Link>
             </ListItem>
-            <ListItem key={"builder"}>
-                <Link to="/placeholder">
-               <ListItemText>
-                Sample Builder
+            <ListItem key={"builder-formula-massRatio"}>
+                <Link to="sample-builder/mass-ratio">
+               <ListItemText
+                sx = {{ bgcolor:"primary.dark", color:"white"}}>
+                <b>Sample Builder</b>
                </ListItemText>
                 </Link>
             </ListItem>
-            <ListItem key={"transmission"}>
-                <Link to="/transmission">
-                <ListItemText>
-                Transmission Calcs.
+            <ListItem key={"builder-edit"}>
+                <Link to="sample-builder/edit">
+                <ListItemText
+                 sx = {{ bgcolor:"primary.dark", color:"white"}}>
+                <b>Sample Editor</b>
+                </ListItemText>
+                </Link>
+            </ListItem>
+             <ListItem key={"builder-calculate"}>
+                <Link to="sample-builder/calculate">
+                <ListItemText
+                 sx = {{ bgcolor:"primary.dark", color:"white"}}>
+                <b>Calculate Things! (Transmission)</b>
                 </ListItemText>
                 </Link>
             </ListItem>
@@ -39,26 +60,64 @@ export function LinkDrawer () {
 
     const [ showMenu, setShowMenu ] = useState<boolean>(false);
 
+    const [ showSamples, setShowSamples ] = useState<boolean>(false);
+    const [menuPos, setMenuPos] = useState<null|HTMLElement>(null);
+
     const toggleDrawer = (newVal: boolean) => () =>
         {setShowMenu(newVal); };
 
+    const toggleSampleMenu = (ev: React.MouseEvent<HTMLButtonElement>) => {
+        setShowSamples(!showSamples)
+        if (showSamples == false){
+            setMenuPos(null);
+        }
+        else {setMenuPos(ev.currentTarget)}
+    }
+
     return (
-        <BrowserRouter>
-        <Stack>
         <Stack direction="row">
+        <BrowserRouter>
+            <Stack>
+        <Stack direction="row" sx={{ minWidth:"100vw" }}>
             <Navbar sx={{backgroundColor: "primary",
-                         color: "primary",
-                         width: '100%'
-                         }}>
+                         color: "primary"}}>
+                <Stack direction="row"
+                 sx = {{ justifyContent:"space-between" ,
+                    alignItems:"center",
+                    minWidth:"80vw",
+                 }}>
                 <Button onClick={toggleDrawer(true)}
                         variant="contained"
                         sx={{ backgroundColor: "inherit",
-                            color: "inherit" ,
-                            flexShrink: 1}}>
-                        Open Menu
+                            color: "inherit",
+                            marginLeft:"0%" }}>
+                        <b>Nav Menu</b>
                 </Button>
+
+                <Button variant="contained" 
+                sx={{ backgroundColor: "inherit",
+                            color: "inherit",
+                            marginRight:"-15%" }}
+                onClick={toggleSampleMenu}>
+                    <b>Sample List</b>
+                    </Button>
+                <Popper open={showSamples}
+                anchorEl={menuPos}
+                role={undefined} disablePortal>
+                <Paper>
+                    <Menu open={showSamples}
+                anchorOrigin={{vertical: 'top',
+                               horizontal: 'right'}}
+                transformOrigin={{vertical: 'top',
+                                  horizontal: 'right'}}
+                onClose={toggleSampleMenu}>
+                    <SavedSampleList/>
+                </Menu>
+                </Paper>
+                </Popper>
+        
+                </Stack>
             </Navbar>
-                    
         </Stack>
         <Stack>
         <Drawer open={showMenu} onClose={toggleDrawer(false)}>
@@ -67,23 +126,36 @@ export function LinkDrawer () {
         
         </Stack>
         <Routes>
-        <Route path="/" element  = {<div><PlaceholderPage/></div>}/>
+        <Route path="/" element  = {<Stack sx={{maxWidth:"100%"}}>
+                                    <PlaceholderPage/>
+                                    </Stack>}/>
         <Route path="/placeholder"
-                    element={<div>
+                    element={<Stack sx={{maxWidth:"100%"}}>
                             <SampleBuilderPage/>
                             <PlaceholderPage/>
-                            </div>}/>
-        <Route path="/sample-builder/mass-ratios"
-                element={<div>
-                    <SampleBuilderPage/>
-                    <MassRatioPage/>
-                    </div>}>
-        </Route>
-        <Route path="/transmission"
-               element = {<div><TransmissionPage/></div>}/>
+                            </Stack>}/>
 
+        <Route path="sample-builder/mass-ratio"
+                element = {<Stack sx={{maxWidth:"100%"}}>
+                    <SampleBuilderPage/>
+                            <MassRatioBuilderPage/>
+                            </Stack>}/>
+        <Route path="sample-builder/edit"
+        element = {
+            <Stack sx = {{maxWidth:"100%"}}>
+            <EditSamplePage/>
+            </Stack>}/>
+
+        <Route path="sample-builder/calculate"
+                element = {
+                <Stack sx = {{maxWidth:"100%"}}>
+                <TransmissionPropertiesPage/>
+                </Stack>}/>
       </Routes>
       </Stack>
+
     </BrowserRouter>
+
+    </Stack>
     )
 }

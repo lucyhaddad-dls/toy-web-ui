@@ -1,10 +1,9 @@
-import type { NewSampleMassRatioType } from "../models/models";
+import type { SampleMassRatioType } from "../models/models";
 import { Stack, TextField } from "@mui/material";
 import { NumberInput } from "@diamondlightsource/sci-react-ui";
 
 export function MassRatioInput (props: {componentIndex: number,
-                        defaults: NewSampleMassRatioType,
-                        // could add onChange props to provider...
+                        defaults: SampleMassRatioType,
                         onChange: (index: number,
                              valuetype: "formula" | "ratio",
                               value: string | number) => void
@@ -35,7 +34,7 @@ export function MassRatioInput (props: {componentIndex: number,
             minValue={0} maxValue={1}
             numberMode="floating"
             commitOnReturn={true}
-            onCommit={(number) => UpdateInfo("ratio", number)}
+            onCommit={(number:number) => UpdateInfo("ratio", number)}
             />
         </Stack>
     )

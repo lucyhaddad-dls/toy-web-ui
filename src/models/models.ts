@@ -19,8 +19,6 @@ export const sampleKeys: SampleResponseKeys[] = [
     "energy_unit"
   ]
 
-export type AbsorptionType = "mass" | "linear" | "total"
-
 export type SampleResponseKeys = "formula" | "absorber" | "edge" | "density" |
 "area" |  "mu_total" | "thickness" | "mass"
 
@@ -42,6 +40,14 @@ export interface SampleValueResponse {
     name: SampleResponseKeys 
 }
 
+export interface SampleResponse {
+  id: number
+  name: string
+  values: SampleValueResponse[]
+}
+
+export type AbsorptionType = "mass" | "linear" | "total"
+
 export interface ElementAbsorptionResponse {
   name: string
   y: string
@@ -54,41 +60,31 @@ export interface SampleAbsorptionResponse {
   y: ElementAbsorptionResponse[]
 }
 
-export interface SampleAbsorptionErrorResponse {
-  error: string
-}
-
-export interface AbsorptionDatasetType {
+export interface SamplePhotoData {
   mass: null | SampleAbsorptionResponse
   linear: null | SampleAbsorptionResponse
   total: null | SampleAbsorptionResponse
 }
 
-export interface SampleContextType {
-  values: SampleValueResponse[]
-  setValues: React.Dispatch<React.SetStateAction<SampleValueResponse[]>>
-  availableAbs: checkedAbsorptionValues
-  absorption: AbsorptionDatasetType
-  setAbsorption: React.Dispatch<React.SetStateAction<AbsorptionDatasetType>>
-  getAbsorption: () => void
-  checkValues: () => void
-  getValue: (name: SampleResponseKeys) => string
-  setValue: (name: SampleResponseKeys, value: string) => () => void
+
+export interface MultiSampleContextType{
+  sampleList: SampleResponse[]
+  setSampleList: React.Dispatch<React.SetStateAction<SampleResponse[]>>
+  addToSampleList: (values: SampleValueResponse[], name: string) => void
+  deleteFromSampleList: (name?: string | undefined, id?: number | undefined) => void
+  focusedSample: SampleResponse
+  setFocusedSample: React.Dispatch<React.SetStateAction<SampleResponse>>
+  sampleNames: string[]
+  getSampleNames: () => void
+  getSingleValue: (name: SampleResponseKeys) => string
+  setSingleValue: (name: SampleResponseKeys, value: string) => () => void
+  getAvailableCalcs: (name:string) => string[]
+  photoData: SamplePhotoData
+  setPhotoData: React.Dispatch<React.SetStateAction<SamplePhotoData>>
 }
 
 export interface SampleMassRatioType {
-  ratio: number
-  formula: string
-  index: number
-}
-
-export interface NewSampleMassRatioType {
   formula: string
   ratio: number
 }
 
-export interface checkedAbsorptionValues {
-  mass: boolean
-  linear: boolean
-  total: boolean
-}

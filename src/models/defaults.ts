@@ -1,4 +1,4 @@
-import type { AbsorptionDatasetType, checkedAbsorptionValues, NewSampleMassRatioType, SampleValueResponse, 
+import type {  SampleMassRatioType, SamplePhotoData, SampleValueResponse, 
               UnitValue } from "./models";
 
 
@@ -18,17 +18,22 @@ export const nullSampleValues: SampleValueResponse[] = [
   {name:"mass", value:{val:null, dtype:"float"}}
 ];
 
-export const defaultAbsorptionValues: AbsorptionDatasetType = {
+
+export const defaultFormulaInfoValues: SampleMassRatioType[] = [
+  {formula: "", ratio:1}
+]
+
+export const nullAbsorptionData: SamplePhotoData = {
   mass: null,
   linear: null,
   total: null
 }
 
-export const defaultFormulaInfoValues: NewSampleMassRatioType[] = [
-  {formula: "", ratio:1}
-]
-
-export const defaultCheckedAbsorptionValues: checkedAbsorptionValues = {
-  mass: false, linear: false, total: false
+export const calcDependencies = {
+  "density": [["mass", "thickness", "area"],
+            ["mass", "radius", "thickness"]],
+  "mass": ["area", "thickness", "density"],
+  "mass_absorption": ["formula", "absorber", "edge"],
+  "linear_absorption": ["formula", "absorber", "edge", "density"],
+  "total_absorption": ["formula", "absorber", "edge", "density", "thickness"]
 }
-

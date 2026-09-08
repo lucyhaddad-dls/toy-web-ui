@@ -1,28 +1,38 @@
 import { createContext } from "react"
-import type { checkedAbsorptionValues, SampleContextType } from "../models/models"
-import { defaultAbsorptionValues, defaultCheckedAbsorptionValues, nullSampleValues} from "../models/defaults"
+import type { MultiSampleContextType } from "../models/models"
+import { nullAbsorptionData, nullSampleValues } from "../models/defaults"
 
-
-export const SampleContext = createContext<SampleContextType>({
-    values: nullSampleValues,
-    setValues: function (): void {
-        throw new Error("Function not implemented.")
-    },
-    absorption: defaultAbsorptionValues,
-    availableAbs: defaultCheckedAbsorptionValues,
-    setAbsorption: function (): void {
-        throw new Error("Function not implemented.")
-    },
-    getAbsorption: function () : void {
-        throw new Error("Funtion not implemented")
-    },
-    checkValues: function(): checkedAbsorptionValues {
-        throw new Error("Funtion not implemented")
-    },
-    getValue: function (): string {
-        throw new Error("Function not implemented.")
-    },
-    setValue: function (): () => void {
-        throw new Error("Function not implemented.")
-    }
-})
+export const MultiSampleContext = createContext<MultiSampleContextType>
+    ({
+        sampleList: [],
+        setSampleList: function (): void {
+            throw new Error("Function not implemented.")
+        },
+        addToSampleList: function (): void {
+            throw new Error("Function not implemented.")
+        },
+        deleteFromSampleList: function (): void {
+            throw new Error("Function not implemented.")
+        },
+        focusedSample: { id: 0, name: "_", values: nullSampleValues },
+        setFocusedSample: function (): void {
+            throw new Error("Function not implemented.")
+        },
+        sampleNames: [],
+        getSampleNames: function (): void {
+            throw new Error("Function not implemented.")
+        },
+        getSingleValue: function (): string {
+            throw new Error("Function not implemented.")
+        },
+        setSingleValue: function (): () => void {
+            throw new Error("Function not implemented.")
+        },
+        getAvailableCalcs: function (): string[] {
+            throw new Error("Function not implemented.")
+        },
+        photoData: nullAbsorptionData,
+        setPhotoData: function (): void {
+            throw new Error("Function not implemented.")
+        }
+    })
