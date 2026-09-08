@@ -8,6 +8,7 @@ import { SampleBuilderPage } from "../pages/FormulaMaking";
 import { MassRatioBuilderPage } from "../pages/SampleMaker";
 import { EditSamplePage } from "../pages/EditPropertiesPage";
 import { SavedSampleList } from "./SavedSampleList";
+import { TransmissionPropertiesPage } from "../pages/CalculatePropertiesPage";
 
 const LinkList = (
     <Stack sx = {{bgcolor:"primary.dark",
@@ -148,7 +149,7 @@ export function LinkDrawer () {
         <Route path="sample-builder/calculate"
                 element = {
                 <Stack sx = {{maxWidth:"100%"}}>
-                <PlaceholderPage/>
+                <TransmissionPropertiesPage/>
                 </Stack>}/>
       </Routes>
       </Stack>
