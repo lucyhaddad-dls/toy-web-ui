@@ -5,6 +5,7 @@ import { Button, ListItemIcon, Menu, MenuItem,
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { Link } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
+import { nullSampleValues } from "../models/defaults";
 
 export function SavedSampleList (){
 
@@ -183,11 +184,15 @@ export function SavedSampleList (){
     disableRestoreFocus>
     <Stack sx={{bgcolor:"grey"}}>
     <MenuItem sx={{bgcolor:"#477a51", color:"white"}}>
-    <Link to="/sample-builder/mass-ratio"><Typography sx={{color:"white"}}>
+    <Link to="/sample-builder/mass-ratio"
+    onClick={() => setFocusedSample({id:0,values:nullSampleValues, name:"_"})}
+    ><Typography sx={{color:"white"}}>
         From Mass Ratios</Typography></Link>
     </MenuItem>
     <MenuItem sx={{bgcolor:"#477a51", color:"white"}}>
-    <Link to="/sample-builder/edit"><Typography sx={{color:"white"}}>
+    <Link to="/sample-builder/edit"
+    onClick={() => setFocusedSample({id:0,values:nullSampleValues, name:"_"})}
+    ><Typography sx={{color:"white"}}>
         From Formula</Typography>
     </Link>
     </MenuItem>

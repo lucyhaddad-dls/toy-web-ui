@@ -7,6 +7,7 @@ import { MultiSampleContext } from "../context/SampleContext";
 export function PlotValuesPage() {
 
     const { focusedSample, getAvailableCalcs } = useContext(MultiSampleContext)
+
     const [availablePhoto] = useState<string[]>(getAvailableCalcs(focusedSample.name).filter(
                                                                     i => i.includes("absorption")))
 
@@ -37,7 +38,7 @@ export function PlotValuesPage() {
             <Select labelId="photo-select-label"
             id="photo-select" value={""}
             label="Photo Value">
-            {availablePhoto.map(i => <MenuItem value={i}>{i}</MenuItem>)}
+            {getAvailableCalcs(focusedSample.name).filter(i => i.includes("absorption")).map(i => <MenuItem value={i}>{i}</MenuItem>)}
 
             </Select>
             </FormControl>
