@@ -1,5 +1,5 @@
-import { Button, Grid, Menu, MenuItem, Stack, Typography } from "@mui/material";
-import { useContext, useState } from "react";
+import { Button, Grid, Menu, MenuItem, Popover, Stack, Typography } from "@mui/material";
+import React, { useContext, useState } from "react";
 import { MultiSampleContext } from "../context/SampleContext";
 import { sampleKeys, type SampleResponseKeys } from "../models/models";
 import AddIcon from '@mui/icons-material/Add';
@@ -10,9 +10,14 @@ import { Link } from "react-router-dom";
 
 export function EditSamplePage() {
 
-    const { focusedSample, addToSampleList, sampleList } = useContext(MultiSampleContext)
+    const { focusedSample, addToSampleList, sampleList, getAvailableCalcs } = useContext(MultiSampleContext)
     
     const [menuOpen, setMenuOpen] = useState<boolean>(false)
+
+    const [paramsInfo, setParamsInfo] = useState<string[]>([])
+    const [paramsPosition, setParamsPosition] = useState<HTMLElement|null>(null);
+
+    const paramsOpen = Boolean(paramsPosition)
 
     const [ menuAnchor, setMenuAnchor ] = useState<null | HTMLElement>(null);
 
@@ -28,6 +33,11 @@ export function EditSamplePage() {
         else {setMenuAnchor(null)}
 
         setMenuOpen(!menuOpen)
+    }
+
+    const onShowParams = (event:React.MouseEvent<HTMLElement>) => {
+        setParamsInfo(getAvailableCalcs(focusedSample.name))
+        setParamsPosition(event.currentTarget)
     }
 
     const onSaveSample = (name: string) => {
@@ -66,12 +76,35 @@ export function EditSamplePage() {
         
             <UnitSelectComponent/>
             <Button variant="contained" sx = {{ bgcolor:"#586fbb"}}>
-            <Link to="/sample-builder/calculate">
+            <Link to="/sample-builder/calculate"
+            aria-owns={paramsOpen ? "show-params" : undefined}
+            aria-haspopup="true"
+            onMouseEnter={(event) => onShowParams(event)}
+            onMouseLeave={() => setParamsPosition(null)}>
             <Typography sx = {{color:"white"}}>
                 <b>Calculate Available Properties?</b>
             </Typography>
             </Link>
             </Button>
+
+        <Popover id="show-params" open={paramsOpen}
+        anchorEl={paramsPosition}
+        anchorOrigin={{ vertical: 'bottom',
+                        horizontal: 'right',}}
+        transformOrigin={{ vertical: 'top',
+                            horizontal: 'right',}}
+        onClose={()=> setParamsPosition(null)}
+        sx={{ pointerEvents: 'none' }}>
+        <Typography>
+            <b>AVAILABLE</b>
+        </Typography>
+        {(paramsInfo.length < 1) && <Typography>none</Typography>}
+        {
+        paramsInfo.map(o => 
+        <Typography
+                sx={{ p:0.5 ,fontSize: '0.8rem'}} key={o}>
+                {o}</Typography>)}
+        </Popover>
             
         {(samplePropsList.filter(i => i == "formula").length > 0 
             || sampleList.length <= 0)
