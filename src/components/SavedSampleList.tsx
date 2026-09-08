@@ -103,7 +103,8 @@ export function SavedSampleList (){
     </Button>
 
     <Button size="small" variant="contained">
-    <Link to = "/sample-builder/calculate">
+    <Link to = "/sample-builder/calculate"
+    onClick={()=>handleLinkClicked(i.name)}>
         <Typography sx={{color:"#f3f3f3"}}
         aria-owns={paramsOpen ? 'show-params' : undefined}
             aria-haspopup="true"
