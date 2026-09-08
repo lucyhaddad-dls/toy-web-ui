@@ -15,7 +15,9 @@ export function PlotValuesPage() {
 
     const [currentPlotValue, setCurrentPlotValue] = useState<AbsorptionType|"">("")
 
-    const [currentElement] = useState<string>("total")
+    const [currentElement, setCurrentElement] = useState<string>("total")
+
+    const [elementList, setElementList] = useState<string[]>(["total"])
 
     const currentData = () => {
         if (currentPlotValue != ""){
@@ -53,16 +55,18 @@ export function PlotValuesPage() {
                                             .y.split(",").map(y => parseFloat(y));
             setXdata(ndarray(tmpX)); setYdata(ndarray(tmpY))
             setXlabel(plotData.xlabel); setYlabel(plotData.ylabel)
-        }}
+            setElementList(plotData.y.map(i=>i.name))
+        }
+    }
+    
     }
 
-
     return (
-        <Stack spacing={2} sx={{alignItems:"center"}}>
-            This is a page to plot some stuff.
-        <Grid container spacing={2} sx={{width:"100vw"}}>
-        <Grid size={{xs:1, md:2}} sx = {{margin:1}}>
-            <FormControl fullWidth>
+        <Stack spacing={2}>
+
+ 
+        <Stack direction="row" spacing={2} >
+            <FormControl size="medium" sx={{minWidth:"10%"}}>
             <InputLabel id="photo-select-label">
             Photo Value</InputLabel>
             <Select labelId="photo-select-label"
@@ -75,10 +79,24 @@ export function PlotValuesPage() {
                 >{i}</MenuItem>)}
             </Select>
             </FormControl>
+    
+            <FormControl size="medium" sx={{minWidth:"10%"}}>
+                <InputLabel id="element-select-label">
+                Element</InputLabel>
+                <Select labelId="element-select-label"
+                id="element-select"
+                value={"total"}>
+                {elementList.map(i => <MenuItem value={i}
+                selected={currentElement===i}
+                onClick = {() => setCurrentElement(i)}
+                >{i}</MenuItem>)}
+                </Select>
 
-        </Grid>
+            </FormControl>
+            </Stack>
+
         <DataPlot xdata={xdata} ydata={ydata} xlabel={xlabel} ylabel={ylabel}/>
-        </Grid>
+   
         </Stack>
 
     )

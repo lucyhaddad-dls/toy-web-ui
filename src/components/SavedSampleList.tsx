@@ -185,17 +185,17 @@ export function SavedSampleList (){
     transformOrigin={{ vertical: 'top',
                             horizontal: 'left',}}
     disableRestoreFocus>
-    <Stack sx={{bgcolor:"grey"}}>
-    <MenuItem sx={{bgcolor:"#078a21", color:"white"}}>
+    <Stack>
+    <MenuItem >
     <Link to="/sample-builder/mass-ratio"
     onClick={() => setFocusedSample({id:0,values:nullSampleValues, name:"_"})}
-    ><Typography sx={{color:"white"}}>
+    ><Typography >
         From Mass Ratios</Typography></Link>
     </MenuItem>
-    <MenuItem sx={{bgcolor:"#078a21", color:"white"}}>
+    <MenuItem >
     <Link to="/sample-builder/edit"
     onClick={() => setFocusedSample({id:0,values:nullSampleValues, name:"_"})}
-    ><Typography sx={{color:"white"}}>
+    ><Typography>
         From Formula</Typography>
     </Link>
     </MenuItem>
