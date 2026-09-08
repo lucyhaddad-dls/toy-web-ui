@@ -10,23 +10,27 @@ export function DataPlot(props: {xdata:ndarray.NdArray<number[]>|null,
     const xdomain:Domain|undefined = props.xdata ? getDomain(props.xdata): [0, 1];
 
                             
-    return ( <VisCanvas
+    return (
+      <div>
+       <VisCanvas 
         abscissaConfig={{
           visDomain: xdomain ? xdomain: [0, 1], 
-        label: props.xlabel}}
+        label: props.xlabel }}
 
         ordinateConfig={{
           visDomain: ydomain ? ydomain: [0, 1],
         label: props.ylabel }}
+      
         >
           {props.ydata && props.xdata && (
             <DataCurve
             abscissas={props.xdata.data}
             color="red"
             ordinates={props.ydata?.data}
-            visible={true}
+            visible
             />
           )}
         </VisCanvas>
+      </div>
         )
 }

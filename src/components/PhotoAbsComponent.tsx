@@ -1,7 +1,7 @@
 // do i want get to be handled here or by the provider..?
 // i think the provider 
 
-import { FormControl, Grid, InputLabel, MenuItem, Select, Stack } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, Stack } from "@mui/material";
 import { useContext, useState } from "react";
 import { MultiSampleContext } from "../context/SampleContext";
 import { getAbsorptionData } from "../models/queryFunctions";
@@ -63,7 +63,6 @@ export function PlotValuesPage() {
 
     return (
         <Stack spacing={2}>
-
  
         <Stack direction="row" spacing={2} >
             <FormControl size="medium" sx={{minWidth:"10%"}}>
@@ -73,7 +72,8 @@ export function PlotValuesPage() {
             id="photo-select" value={currentPlotValue}
             label="Photo Value">
             {getAvailableCalcs(focusedSample.name).filter(i => 
-                i.includes("absorption")).map(i => <MenuItem value={iSplit(i)}
+                i.includes("absorption")).map(i => <MenuItem
+                     value={iSplit(i)}
                     selected={currentPlotValue === iSplit(i)}
                     onClick={() => onPlotValueChange(iSplit(i))}
                 >{i}</MenuItem>)}
@@ -85,18 +85,18 @@ export function PlotValuesPage() {
                 Element</InputLabel>
                 <Select labelId="element-select-label"
                 id="element-select"
-                value={"total"}>
+                value={currentElement}>
                 {elementList.map(i => <MenuItem value={i}
                 selected={currentElement===i}
-                onClick = {() => setCurrentElement(i)}
+                onClick = {() => {setCurrentElement(i); handlePlotData()}}
                 >{i}</MenuItem>)}
                 </Select>
 
             </FormControl>
             </Stack>
-
+        <Stack >
         <DataPlot xdata={xdata} ydata={ydata} xlabel={xlabel} ylabel={ylabel}/>
-   
+        </Stack>
         </Stack>
 
     )
