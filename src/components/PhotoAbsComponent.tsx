@@ -1,4 +1,5 @@
 // do i want get to be handled here or by the provider..?
+// i think the provider 
 
 import { FormControl, Grid, InputLabel, MenuItem, Select, Stack } from "@mui/material";
 import { useContext, useState } from "react";
@@ -11,7 +12,6 @@ export function PlotValuesPage() {
     const [availablePhoto] = useState<string[]>(getAvailableCalcs(focusedSample.name).filter(
                                                                     i => i.includes("absorption")))
 
-    // trying handling photo data here first (instead of provider)
     const getPhotoData = () => {
 
         if (availablePhoto.includes("mass_absorption")){

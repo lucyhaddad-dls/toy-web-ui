@@ -1,4 +1,4 @@
-import type {  SampleMassRatioType, SampleValueResponse, 
+import type {  SampleMassRatioType, SamplePhotoData, SampleValueResponse, 
               UnitValue } from "./models";
 
 
@@ -22,6 +22,12 @@ export const nullSampleValues: SampleValueResponse[] = [
 export const defaultFormulaInfoValues: SampleMassRatioType[] = [
   {formula: "", ratio:1}
 ]
+
+export const nullAbsorptionData: SamplePhotoData = {
+  mass: null,
+  linear: null,
+  total: null
+}
 
 export const calcDependencies = {
   "density": [["mass", "thickness", "area"],

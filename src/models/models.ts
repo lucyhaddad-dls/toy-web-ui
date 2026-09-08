@@ -19,8 +19,6 @@ export const sampleKeys: SampleResponseKeys[] = [
     "energy_unit"
   ]
 
-export type AbsorptionType = "mass" | "linear" | "total"
-
 export type SampleResponseKeys = "formula" | "absorber" | "edge" | "density" |
 "area" |  "mu_total" | "thickness" | "mass"
 
@@ -48,6 +46,8 @@ export interface SampleResponse {
   values: SampleValueResponse[]
 }
 
+export type AbsorptionType = "mass" | "linear" | "total"
+
 export interface ElementAbsorptionResponse {
   name: string
   y: string
@@ -58,6 +58,12 @@ export interface SampleAbsorptionResponse {
   xlabel: string
   ylabel: string
   y: ElementAbsorptionResponse[]
+}
+
+export interface SamplePhotoData {
+  mass: null | SampleAbsorptionResponse
+  linear: null | SampleAbsorptionResponse
+  total: null | SampleAbsorptionResponse
 }
 
 
@@ -73,9 +79,12 @@ export interface MultiSampleContextType{
   getSingleValue: (name: SampleResponseKeys) => string
   setSingleValue: (name: SampleResponseKeys, value: string) => () => void
   getAvailableCalcs: (name:string) => string[]
+  photoData: SamplePhotoData
+  setPhotoData: React.Dispatch<React.SetStateAction<SamplePhotoData>>
 }
 
 export interface SampleMassRatioType {
   formula: string
   ratio: number
 }
+

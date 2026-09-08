@@ -1,6 +1,6 @@
 import { createContext } from "react"
 import type { MultiSampleContextType } from "../models/models"
-import { nullSampleValues } from "../models/defaults"
+import { nullAbsorptionData, nullSampleValues } from "../models/defaults"
 
 export const MultiSampleContext = createContext<MultiSampleContextType>
     ({
@@ -29,6 +29,10 @@ export const MultiSampleContext = createContext<MultiSampleContextType>
             throw new Error("Function not implemented.")
         },
         getAvailableCalcs: function (): string[] {
+            throw new Error("Function not implemented.")
+        },
+        photoData: nullAbsorptionData,
+        setPhotoData: function (): void {
             throw new Error("Function not implemented.")
         }
     })
