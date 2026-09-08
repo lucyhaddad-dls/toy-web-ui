@@ -186,13 +186,13 @@ export function SavedSampleList (){
                             horizontal: 'left',}}
     disableRestoreFocus>
     <Stack sx={{bgcolor:"grey"}}>
-    <MenuItem sx={{bgcolor:"#477a51", color:"white"}}>
+    <MenuItem sx={{bgcolor:"#078a21", color:"white"}}>
     <Link to="/sample-builder/mass-ratio"
     onClick={() => setFocusedSample({id:0,values:nullSampleValues, name:"_"})}
     ><Typography sx={{color:"white"}}>
         From Mass Ratios</Typography></Link>
     </MenuItem>
-    <MenuItem sx={{bgcolor:"#477a51", color:"white"}}>
+    <MenuItem sx={{bgcolor:"#078a21", color:"white"}}>
     <Link to="/sample-builder/edit"
     onClick={() => setFocusedSample({id:0,values:nullSampleValues, name:"_"})}
     ><Typography sx={{color:"white"}}>

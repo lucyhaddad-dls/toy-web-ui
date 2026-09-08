@@ -15,8 +15,9 @@ import { getNewFormula } from "../models/queryFunctions";
 import Grow from '@mui/material/Grow'
 import { SetNameBox } from "../components/SampleNameInput";
 import { MassRatioInput } from "../components/MassRatioInput";
+import { Link } from "react-router-dom";
 
-function FormulaBuilderPage() {
+export function MassRatioBuilderPage() {
   const [inputCount, setInputCount] = useState<number>(1);
 
   const [values, setValues] = useState<SampleValueResponse[]>(nullSampleValues);
@@ -88,13 +89,13 @@ function FormulaBuilderPage() {
   return (
     <Stack sx = {{ minWidth:"100vw"}}>
       <Stack spacing={2} sx={{ p: 2,
-         justifyContent:"space-evenly",
-         maxWidth:"40%" }} direction="row">
+         justifyContent:"space-between"}} direction="row">
         <Typography
         sx = {{color:"#1e4c61"}}>
         <b> Formula: {values.filter((v) => v.name == "formula")[0].value.val}</b>
         </Typography>
-        </Stack>
+
+               <Stack>
         <Stack direction="row" spacing={1}
         sx={{ justifyContent:"flex-end", margin:"1vw"}} >
           
@@ -104,8 +105,21 @@ function FormulaBuilderPage() {
         <Button variant="contained"
         onClick={onClear} sx={{bgcolor:"#616263"}}>
             Clear Sample Data</Button>
+
+     
         </Stack>
-      
+            <Button variant="contained"  sx = {{ bgcolor:"#586fbb"}}>
+          <Link to="/sample-builder/edit">
+          <Typography sx={{color:"white"}}><b>To Sample Editor</b></Typography>
+          </Link>
+  
+        </Button>
+        </Stack>
+
+        </Stack>
+
+ 
+    
       <Grid container rowSpacing={1}
        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
       sx = {{ p:2 }}>
@@ -167,13 +181,3 @@ function FormulaBuilderPage() {
   );
 }
 
-
-export function MassRatioBuilderPage() {
-  return (
-    <Grid container sx = {{display: "flex",  justifyContent: 'space-between' }}>
-      <Grid sx = {{maxWidth: "60%"}}>
-      <FormulaBuilderPage/>
-      </Grid>
-    </Grid>
-  );
-}
