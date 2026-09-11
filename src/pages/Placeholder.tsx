@@ -9,6 +9,5 @@ export function PlaceholderPage () {
     alignItems: "center",}}>
     <Typography>A placeholder</Typography>
     </Stack>
-    
     )
 }
