@@ -1,25 +1,24 @@
 
 import { Stack } from '@mui/material'
 import { DiamondDSTheme, ThemeProvider } from '@diamondlightsource/sci-react-ui'
-import { LinkDrawer } from './components/RouterComponent'
-import { MultiSampleProvider } from './context/MultiSampleProvider'
+import { SampleDataProvider } from './context/SampleDataProvider'
 
+import { LinkBar } from './new/pages/Router'
 
 function App() {
 
   return (
-  <MultiSampleProvider>
-
+  <SampleDataProvider>
   <ThemeProvider theme={DiamondDSTheme}>
-  <Stack sx={{height:"100vh", width:"100vw", justifyContent:"flex-top",
-  alignContent:"space-around"
-  }} >
-     <LinkDrawer/>
-  </Stack>
+  <Stack sx={{height:"100vh", 
+      width:"100vw", justifyContent:"flex-top",
+      alignContent:"space-around"}}>
+    <LinkBar/>
+    </Stack>
   </ThemeProvider>
-
-</MultiSampleProvider>
+</SampleDataProvider>
 
   )
 }
+
 export default App

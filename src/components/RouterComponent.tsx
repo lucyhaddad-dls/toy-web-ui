@@ -119,7 +119,7 @@ export function LinkDrawer () {
                 </Stack>
             </Navbar>
         </Stack>
-        <Stack>
+    
         <Drawer open={showMenu} onClose={toggleDrawer(false)}>
                 {LinkList}
         </Drawer>
@@ -152,7 +152,7 @@ export function LinkDrawer () {
                 <TransmissionPropertiesPage/>
                 </Stack>}/>
       </Routes>
-      </Stack>
+
 
     </BrowserRouter>
 

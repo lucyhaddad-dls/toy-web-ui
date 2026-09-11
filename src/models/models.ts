@@ -41,7 +41,6 @@ export interface SampleValueResponse {
 }
 
 export interface SampleResponse {
-  id: number
   name: string
   values: SampleValueResponse[]
 }
@@ -81,6 +80,16 @@ export interface MultiSampleContextType{
   getAvailableCalcs: (name:string) => string[]
   photoData: SamplePhotoData
   setPhotoData: React.Dispatch<React.SetStateAction<SamplePhotoData>>
+}
+
+export interface SampleDataContextType{
+  sampleList: SampleResponse[]
+  setSampleList: React.Dispatch<React.SetStateAction<SampleResponse[]>>
+  currentName: string | null
+  setCurrentName: React.Dispatch<React.SetStateAction<string | null>>
+  setSingleValue: (name: SampleResponseKeys, value: string) => () => void
+  addToSampleList: (values: SampleValueResponse[], name: string) => void
+  deleteFromSampleList: (name: string) => void
 }
 
 export interface SampleMassRatioType {
