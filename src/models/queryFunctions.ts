@@ -50,3 +50,14 @@ export const getNewFormula = async(formula_list:string[],
     
     return data
 }
+
+export const debounce = <T extends unknown[]>(fn: (...args: T)=>void, 
+                                      delay: number) => {
+    
+    let timeoutID: ReturnType<typeof setTimeout>;
+
+    return (...args: T) => {
+      clearTimeout(timeoutID);
+      timeoutID = setTimeout(() => fn(...args), delay)
+    };
+}

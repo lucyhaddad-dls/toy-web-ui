@@ -1,27 +1,29 @@
-import { useContext, useState } from "react"
+import { useCallback, useContext, type ChangeEvent } from "react"
 import { MultiSampleContext } from "../context/SampleContext"
 import type { SampleResponseKeys } from "../models/models"
-import { Grid, TextField } from "@mui/material"
+import { TextField, Grid } from "@mui/material"
+import { debounce } from "../models/queryFunctions"
 
 export function TextInput (props: {name:SampleResponseKeys}){
 
     const { setSingleValue, getSingleValue } = useContext(MultiSampleContext)
-    const [currentValue] = useState<string>(getSingleValue(props.name))
+
+    const handleInput = useCallback(
+            debounce((val:ChangeEvent<HTMLTextAreaElement | HTMLInputElement, Element>) => {
+                if (val.target.value != "" && val.target.value != undefined){
+               setSingleValue(props.name, val.target.value)
+                }
+            }, 500,), []
+        )
+ 
 
     return (
         <Grid key={props.name}>
             <TextField
-            defaultValue={currentValue}
+            defaultValue={getSingleValue(props.name)}
             label={props.name}
             variant="outlined"
-            onKeyDown={(event) => { if (event.key == "Enter"){
-                const val = event.target as HTMLTextAreaElement
-                // set filters here...
-                if (val.value != "" || val.value != undefined){
-                setSingleValue(props.name, val.value)
-                }
-                event.preventDefault();
-                }}}
+            onChange={handleInput}
             />
         </Grid>
     )
