@@ -4,7 +4,7 @@ import { Button, Grid, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { nullSampleValues } from "../../models/defaults";
 import { SamplePropertyInput } from "../components/SamplePropertyInput";
 import AddIcon from '@mui/icons-material/Add';
-import { sampleKeys } from "../../models/models";
+import { sampleKeys, type SampleResponse, type SampleResponseKeys } from "../../models/models";
 
 export function EditPropertiesPage () {
     const { sampleList, currentName } = useContext(SampleDataContext)
@@ -12,11 +12,14 @@ export function EditPropertiesPage () {
     const [addMenuOpen, setAddMenuOpen] = useState<boolean>(false)
     const [ menuAnchor, setMenuAnchor ] = useState<null | HTMLElement>(null);
 
+
     let currentSample = sampleList.find(i => i.name == currentName)
     if (currentSample == undefined){
         currentSample = {name:currentName as string,
              values:nullSampleValues}
     }
+
+    const [paramsList, setParamsList] = useState<SampleResponse>(currentSample)
 
     const toggleAddMenu = (event:null|React.MouseEvent<HTMLButtonElement>=null) => {
         if (event!=null){
@@ -25,20 +28,30 @@ export function EditPropertiesPage () {
         else {setMenuAnchor(null)}
     
         setAddMenuOpen(!addMenuOpen)
-    } 
+    }
 
+    const onAddParam = (name:SampleResponseKeys) => {
+        const newValues = [...initialValues,
+            nullSampleValues.filter(i => i.name == name)[0]
+        ]
+        setParamsList({name:paramsList.name, values: newValues})
+        if (!initialValues.map(i => i.name).includes(name)){
+            setInitialValues([...initialValues, nullSampleValues.filter(i => i.name == name)[0]])
+        }
+    }
 
-    let initialValues = currentSample.values.filter(i => i.value.val!=null)
+    const [initialValues, setInitialValues] = useState(paramsList.values.filter(i => i.value.val!=null))
+
 
     if (!initialValues.map(i =>i.name).includes("formula")){
-        initialValues = [{name:"formula", value:{val:"", dtype:"str"}}, ...initialValues]
+        setInitialValues([{name:"formula", value:{val:"", dtype:"str"}}, ...initialValues])
     }
     if (!initialValues.map(i =>i.name).includes("absorber")){
-        initialValues = [...initialValues, {name:"absorber", value:{val:"", dtype:"str"}},]
+        setInitialValues([...initialValues, {name:"absorber", value:{val:"", dtype:"str"}},])
     }
     
     if (!initialValues.map(i =>i.name).includes("edge")){
-        initialValues = [...initialValues, {name:"edge", value:{val:"", dtype:"str"}},]
+        setInitialValues([...initialValues, {name:"edge", value:{val:"", dtype:"str"}},])
     }
     
 
@@ -65,13 +78,13 @@ export function EditPropertiesPage () {
             if (!initialValues.map(i => i.name).includes(k)){
        
             return (<MenuItem sx = {{minWidth:"12vw"}}
-            key = {k}>
+            key = {k} onClick={() => onAddParam(k)}>
                 {k}</MenuItem>)
             }
         })}
         </Menu>
         </Stack>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} key={"edit-props-grid"}>
                 
             {initialValues.map(i =>
                  {return (<SamplePropertyInput name={i.name}
