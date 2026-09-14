@@ -17,12 +17,18 @@ export function EditPropertiesPage () {
 
 
     let initialValues = currentSample.values.filter(i => i.value.val!=null)
-    // set to formula, asorber and edge here as defaults!!!!
-    if (initialValues.length == 0){
-        initialValues = [{name:"formula", value:{val:"", dtype:"str"}},
-            {name:"absorber", value:{val:"", dtype:"str"}},
-            {name:"edge", value:{val:"", dtype:"str"}},]
+
+    if (!initialValues.map(i =>i.name).includes("formula")){
+        initialValues = [{name:"formula", value:{val:"", dtype:"str"}}, ...initialValues]
     }
+    if (!initialValues.map(i =>i.name).includes("absorber")){
+        initialValues = [...initialValues, {name:"absorber", value:{val:"", dtype:"str"}},]
+    }
+    
+    if (!initialValues.map(i =>i.name).includes("edge")){
+        initialValues = [...initialValues, {name:"edge", value:{val:"", dtype:"str"}},]
+    }
+    
 
     return (
         <Stack spacing={2} sx={{m:1,}}>
