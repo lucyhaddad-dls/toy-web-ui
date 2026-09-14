@@ -1,15 +1,27 @@
 import { Navbar } from "@diamondlightsource/sci-react-ui";
-import { Button, Drawer, Stack } from "@mui/material";
+import { Button, Drawer, Menu, Paper, Popper, Stack } from "@mui/material";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { PlaceholderPage } from "./Placeholder";
 import { LinksList } from "../components/LinkBarComponent";
 import { SampleCreatePage } from "./SampleCreatePage";
+import { SavedSampleList } from "../components/SavedSampleList";
 
 export function LinkBar () {
     const [ showMenu, setShowMenu ] = useState<boolean>(false);
      
     const toggleDrawer = (newVal: boolean) => () => {setShowMenu(newVal); };
+
+    const [ showSamples, setShowSamples ] = useState<boolean>(false);
+    const [menuPos, setMenuPos] = useState<null|HTMLElement>(null);
+
+    const toggleSampleMenu = (ev: React.MouseEvent<HTMLButtonElement>) => {
+        setShowSamples(!showSamples)
+        if (showSamples == false){
+            setMenuPos(null);
+        }
+        else {setMenuPos(ev.currentTarget)}
+    }
 
     return (
 
@@ -31,13 +43,30 @@ export function LinkBar () {
                   marginLeft:"0%" }}>
                  <b>Navigation Menu</b>
              </Button>
+            
+                <Button variant="contained" 
+                sx={{ backgroundColor: "inherit",
+                            color: "inherit",
+                            marginRight:"-15%" }}
+                onClick={toggleSampleMenu}>
+                    <b>Sample List</b>
+                    </Button>
+                <Popper open={showSamples}
+                anchorEl={menuPos}
+                role={undefined} disablePortal>
+                <Paper>
+                    <Menu open={showSamples}
+                anchorOrigin={{vertical: 'top',
+                               horizontal: 'right'}}
+                transformOrigin={{vertical: 'top',
+                                  horizontal: 'right'}}
+                onClose={toggleSampleMenu}>
+
+                    <SavedSampleList/>
+                </Menu>
+                </Paper>
+                </Popper>
      
-             <Button variant="contained"
-             sx={{ backgroundColor: "inherit",
-                 color: "inherit",
-                 marginRight:"-15%" }}>
-                     <b>Sample List (EMPTY)</b>
-                 </Button>
              </Stack>
              </Navbar>
              </Stack>
