@@ -13,7 +13,6 @@ export function SampleRow(props: { input: SampleResponse }) {
     const rowId = useId()
 
     const nonNullValues = props.input.values.filter(i => i.value.val!= null)
-    console.log(props.input.name, nonNullValues)
 
     return (
         <Stack>

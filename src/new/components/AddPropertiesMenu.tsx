@@ -3,11 +3,12 @@
 import React, { useContext, useState } from "react"
 import { SampleDataContext } from "../../context/SampleContext"
 import { Button, Menu, MenuItem, Stack } from "@mui/material"
+import { Link } from "react-router-dom"
 
 export function AddPropsMenu(props:{sampleName:string}) {
 
     const [open, setOpen] = useState<boolean>(false)
-    const { sampleList, } = useContext(SampleDataContext)
+    const { sampleList, setCurrentName} = useContext(SampleDataContext)
     const [top, setTop] = useState<number>(0)
     const [left, setLeft] = useState<number>(0)
 
@@ -29,11 +30,13 @@ export function AddPropsMenu(props:{sampleName:string}) {
             anchorReference="anchorPosition"
             anchorPosition={{ top: top, left: left }}>
             <Stack>
-                <MenuItem>
-                Add Properties 
-                </MenuItem>
-                {(currentVals?.value.val == null) && 
-                <MenuItem>Formula from Mass Ratio</MenuItem>}
+            <MenuItem
+            onClick = {() => {setCurrentName(props.sampleName)}}>
+            <Link to="/samples/edit">Add Properties</Link>
+            </MenuItem>
+
+            {(currentVals?.value.val == null) && 
+            <MenuItem>Formula from Mass Ratio</MenuItem>}
             </Stack>
             </Menu>
         </Stack>

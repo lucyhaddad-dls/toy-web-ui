@@ -5,10 +5,11 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 
 import { SampleDataContext } from "../../context/SampleContext";
 import { NameSamplePopUp } from "./NameSamplePopup";
+import { Link } from "react-router-dom";
 
 export function SavedSampleList (){
 
-    const { sampleList, currentName, setCurrentName, 
+    const { sampleList, setCurrentName, 
     deleteFromSampleList} = useContext(SampleDataContext)
 
     const [hoverInfo, setHoverInfo] = useState<string[]>([]);
@@ -70,18 +71,18 @@ export function SavedSampleList (){
         <Stack direction="row" spacing={2} 
         sx={{justifyContent: "space-around", alignItems: "center", }}>
         <Typography sx = {{ fontSize:".9rem" }}>{i.name}</Typography>
-
     
-    <Button size="small" variant="contained">
-      
+    <Button size="small" variant="contained" onClick={() => setCurrentName(i.name)}>
         <Typography sx={{color:"#f3f3f3"}}
         aria-owns={infoOpen ? 'show-info' : undefined}
             aria-haspopup="true"
             onMouseEnter=
             {(event: React.MouseEvent<HTMLElement>) => 
                 handlePopovers(event, i.name, "info")}
-            onMouseLeave = {() => handleInfoClose("info")}
-        >Edit Properties</Typography>
+            onMouseLeave = {() => handleInfoClose("info")}>
+            <Link to="/samples/edit">
+            Edit Properties
+            </Link></Typography>
     
     </Button>
         <ListItemIcon
