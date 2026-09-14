@@ -1,7 +1,7 @@
 import type React from "react";
 import { useState } from "react";
-import type { SampleResponse, SampleResponseKeys, SampleValueResponse } from "../models/models";
-import { exampleSampleValues, nullSampleValues } from "../models/defaults";
+import type { SamplePhotoData, SampleResponse, SampleResponseKeys, SampleValueResponse } from "../models/models";
+import { calcDependencies, exampleSampleValues, nullAbsorptionData, nullSampleValues } from "../models/defaults";
 import { SampleDataContext } from "./SampleContext";
 
 export function SampleDataProvider( props: {children:React.ReactNode}){
@@ -55,6 +55,45 @@ export function SampleDataProvider( props: {children:React.ReactNode}){
         setSampleList(newSamples)
     }
 
+    // make a member of the sampleList the focusedSample when absorption
+    // data requested:
+    const [focusedSample, setFocusedSample] = useState<SampleResponse>()
+
+    const [photoData, setPhotoData] = useState<SamplePhotoData>(nullAbsorptionData)
+    
+
+    const getAvailableData = (sampleId:string) => {
+        const currentData = getSample(sampleId)
+        const nonNull = currentData.values.filter(v =>
+            v.value.val != null && v.value.val != undefined &&
+            v.value.val != ""
+        ).map(v => v.name)
+        const matches:string[] = []
+
+        Object.keys(calcDependencies).map(key => {
+            const tmpVals = calcDependencies[key as keyof typeof calcDependencies]
+            let nested = false
+            if (tmpVals.length != tmpVals.flat().length){nested = true}
+               if (nested){
+                tmpVals.map(arr => {
+                    const arr1 = arr as string[]
+                    const myFilter = arr1.every(i => nonNull.includes(
+                        i as SampleResponseKeys))
+                    if (myFilter){
+                        matches.push(key)
+                    }
+                })}
+               else {
+                if (tmpVals.every(i => nonNull.includes(
+                    i as SampleResponseKeys))===true){
+                    matches.push(key)
+                }
+            } })
+        
+            return matches
+
+    }
+
 
     return (<SampleDataContext.Provider
     value = {{ 
@@ -63,7 +102,12 @@ export function SampleDataProvider( props: {children:React.ReactNode}){
             getSample: getSample,
             setSingleValue: setSingleValue,
             addToSampleList: addToSampleList,
-            deleteFromSampleList: deleteFromSampleList
+            deleteFromSampleList: deleteFromSampleList,
+            focusedSample: focusedSample,
+            setFocusedSample: setFocusedSample,
+            getAvailableData: getAvailableData,
+            photoData: photoData,
+            setPhotoData: setPhotoData
      }}>
         {children}
     </SampleDataContext.Provider>)

@@ -5,6 +5,7 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 
 import { SampleDataContext } from "../../context/SampleContext";
 import { NameSamplePopUp } from "./NameSamplePopup";
+import { AddPropsMenu } from "./AddPropertiesMenu";
 
 export function SavedSampleList (){
 
@@ -70,7 +71,8 @@ export function SavedSampleList (){
                 handlePopovers(event, i.name)}
             onMouseLeave = {() => handleInfoClose()}>
         {i.name}</Typography>
-   
+                
+        <AddPropsMenu sampleName={i.name}/>
    
         <ListItemIcon
         onClick={() => handleDeleteSample(i.name)}>

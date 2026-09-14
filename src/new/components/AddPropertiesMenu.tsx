@@ -5,7 +5,6 @@ import { SampleDataContext } from "../../context/SampleContext"
 import { Box, Button, Menu, MenuItem, Popover, Stack } from "@mui/material"
 import { PhysicalPropertiesMenu } from "./PhysicalPropertiesMenu"
 
-
 export function AddPropsMenu(props:{sampleName:string}) {
 
     const [open, setOpen] = useState<boolean>(false)
@@ -33,11 +32,11 @@ export function AddPropsMenu(props:{sampleName:string}) {
         else {setPopXY(null)}
     }
     
-    
     return (
 
         <Stack>
-            <Button onClick={onMenuClick}>Add Props.</Button>
+            <Button onClick={onMenuClick} variant="outlined">
+                Edit Properties</Button>
             <Menu open={open} onClick={onMenuClick}
             anchorReference="anchorPosition"
             anchorPosition={{ top: top, left: left }}>

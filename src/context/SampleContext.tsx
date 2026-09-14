@@ -53,5 +53,16 @@ export const SampleDataContext = createContext<SampleDataContextType>({
     },
     getSample: function (): SampleResponse {
         throw new Error("Function not implemented.")
-    }
+    },
+    focusedSample: undefined,
+    setFocusedSample: function (): void {
+        throw new Error("Function not implemented.")
+    },
+    getAvailableData: function (): string[] {
+            throw new Error("Function not implemented.")
+        },
+    photoData: nullAbsorptionData,
+    setPhotoData: function (): void {
+        throw new Error("Function not implemented.")
+    },
 })

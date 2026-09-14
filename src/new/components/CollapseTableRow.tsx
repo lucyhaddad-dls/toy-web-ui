@@ -1,11 +1,13 @@
 // collapsable table items for displaying sample properties:
 
-import { useId, useState } from "react";
+import { useContext, useId, useState } from "react";
 import type { SampleResponse } from "../../models/models";
-import { Collapse, IconButton, List, ListItemText, Stack, Typography } from "@mui/material";
+import { Button, Collapse, IconButton, List, ListItemText, Stack, Typography } from "@mui/material";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { AddPropsMenu } from "./AddPropertiesMenu";
+import { SampleDataContext } from "../../context/SampleContext";
+import { postFocusedSample } from "../../models/queryFunctions";
 
 export function SampleRow(props: { input: SampleResponse }) {
 
@@ -14,9 +16,17 @@ export function SampleRow(props: { input: SampleResponse }) {
 
     const nonNullValues = props.input.values.filter(i => i.value.val!= null)
 
+    const { setFocusedSample } = useContext(SampleDataContext)
+
+    const onGetAbsorption = () => {
+        postFocusedSample(props.input)
+        setFocusedSample(props.input)
+        
+    }
+
     return (
         <Stack>
-        <Stack direction="row">
+        <Stack direction="row" spacing={1}>
         <Typography>{props.input.name}</Typography>
         <IconButton 
             aria-label={open? "collapse": "expand"}
@@ -27,6 +37,10 @@ export function SampleRow(props: { input: SampleResponse }) {
                 {open? <ArrowDropUpIcon/> : <ArrowDropDownIcon/>}
             </IconButton>
             <AddPropsMenu sampleName={props.input.name}/>
+
+            <Button variant="outlined"
+            onClick = {() => {onGetAbsorption()}}
+            >Get Absorption Data</Button>
             </Stack>
         {
         (nonNullValues.length > 0) && 
