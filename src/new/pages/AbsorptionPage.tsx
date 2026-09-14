@@ -65,11 +65,14 @@ export function PlotValuesPage() {
         setCurrentPlotValue(name as AbsorptionType)
 
         if (currentPlotValue != ""){
-            getAbsorptionData(currentPlotValue as AbsorptionType).then(data => 
-                setPhotoData({...photoData, [currentPlotValue]:data}))
-        }
+            getAbsorptionData(currentPlotValue as AbsorptionType).then(data => {
 
-        setPlotData(currentData())
+                setPhotoData({...photoData, [currentPlotValue]:data})})
+               
+        }
+        // TEST, change later...
+        // currentData did not work for some reason.
+        setPlotData(photoData.mass)
         handlePlotData()
     }
 
