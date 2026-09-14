@@ -2,7 +2,7 @@
 
 import { useContext, useId, useState } from "react";
 import type { SampleResponse } from "../../models/models";
-import { Button, Collapse, IconButton, List, ListItemText, Stack, Typography } from "@mui/material";
+import { Button, Collapse, Grid, IconButton, List, ListItemText, Stack, Typography } from "@mui/material";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { AddPropsMenu } from "./AddPropertiesMenu";
@@ -16,12 +16,14 @@ export function SampleRow(props: { input: SampleResponse }) {
 
     const nonNullValues = props.input.values.filter(i => i.value.val!= null)
 
-    const { setFocusedSample } = useContext(SampleDataContext)
+    const { setFocusedSample, getAvailableData } = useContext(SampleDataContext)
+
+    const [availableData, setAvailableData] = useState<string[]>(getAvailableData(props.input.name))
 
     const onGetAbsorption = () => {
         postFocusedSample(props.input)
         setFocusedSample(props.input)
-        
+        setAvailableData(getAvailableData(props.input.name))
     }
 
     return (
@@ -46,16 +48,31 @@ export function SampleRow(props: { input: SampleResponse }) {
         (nonNullValues.length > 0) && 
       
         <List id={rowId} aria-hidden={!open?true : undefined}>
+        <Grid container spacing={2}>
+            <Collapse in={open} timeout="auto" unmountOnExit>
             {
             nonNullValues.map(value => {
-            return (<Collapse in={open} timeout="auto" unmountOnExit>
+            return (
+                <Grid>
                     <ListItemText  id={rowId}
-                     aria-hidden={!open?true : undefined}
+                    aria-hidden={!open?true : undefined}
                     key={`${value.name}-list-s`} 
                     primary={value.name} secondary={value.value.val}/>
-                     </Collapse>
+                </Grid>
+                     )}
             )}
-            )}
+            <Grid>
+            <Typography><b>Available to calculate:</b></Typography>
+           {availableData.map(val => {
+            return (<Typography id={rowId}
+            aria-hidden={!open?true : undefined}
+            key={"absorption-list"}
+            > {val} </Typography>
+            )
+           })}
+           </Grid>
+            </Collapse>
+            </Grid>
 
         </List> }
 

@@ -24,9 +24,10 @@ export function SamplePropertyInput (props: {sampleId:string,
         debounce((val: ChangeEvent<HTMLTextAreaElement
             |HTMLInputElement, Element>) => {
 
-                if (val.target.value != "" && val.target.value != undefined){
-                    setSingleValue(props.name, val.target.value, props.sampleId)
+            if ( val.target.value != undefined){
+                setSingleValue(props.name, val.target.value, props.sampleId)
                 }
+           
             }, 500), [] )
 
     return (
