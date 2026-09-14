@@ -86,7 +86,7 @@ export interface SampleDataContextType{
   sampleList: SampleResponse[]
   setSampleList: React.Dispatch<React.SetStateAction<SampleResponse[]>>
   currentName: string | null
-  setCurrentName: React.Dispatch<React.SetStateAction<string | null>>
+  setCurrentName: (name: string) => void
   setSingleValue: (name: SampleResponseKeys, value: string) => () => void
   addToSampleList: (values: SampleValueResponse[], name: string) => void
   deleteFromSampleList: (name: string) => void

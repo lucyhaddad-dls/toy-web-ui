@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { SampleDataContext } from "../../context/SampleContext";
-import { Stack, Typography } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 import { nullSampleValues } from "../../models/defaults";
 import { SamplePropertyInput } from "../components/SamplePropertyInput";
+import AddIcon from '@mui/icons-material/Add';
 
 export function EditPropertiesPage () {
     const { sampleList, currentName } = useContext(SampleDataContext)
@@ -14,6 +15,7 @@ export function EditPropertiesPage () {
              values:nullSampleValues}
     }
 
+
     let initialValues = currentSample.values.filter(i => i.value.val!=null)
     // set to formula, asorber and edge here as defaults!!!!
     if (initialValues.length == 0){
@@ -23,14 +25,20 @@ export function EditPropertiesPage () {
     }
 
     return (
-        <Stack spacing={2}>
-            <Typography>
-                <b>Current sample: {currentName}</b>
-                </Typography>
+        <Stack spacing={2} sx={{m:1,}}>
+        <Typography align="center">
+        <b>Current sample: {currentName}</b>
+        </Typography>
+        <Stack direction="row" sx={{justifyContent:"center"}}>
+            Add Property
+            <AddIcon size="small"/>
+        </Stack>
+            <Grid container spacing={2}>
+                
             {initialValues.map(i =>
                  {return (<SamplePropertyInput name={i.name}/>)})}
 
-           
+            </Grid>
         </Stack>
     )
 }

@@ -34,9 +34,6 @@ export function SavedSampleList (){
             setHoverInfo(filt)
             setInfoPosition(event.currentTarget)
         }
-
-       
-        
          }
 
     const handleInfoClose = (eventType:"info") => {

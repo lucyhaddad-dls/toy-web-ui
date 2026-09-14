@@ -13,13 +13,30 @@ export function SampleDataProvider( props: {children:React.ReactNode}){
         {name:"example data", values:exampleSampleValues},
         {name:"empty sample", values:nullSampleValues}])
     
-    const [currentName, setCurrentName] = useState<string|null>(null)
+    const [currentName, _setCurrentName] = useState<string|null>(null)
+    
+    const setCurrentName = (name:string) => {
+        _setCurrentName(name)
 
-    const [getCurrentSample,] = useState(sampleList.filter(i => i.name == currentName)[0])
+    }
+
+    const getCurrentSample = () => {
+        // add to the context!
+        let currentSample = sampleList.find(i => i.name == currentName)
+        if (currentSample == undefined){
+            currentSample = {name: currentName!=null? currentName : "", 
+                values: nullSampleValues}
+        }
+        return currentSample
+    }
 
     const setSingleValue = (name:SampleResponseKeys, value:string ) => {
+
+        console.log(currentName)
         if (currentName != null){
-        const newValue = getCurrentSample.values.map(itm => {
+
+        const currentSample = getCurrentSample()
+        const newValue = currentSample.values.map(itm => {
             if (itm.name == name){
                 return {...itm, value: {...itm.value, val:value}};
             }
