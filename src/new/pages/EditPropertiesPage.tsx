@@ -61,6 +61,7 @@ export function EditPropertiesPage () {
         <Stack direction="row" sx={{justifyContent:"space-between"}}>
         <Typography align="center">
         <b>Current sample: {currentName}</b>
+
         </Typography>
         <Button variant="contained" 
         onClick={toggleAddMenu}>

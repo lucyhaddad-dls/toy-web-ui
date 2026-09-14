@@ -2,8 +2,9 @@
 
 import React, { useContext, useState } from "react"
 import { SampleDataContext } from "../../context/SampleContext"
-import { Button, Menu, MenuItem, Stack } from "@mui/material"
-import { Link } from "react-router-dom"
+import { Box, Button, Menu, MenuItem, Popover, Stack } from "@mui/material"
+import { PhysicalPropertiesMenu } from "./PhysicalPropertiesMenu"
+
 
 export function AddPropsMenu(props:{sampleName:string}) {
 
@@ -20,8 +21,19 @@ export function AddPropsMenu(props:{sampleName:string}) {
 
         setTop(event.clientY)
         setLeft(event.clientX)}
-    
 
+    const [popOpen, setPopOpen] = useState<boolean>(false)
+    const [popXY, setPopXY] = useState<HTMLElement|null>(null)
+
+    const onPopClick = (event:React.MouseEvent<HTMLElement>|null) => {
+        setPopOpen(!popOpen)
+        if (!open && event!=null){
+            setPopXY(event.currentTarget)
+        }
+        else {setPopXY(null)}
+    }
+    
+    
     return (
 
         <Stack>
@@ -31,14 +43,28 @@ export function AddPropsMenu(props:{sampleName:string}) {
             anchorPosition={{ top: top, left: left }}>
             <Stack>
             <MenuItem
-            onClick = {() => {setCurrentName(props.sampleName)}}>
-            <Link to="/samples/edit" onClick={() => setCurrentName(props.sampleName)}>Add Properties</Link>
+            onClick = {(event:React.MouseEvent<HTMLElement>) =>
+             {setCurrentName(props.sampleName); onPopClick(event)}}>
+                Add Physical Properties
             </MenuItem>
-
             {(currentVals?.value.val == null) && 
             <MenuItem>Formula from Mass Ratio</MenuItem>}
             </Stack>
             </Menu>
+
+
+        <Popover id="1" open={popOpen} anchorEl={popXY}
+        onClose={()=>onPopClick(null)}
+        anchorOrigin={{ vertical: 'center',
+                        horizontal: 'center',}}
+        transformOrigin={{ vertical: 'top',
+                            horizontal: 'center',}}>
+        <Box sx = {{border:3, p:1, bgcolor:"primary.light"}}>
+            <PhysicalPropertiesMenu/>
+        </Box>
+        
+        </Popover>
+
         </Stack>
 
     )

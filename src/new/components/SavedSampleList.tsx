@@ -67,21 +67,16 @@ export function SavedSampleList (){
     <MenuItem key={i.name}>
         <Stack direction="row" spacing={2} 
         sx={{justifyContent: "space-around", alignItems: "center", }}>
-        <Typography sx = {{ fontSize:".9rem" }}>{i.name}</Typography>
-    
-    <Button size="small" variant="contained" onClick={() => setCurrentName(i.name)}>
-        <Typography sx={{color:"#f3f3f3"}}
+        <Typography sx = {{ fontSize:".9rem" }}
         aria-owns={infoOpen ? 'show-info' : undefined}
             aria-haspopup="true"
             onMouseEnter=
             {(event: React.MouseEvent<HTMLElement>) => 
                 handlePopovers(event, i.name, "info")}
             onMouseLeave = {() => handleInfoClose("info")}>
-            <Link to="/samples/edit" onClick={() => setCurrentName(i.name)}>
-            Edit Properties
-            </Link></Typography>
-    
-    </Button>
+        {i.name}</Typography>
+   
+   
         <ListItemIcon
         onClick={() => handleDeleteSample(i.name)}>
             <DeleteOutlineOutlinedIcon/>

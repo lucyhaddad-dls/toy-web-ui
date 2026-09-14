@@ -6,7 +6,6 @@ import { PlaceholderPage } from "./Placeholder";
 import { LinksList } from "../components/LinkBarComponent";
 import { SampleCreatePage } from "./SampleCreatePage";
 import { SavedSampleList } from "../components/SavedSampleList";
-import { EditPropertiesPage } from "./EditPropertiesPage";
 
 export function LinkBar () {
     const [ showMenu, setShowMenu ] = useState<boolean>(false);
@@ -84,9 +83,6 @@ export function LinkBar () {
              <Route path="/samples" element = {<Stack sx={{maxWidth:"100%"}}>
                                          <SampleCreatePage/>
                                          </Stack>}/>
-            <Route path="/samples/edit" element={<Stack sx={{maxWidth:"100%"}}>
-                                                <EditPropertiesPage/>
-                                            </Stack>}/>
 
          </Routes>
          </BrowserRouter>

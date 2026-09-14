@@ -28,12 +28,6 @@ export const LinksList = (
         </Link>
     </ListItem>
 
-    <ListItem key={"edit"}>
-        <Link to="/samples/edit">
-        <ListItemText sx={{ bgcolor:"primary.dark", color:"white"}}>
-            <b>Edit Sample</b></ListItemText></Link>
-    </ListItem>
-    
     </List>
     </Stack>
 )
