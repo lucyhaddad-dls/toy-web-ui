@@ -9,7 +9,7 @@ import { PhysicalPropertiesMenu } from "./PhysicalPropertiesMenu"
 export function AddPropsMenu(props:{sampleName:string}) {
 
     const [open, setOpen] = useState<boolean>(false)
-    const { sampleList, setCurrentName} = useContext(SampleDataContext)
+    const {sampleList } = useContext(SampleDataContext)
     const [top, setTop] = useState<number>(0)
     const [left, setLeft] = useState<number>(0)
 
@@ -44,7 +44,7 @@ export function AddPropsMenu(props:{sampleName:string}) {
             <Stack>
             <MenuItem
             onClick = {(event:React.MouseEvent<HTMLElement>) =>
-             {setCurrentName(props.sampleName); onPopClick(event)}}>
+             { onPopClick(event)}}>
                 Add Physical Properties
             </MenuItem>
             {(currentVals?.value.val == null) && 
@@ -60,7 +60,7 @@ export function AddPropsMenu(props:{sampleName:string}) {
         transformOrigin={{ vertical: 'top',
                             horizontal: 'center',}}>
         <Box sx = {{border:3, p:1, bgcolor:"primary.light"}}>
-            <PhysicalPropertiesMenu/>
+            <PhysicalPropertiesMenu name={props.sampleName}/>
         </Box>
         
         </Popover>

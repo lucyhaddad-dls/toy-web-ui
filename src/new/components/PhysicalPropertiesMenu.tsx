@@ -1,25 +1,28 @@
 import React, { useContext, useState } from "react";
 import { SampleDataContext } from "../../context/SampleContext";
 import { sampleKeys, type SampleResponse, type SampleResponseKeys } from "../../models/models";
-import { Button, Menu, MenuItem, Stack, Typography } from "@mui/material";
+import { Button, Grid, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import { nullSampleValues } from "../../models/defaults";
+import { SamplePropertyInput } from "./SamplePropertyInput";
 
-export function PhysicalPropertiesMenu () {
+export function PhysicalPropertiesMenu (props:{name:string}) {
     
     const [open, setOpen] = useState<boolean>(false)
     const [anchor, setAnchor] = useState<null|HTMLElement>(null)
 
-    const {sampleList, currentName} = useContext(SampleDataContext)
+    const { getSample } = useContext(SampleDataContext)
 
-    const [currentSample,] = useState<SampleResponse>(currentName!=null ? sampleList.
-        filter(i => i.name = currentName)[0] : {name:"", values:nullSampleValues})
+    const [currentSample,] = useState<SampleResponse>(getSample(props.name))
 
-    const toggleMenu = (event:null|React.MouseEvent<HTMLButtonElement>)  => {
+  
+    const toggleMenu = (event:null|React.MouseEvent<HTMLButtonElement|
+        HTMLDivElement, MouseEvent>)  => {
         if (event!=null){
             setAnchor(event.currentTarget)
         }
         else {setAnchor(null)}
+
     setOpen(!open)
     }
 
@@ -31,16 +34,15 @@ export function PhysicalPropertiesMenu () {
         if (!paramsList.map(o => o.name).includes(name)){
         setParamsList([...paramsList, nullSampleValues.filter(i =>
                          i.name == name)[0]])}
+        console.log(paramsList)
     }
 
     return (
+    <Stack spacing={2} sx={{m:1,}}>
 
-    // make popover!
-        <Stack spacing={2} sx={{m:1,}}>
-
-            <Stack direction="row" sx={{justifyContent:"space-between"}}>
+    <Stack direction="row" sx={{justifyContent:"space-between"}}>
         <Typography align="center">
-        <b>Current sample: {currentName}</b>
+        <b>Current sample: {props.name}</b>
 
         </Typography>
         <Button variant="contained" 
@@ -52,19 +54,29 @@ export function PhysicalPropertiesMenu () {
         </Button>
         </Stack>
 
-        <Stack>
-        <Menu open={open} onClick={()=>toggleMenu(null)}
+        <Stack><Menu open={open} onClick={(event)=>toggleMenu(event)}
         anchorEl={anchor}>
-        {sampleKeys.map(i=> {
-            if (!paramsList.map(s => s.name).includes(i)){
-            return (<MenuItem sx={{minWidth:"12vw"}}
-                onClick = {onAddParam(i)}>
-                {i}</MenuItem>)}
+            {sampleKeys.map(k => {
+            if (!paramsList.map(i => i.name).includes(k)){
+            return (<MenuItem sx = {{minWidth:"12vw"}}
+            key = {k} onClick={() => onAddParam(k)}>
+                {k}</MenuItem>)
+            }
         })}
-        </Menu>
-        </Stack>
+        </Menu></Stack>
 
-        </Stack>
+        <Grid key={"edit-props-grid"} spacing={2} container>
+            {paramsList.map(i => {
+                return (<SamplePropertyInput name={i.name} 
+                    sampleId={props.name}
+                key={`${i.name}-edit-grid`}
+                  defaultVal={i.value.val}/>)
+            })
+            }
+
+        </Grid>
+
+    </Stack>
     )
 
 }

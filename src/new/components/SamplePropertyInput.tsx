@@ -3,14 +3,15 @@ import type { SampleResponseKeys } from "../../models/models";
 import { SampleDataContext } from "../../context/SampleContext";
 import { Grid, TextField } from "@mui/material";
 import { debounce } from "../../models/queryFunctions";
-import { nullSampleValues } from "../../models/defaults";
 
-export function SamplePropertyInput (props: {name:SampleResponseKeys, defaultVal:string|null|undefined} ) {
+export function SamplePropertyInput (props: {sampleId:string,
+    name:SampleResponseKeys, defaultVal:string|null|undefined} ) {
 
-    const { setSingleValue, currentName, sampleList } = useContext(SampleDataContext)
+    const { setSingleValue, getSample } = useContext(SampleDataContext)
 
-    let [initValue, setInitValue] = useState(sampleList.find(i => i.name == currentName)?.values.find(i => i.name == props.name)?.value.val)
-    // this shouldn't happen?
+
+    const sample = getSample(props.sampleId)
+    let [initValue, setInitValue] = useState(sample.values.find(i => i.name == props.name)?.value.val)
     if (initValue == undefined || initValue == null){
         setInitValue("")
     }
@@ -18,26 +19,15 @@ export function SamplePropertyInput (props: {name:SampleResponseKeys, defaultVal
     let init = ""
     if (props.defaultVal != undefined && props.defaultVal != null){init = props.defaultVal}
 
-    let aValue = sampleList.find(i => i.name == currentName)
-    if (aValue == undefined){
-        aValue = {name:"", values: nullSampleValues}
-    }
-
-    let initial = aValue.values.find( i => i.name == props.name)?.value.val
-    if (initial == null || initial == undefined){
-        initial = ""
-    }
  
     const handleInput = useCallback(
         debounce((val: ChangeEvent<HTMLTextAreaElement
             |HTMLInputElement, Element>) => {
 
                 if (val.target.value != "" && val.target.value != undefined){
-                    setSingleValue(props.name, val.target.value)
+                    setSingleValue(props.name, val.target.value, props.sampleId)
                 }
-            }, 500), []
-
-        )
+            }, 500), [] )
 
     return (
         <Grid key={`${props.name}-text-input`}>

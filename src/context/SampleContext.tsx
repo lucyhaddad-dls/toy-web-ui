@@ -1,5 +1,5 @@
 import { createContext } from "react"
-import type { MultiSampleContextType, SampleDataContextType} from "../models/models"
+import type { MultiSampleContextType, SampleDataContextType, SampleResponse} from "../models/models"
 import { nullAbsorptionData, nullSampleValues } from "../models/defaults"
 
 export const MultiSampleContext = createContext<MultiSampleContextType>
@@ -42,10 +42,6 @@ export const SampleDataContext = createContext<SampleDataContextType>({
     setSampleList: function (): void {
         throw new Error("Function not implemented.")
     },
-    currentName: null,
-    setCurrentName: function (): void {
-        throw new Error("Function not implemented.")
-    },
     setSingleValue: function (): () => void {
         throw new Error("Function not implemented.")
     },
@@ -53,6 +49,9 @@ export const SampleDataContext = createContext<SampleDataContextType>({
         throw new Error("Function not implemented.")
     },
     deleteFromSampleList: function (): void {
+        throw new Error("Function not implemented.")
+    },
+    getSample: function (): SampleResponse {
         throw new Error("Function not implemented.")
     }
 })

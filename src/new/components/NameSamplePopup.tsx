@@ -49,7 +49,6 @@ export function NameSamplePopUp() {
             const val = event.target as HTMLTextAreaElement
             onClick(null)
             if (val.value != ""){
-                console.log("adding sample with name: ", val.value)
                 onAdd(val.value)
             event.preventDefault()}}}}/>
             </Box>

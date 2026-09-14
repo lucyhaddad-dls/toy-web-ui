@@ -85,9 +85,8 @@ export interface MultiSampleContextType{
 export interface SampleDataContextType{
   sampleList: SampleResponse[]
   setSampleList: React.Dispatch<React.SetStateAction<SampleResponse[]>>
-  currentName: string | null
-  setCurrentName: (name: string) => void
-  setSingleValue: (name: SampleResponseKeys, value: string) => () => void
+  getSample: (name:string) => SampleResponse
+  setSingleValue: (name: SampleResponseKeys, value: string, sampleId:string) => () => void
   addToSampleList: (values: SampleValueResponse[], name: string) => void
   deleteFromSampleList: (name: string) => void
 }

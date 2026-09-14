@@ -1,16 +1,14 @@
 import React, { useContext, useState } from "react";
-import { Button, ListItemIcon, Menu, MenuItem,
+import { ListItemIcon, Menu, MenuItem,
  MenuList, Popover, Stack, Typography } from "@mui/material";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 import { SampleDataContext } from "../../context/SampleContext";
 import { NameSamplePopUp } from "./NameSamplePopup";
-import { Link } from "react-router-dom";
 
 export function SavedSampleList (){
 
-    const { sampleList, setCurrentName, 
-    deleteFromSampleList} = useContext(SampleDataContext)
+    const { sampleList, deleteFromSampleList, getSample} = useContext(SampleDataContext)
 
     const [hoverInfo, setHoverInfo] = useState<string[]>([]);
 
@@ -21,25 +19,23 @@ export function SavedSampleList (){
 
 
     const handlePopovers = (event: React.MouseEvent<HTMLElement>,
-         name: string | null = null, eventType: "info" | "params") => {
+         name: string | null = null) => {
 
         let hoverName = name
         if (hoverName == null){
             hoverName = event.currentTarget.textContent}
 
-        if (eventType == "info"){
-            const valueInfo = sampleList.filter(i =>i.name == hoverName)[0]
+        const valueInfo = getSample(hoverName)
+
+        const filt =  valueInfo.values.map((k) => (`${k.name} = ${k.value.val}`))
+        setHoverInfo(filt)
+        setInfoPosition(event.currentTarget)
         
-            const filt =  valueInfo.values.map((k) => (`${k.name} = ${k.value.val}`))
-            setHoverInfo(filt)
-            setInfoPosition(event.currentTarget)
-        }
          }
 
-    const handleInfoClose = (eventType:"info") => {
-        if (eventType == "info"){
+    const handleInfoClose = () => {
+
         setInfoPosition(null)
-        }
     
     }
 
@@ -49,7 +45,6 @@ export function SavedSampleList (){
          deleteFromSampleList(name) 
     
     }
-
 
     const handleAddMenuClick = (event: React.MouseEvent<HTMLElement>) => {
         setAddSampleOpen(!addSampleOpen)
@@ -72,8 +67,8 @@ export function SavedSampleList (){
             aria-haspopup="true"
             onMouseEnter=
             {(event: React.MouseEvent<HTMLElement>) => 
-                handlePopovers(event, i.name, "info")}
-            onMouseLeave = {() => handleInfoClose("info")}>
+                handlePopovers(event, i.name)}
+            onMouseLeave = {() => handleInfoClose()}>
         {i.name}</Typography>
    
    
@@ -91,7 +86,7 @@ export function SavedSampleList (){
                         horizontal: 'left',}}
         transformOrigin={{ vertical: 'top',
                             horizontal: 'left',}}
-        onClose={()=>handleInfoClose("info")}
+        onClose={()=>handleInfoClose()}
         disableRestoreFocus >
         <Typography sx={{ p:0.5 ,fontSize: '0.8rem'}}>
             <b>Current Properties</b>
