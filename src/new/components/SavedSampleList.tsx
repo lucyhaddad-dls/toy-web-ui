@@ -3,7 +3,6 @@ import { Button, ListItemIcon, Menu, MenuItem,
  MenuList, Popover, Stack, Typography } from "@mui/material";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
-import AddIcon from '@mui/icons-material/Add';
 import { SampleDataContext } from "../../context/SampleContext";
 import { NameSamplePopUp } from "./NameSamplePopup";
 
