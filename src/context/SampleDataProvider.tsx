@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { SampleResponse, SampleResponseKeys, SampleValueResponse } from "../models/models";
 import { exampleSampleValues, nullSampleValues } from "../models/defaults";
 import { SampleDataContext } from "./SampleContext";
+import { postFocusedSample } from "../models/queryFunctions";
 
 
 export function SampleDataProvider( props: {children:React.ReactNode}){
@@ -32,7 +33,6 @@ export function SampleDataProvider( props: {children:React.ReactNode}){
 
     const setSingleValue = (name:SampleResponseKeys, value:string ) => {
 
-        console.log(currentName)
         if (currentName != null){
 
         const currentSample = getCurrentSample()
@@ -49,7 +49,7 @@ export function SampleDataProvider( props: {children:React.ReactNode}){
             }
             else { return i }
         });
-      
+        postFocusedSample(currentSample)
         setSampleList(newList)};
 
         return () => {};

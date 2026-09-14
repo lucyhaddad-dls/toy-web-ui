@@ -32,7 +32,7 @@ export function AddPropsMenu(props:{sampleName:string}) {
             <Stack>
             <MenuItem
             onClick = {() => {setCurrentName(props.sampleName)}}>
-            <Link to="/samples/edit">Add Properties</Link>
+            <Link to="/samples/edit" onClick={() => setCurrentName(props.sampleName)}>Add Properties</Link>
             </MenuItem>
 
             {(currentVals?.value.val == null) && 

@@ -77,7 +77,7 @@ export function SavedSampleList (){
             {(event: React.MouseEvent<HTMLElement>) => 
                 handlePopovers(event, i.name, "info")}
             onMouseLeave = {() => handleInfoClose("info")}>
-            <Link to="/samples/edit">
+            <Link to="/samples/edit" onClick={() => setCurrentName(i.name)}>
             Edit Properties
             </Link></Typography>
     

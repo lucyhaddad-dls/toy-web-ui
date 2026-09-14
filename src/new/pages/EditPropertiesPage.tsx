@@ -10,7 +10,6 @@ export function EditPropertiesPage () {
 
     let currentSample = sampleList.find(i => i.name == currentName)
     if (currentSample == undefined){
-        // make an empty sample (this condition shouldn't occur?)
         currentSample = {name:currentName as string,
              values:nullSampleValues}
     }
@@ -42,7 +41,10 @@ export function EditPropertiesPage () {
             <Grid container spacing={2}>
                 
             {initialValues.map(i =>
-                 {return (<SamplePropertyInput name={i.name}/>)})}
+                 {return (<SamplePropertyInput name={i.name}
+                  key={`${i.name}-edit-grid`}
+                  defaultVal={i.value.val}/>)
+                  })}
 
             </Grid>
         </Stack>

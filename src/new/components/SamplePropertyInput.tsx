@@ -5,7 +5,7 @@ import { Grid, TextField } from "@mui/material";
 import { debounce } from "../../models/queryFunctions";
 import { nullSampleValues } from "../../models/defaults";
 
-export function SamplePropertyInput (props: {name:SampleResponseKeys} ) {
+export function SamplePropertyInput (props: {name:SampleResponseKeys, defaultVal:string|null|undefined} ) {
 
     const { setSingleValue, currentName, sampleList } = useContext(SampleDataContext)
 
@@ -14,6 +14,9 @@ export function SamplePropertyInput (props: {name:SampleResponseKeys} ) {
     if (initValue == undefined || initValue == null){
         setInitValue("")
     }
+
+    let init = ""
+    if (props.defaultVal != undefined && props.defaultVal != null){init = props.defaultVal}
 
     let aValue = sampleList.find(i => i.name == currentName)
     if (aValue == undefined){
@@ -24,7 +27,6 @@ export function SamplePropertyInput (props: {name:SampleResponseKeys} ) {
     if (initial == null || initial == undefined){
         initial = ""
     }
-
  
     const handleInput = useCallback(
         debounce((val: ChangeEvent<HTMLTextAreaElement
@@ -40,7 +42,7 @@ export function SamplePropertyInput (props: {name:SampleResponseKeys} ) {
     return (
         <Grid key={`${props.name}-text-input`}>
             <TextField 
-            defaultValue={initial}
+            defaultValue={init}
             label={props.name}
             onChange={handleInput}/>
         </Grid>
