@@ -6,6 +6,7 @@ import { PlaceholderPage } from "./Placeholder";
 import { LinksList } from "../components/LinkBarComponent";
 import { SampleCreatePage } from "./SampleCreatePage";
 import { SavedSampleList } from "../components/SavedSampleList";
+import { PlotValuesPage } from "./AbsorptionPage";
 
 export function LinkBar () {
     const [ showMenu, setShowMenu ] = useState<boolean>(false);
@@ -84,6 +85,10 @@ export function LinkBar () {
                                          <SampleCreatePage/>
                                          </Stack>}/>
 
+            <Route path="/absorption"
+            element={<Stack sx={{maxWidth:"100%"}}>
+                    <PlotValuesPage/>
+                    </Stack>}/>
          </Routes>
          </BrowserRouter>
      

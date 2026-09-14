@@ -28,6 +28,18 @@ export const LinksList = (
         </Link>
     </ListItem>
 
+    
+    <ListItem key={"absorption"}>
+        <Link to="/absorption">
+        <ListItemText 
+        sx = {{ bgcolor:"primary.dark", color:"white"}}>
+        <b>Absorption Plots</b>
+        </ListItemText>
+        </Link>
+    </ListItem>
+
+
+
     </List>
     </Stack>
 )

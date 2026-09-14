@@ -8,6 +8,7 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { AddPropsMenu } from "./AddPropertiesMenu";
 import { SampleDataContext } from "../../context/SampleContext";
 import { postFocusedSample } from "../../models/queryFunctions";
+import { Link } from "react-router-dom";
 
 export function SampleRow(props: { input: SampleResponse }) {
 
@@ -42,7 +43,10 @@ export function SampleRow(props: { input: SampleResponse }) {
 
             <Button variant="outlined"
             onClick = {() => {onGetAbsorption()}}
-            >Get Absorption Data</Button>
+            >
+                <Link to ="/absorption">
+                Get Absorption Data
+                </Link></Button>
             </Stack>
         {
         (nonNullValues.length > 0) && 
