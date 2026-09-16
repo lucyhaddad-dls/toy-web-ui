@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select, Stack, Typography } from "@mui/material";
-import { AbsPlotWrapper } from "../components/AbsorptionPlotWrapper";
+import { AbsPlotWrapper } from "../components/plot/AbsorptionPlotWrapper";
 import { useContext, useState } from "react";
 import { SampleDataContext } from "../context/SampleContext";
 import type { AbsorptionType } from "../models/models";

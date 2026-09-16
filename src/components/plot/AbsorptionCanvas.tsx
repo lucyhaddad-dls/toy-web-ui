@@ -2,9 +2,8 @@ import ndarray from "ndarray";
 import { FormControl, InputLabel, MenuItem, Select, Stack } from "@mui/material";
 import { useState } from "react";
 
-import { type SampleAbsorptionResponse } from "../models/models";
+import { type SampleAbsorptionResponse } from "../../models/models";
 import { AbsPlot } from "./AbsorptionPlot";
-
 
 export function AbsPlotCanvas(props:{data:SampleAbsorptionResponse}) {
 
