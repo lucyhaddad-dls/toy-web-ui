@@ -9,84 +9,110 @@ import { SavedSampleList } from "../components/SavedSampleList";
 import { AbsorptionPlotPage } from "./AbsorptionPlotPage";
 import { MassPercentagePage } from "./MassPercentagePage";
 
-export function LinkBar () {
+export function LinkBar() {
+  const [showSamples, setShowSamples] = useState<boolean>(false);
+  const [menuPos, setMenuPos] = useState<null | HTMLElement>(null);
 
-    const [ showSamples, setShowSamples ] = useState<boolean>(false);
-    const [menuPos, setMenuPos] = useState<null|HTMLElement>(null);
-
-    const toggleSampleMenu = (ev: React.MouseEvent<HTMLButtonElement>) => {
-        setShowSamples(!showSamples)
-        if (showSamples == false){
-            setMenuPos(null);
-        }
-        else {setMenuPos(ev.currentTarget)}
+  const toggleSampleMenu = (ev: React.MouseEvent<HTMLButtonElement>) => {
+    setShowSamples(!showSamples);
+    if (showSamples == false) {
+      setMenuPos(null);
+    } else {
+      setMenuPos(ev.currentTarget);
     }
+  };
 
-    return (
+  return (
+    <Stack
+      sx={{
+        height: "100vh",
+        width: "100vw",
+        justifyContent: "flex-top",
+        alignContent: "space-around",
+      }}
+    >
+      <BrowserRouter>
+        <Stack direction="column" sx={{ minWidth: "100vw" }}>
+          <Navbar sx={{ backgroundColor: "primary.dark", color: "primary" }}>
+            <Stack
+              direction="row"
+              sx={{
+                justifyContent: "space-between",
+                alignItems: "center",
+                minWidth: "80vw",
+              }}
+            >
+              <LinksList />
 
-      <Stack sx={{height:"100vh", 
-           width:"100vw", justifyContent:"flex-top",
-           alignContent:"space-around"}}>
-         <BrowserRouter>
-             <Stack direction="column" sx={{ minWidth:"100vw" }}>
-             <Navbar sx={{backgroundColor: "primary.dark",
-                              color: "primary"}}>
-             <Stack direction="row" sx = {{ justifyContent:"space-between" ,
-                         alignItems:"center",
-                         minWidth:"80vw", }}>
-                            
-                <LinksList/>
-                
-                <Button variant="contained" 
-                sx={{ backgroundColor: "inherit",
-                            color: "inherit",
-                            marginRight:"-15%" }}
-                onClick={toggleSampleMenu}>
-                    <b>Sample List</b>
-                    </Button>
-                <Popper open={showSamples}
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "inherit",
+                  color: "inherit",
+                  marginRight: "-15%",
+                }}
+                onClick={toggleSampleMenu}
+              >
+                <b>Sample List</b>
+              </Button>
+              <Popper
+                open={showSamples}
                 anchorEl={menuPos}
-                role={undefined} disablePortal>
+                role={undefined}
+                disablePortal
+              >
                 <Paper>
-                    <Menu open={showSamples}
-                anchorOrigin={{vertical: 'top',
-                               horizontal: 'right'}}
-                transformOrigin={{vertical: 'top',
-                                  horizontal: 'right'}}
-                onClose={toggleSampleMenu}>
-
-                    <SavedSampleList/>
-                </Menu>
+                  <Menu
+                    open={showSamples}
+                    anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                    transformOrigin={{ vertical: "top", horizontal: "right" }}
+                    onClose={toggleSampleMenu}
+                  >
+                    <SavedSampleList />
+                  </Menu>
                 </Paper>
-                </Popper>
-            
-             </Stack>
-             </Navbar>
-             </Stack>
-      
-         <Routes>
-             <Route path="/" element = {<Stack sx={{maxWidth:"100%"}}>
-                                         <PlaceholderPage/>
-                                         </Stack>}/>
-             <Route path="/samples" element = {<Stack sx={{maxWidth:"100%"}}>
-                                         <SampleCreatePage/>
-                                         </Stack>}/>
+              </Popper>
+            </Stack>
+          </Navbar>
+        </Stack>
 
-            <Route path="/samples/plot"
-            element={<Stack sx={{maxWidth:"100%"}}>
-                <AbsorptionPlotPage/>
-            </Stack>}/>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Stack sx={{ maxWidth: "100%" }}>
+                <PlaceholderPage />
+              </Stack>
+            }
+          />
+          <Route
+            path="/samples"
+            element={
+              <Stack sx={{ maxWidth: "100%" }}>
+                <SampleCreatePage />
+              </Stack>
+            }
+          />
 
-            <Route path="samples/mass-percentage"
-            element={<Stack sx={{maxWidth:"100%"}}>
-                <MassPercentagePage/>
-            </Stack>}/>
-         </Routes>
-         </BrowserRouter>
-     
-       </Stack>
+          <Route
+            path="/samples/plot"
+            element={
+              <Stack sx={{ maxWidth: "100%" }}>
+                <AbsorptionPlotPage />
+              </Stack>
+            }
+          />
 
-    )
-
-
+          <Route
+            path="samples/mass-percentage"
+            element={
+              <Stack sx={{ maxWidth: "100%" }}>
+                <MassPercentagePage />
+              </Stack>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </Stack>
+  );
 }
