@@ -44,7 +44,7 @@ export function SampleRow(props: { input: SampleResponse }) {
             <Button variant="outlined"
             onClick = {() => {onGetAbsorption()}}
             >
-                <Link to ="/absorption">
+                <Link to ="/samples/plot">
                 Get Absorption Data
                 </Link></Button>
             </Stack>
@@ -57,7 +57,7 @@ export function SampleRow(props: { input: SampleResponse }) {
             {
             nonNullValues.map(value => {
             return (
-                <Grid>
+                <Grid key={`${value.name}-list-0`}>
                     <ListItemText  id={rowId}
                     aria-hidden={!open?true : undefined}
                     key={`${value.name}-list-s`} 
@@ -65,7 +65,7 @@ export function SampleRow(props: { input: SampleResponse }) {
                 </Grid>
                      )}
             )}
-            <Grid>
+            <Grid key={"typography-abs"}>
             <Typography><b>Available to calculate:</b></Typography>
            {availableData.map(val => {
             return (<Typography id={rowId}

@@ -27,8 +27,6 @@ export function AbsPlotCanvas(props:{data:SampleAbsorptionResponse}) {
         setElementList(props.data.y.map(i=>i.name))
     }
 
-
-
     return (
         <Stack spacing={2}>
  
@@ -51,7 +49,8 @@ export function AbsPlotCanvas(props:{data:SampleAbsorptionResponse}) {
         
             </Stack>
         <Stack >
-        <AbsPlot xdata={xdata} ydata={ydata} xlabel={xlabel} ylabel={ylabel}/>
+        <AbsPlot 
+        xdata={xdata} ydata={ydata} xlabel={xlabel} ylabel={ylabel}/>
         </Stack>
         </Stack>
 

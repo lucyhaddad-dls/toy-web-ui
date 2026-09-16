@@ -6,7 +6,6 @@ import { PlaceholderPage } from "./Placeholder";
 import { LinksList } from "../components/LinkBarComponent";
 import { SampleCreatePage } from "./SampleCreatePage";
 import { SavedSampleList } from "../components/SavedSampleList";
-import { PlotValuesPage } from "./AbsorptionPage";
 import { AbsorptionPlotPage } from "./AbsorptionPlotPage";
 
 export function LinkBar () {
@@ -72,11 +71,6 @@ export function LinkBar () {
              <Route path="/samples" element = {<Stack sx={{maxWidth:"100%"}}>
                                          <SampleCreatePage/>
                                          </Stack>}/>
-
-            <Route path="/absorption"
-            element={<Stack sx={{maxWidth:"100%"}}>
-                    <PlotValuesPage/>
-                    </Stack>}/>
 
             <Route path="/samples/plot"
             element={<Stack sx={{maxWidth:"100%"}}>

@@ -23,7 +23,7 @@ export function SampleCreatePage () {
    
         <Stack>
             {sampleList.map(i => {
-                return (<SampleRow input={i}/>)
+                return (<SampleRow input={i} key={`${i.name}-row`}/>)
             })}
         </Stack>
 

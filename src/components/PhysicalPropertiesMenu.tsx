@@ -34,7 +34,6 @@ export function PhysicalPropertiesMenu (props:{name:string}) {
         if (!paramsList.map(o => o.name).includes(name)){
         setParamsList([...paramsList, nullSampleValues.filter(i =>
                          i.name == name)[0]])}
-        console.log(paramsList)
     }
 
     return (
