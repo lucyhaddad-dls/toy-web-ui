@@ -57,7 +57,8 @@ export function SampleDataProvider( props: {children:React.ReactNode}){
 
     // make a member of the sampleList the focusedSample when absorption
     // data requested:
-    const [focusedSample, setFocusedSample] = useState<SampleResponse>()
+    const [focusedSample, setFocusedSample] = useState<SampleResponse>(sampleList[0])
+    // set it by default to be the first example sample.
 
     const [photoData, setPhotoData] = useState<SamplePhotoData>(nullAbsorptionData)
     

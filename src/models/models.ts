@@ -89,8 +89,8 @@ export interface SampleDataContextType{
   setSingleValue: (name: SampleResponseKeys, value: string, sampleId:string) => () => void
   addToSampleList: (values: SampleValueResponse[], name: string) => void
   deleteFromSampleList: (name: string) => void
-  focusedSample: SampleResponse|undefined
-  setFocusedSample:  React.Dispatch<React.SetStateAction<SampleResponse | undefined>>
+  focusedSample: SampleResponse
+  setFocusedSample:  React.Dispatch<React.SetStateAction<SampleResponse>>
   getAvailableData: (sampleId:string) => string[]
   photoData: SamplePhotoData
   setPhotoData: React.Dispatch<React.SetStateAction<SamplePhotoData>>

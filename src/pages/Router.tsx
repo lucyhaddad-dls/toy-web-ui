@@ -76,6 +76,9 @@ export function LinkBar () {
             element={<Stack sx={{maxWidth:"100%"}}>
                     <PlotValuesPage/>
                     </Stack>}/>
+
+            <Route path="/samples/plot"
+            element={<Stack sx={{maxWidth:"100%"}}></Stack>}/>
          </Routes>
          </BrowserRouter>
      

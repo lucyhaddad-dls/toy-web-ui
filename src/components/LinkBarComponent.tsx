@@ -25,7 +25,14 @@ export function LinksList (){
         <Link to="/absorption">
         <Typography 
         sx = {{ bgcolor:"primary.dark", color:"white"}}>
-        <b>Absorption Plots</b>
+        <b>Absorption Plots (old)</b>
+        </Typography>
+        </Link>
+
+        <Link to="/samples/plot">
+        <Typography 
+        sx = {{ bgcolor:"primary.dark", color:"white"}}>
+        <b>Absorption Plots (new)</b>
         </Typography>
         </Link>
     </Stack>
