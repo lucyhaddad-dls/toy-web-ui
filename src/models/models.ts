@@ -65,23 +65,6 @@ export interface SamplePhotoData {
   total: null | SampleAbsorptionResponse
 }
 
-
-export interface MultiSampleContextType{
-  sampleList: SampleResponse[]
-  setSampleList: React.Dispatch<React.SetStateAction<SampleResponse[]>>
-  addToSampleList: (values: SampleValueResponse[], name: string) => void
-  deleteFromSampleList: (name?: string | undefined, id?: number | undefined) => void
-  focusedSample: SampleResponse
-  setFocusedSample: React.Dispatch<React.SetStateAction<SampleResponse>>
-  sampleNames: string[]
-  getSampleNames: () => void
-  getSingleValue: (name: SampleResponseKeys) => string
-  setSingleValue: (name: SampleResponseKeys, value: string) => () => void
-  getAvailableCalcs: (name:string) => string[]
-  photoData: SamplePhotoData
-  setPhotoData: React.Dispatch<React.SetStateAction<SamplePhotoData>>
-}
-
 export interface SampleDataContextType{
   sampleList: SampleResponse[]
   setSampleList: React.Dispatch<React.SetStateAction<SampleResponse[]>>

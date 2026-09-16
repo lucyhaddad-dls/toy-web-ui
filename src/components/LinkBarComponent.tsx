@@ -22,6 +22,12 @@ export function LinksList (){
         </Typography>
         </Link>
 
+        <Link to="/samples/mass-percentage">
+        <Typography 
+        sx = {{ bgcolor:"primary.dark", color:"white"}}>
+        <b>Formula from Mass %</b>
+        </Typography>
+        </Link>
 
         <Link to="/samples/plot">
         <Typography 
@@ -29,6 +35,9 @@ export function LinksList (){
         <b>Absorption Plots</b>
         </Typography>
         </Link>
+
+ 
+
     </Stack>
 )
 }

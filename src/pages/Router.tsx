@@ -7,6 +7,7 @@ import { LinksList } from "../components/LinkBarComponent";
 import { SampleCreatePage } from "./SampleCreatePage";
 import { SavedSampleList } from "../components/SavedSampleList";
 import { AbsorptionPlotPage } from "./AbsorptionPlotPage";
+import { MassPercentagePage } from "./MassPercentagePage";
 
 export function LinkBar () {
 
@@ -60,7 +61,6 @@ export function LinkBar () {
                 </Popper>
             
              </Stack>
-            
              </Navbar>
              </Stack>
       
@@ -75,6 +75,11 @@ export function LinkBar () {
             <Route path="/samples/plot"
             element={<Stack sx={{maxWidth:"100%"}}>
                 <AbsorptionPlotPage/>
+            </Stack>}/>
+
+            <Route path="samples/mass-percentage"
+            element={<Stack sx={{maxWidth:"100%"}}>
+                <MassPercentagePage/>
             </Stack>}/>
          </Routes>
          </BrowserRouter>

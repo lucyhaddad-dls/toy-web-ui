@@ -14,7 +14,6 @@ export function PhysicalPropertiesMenu (props:{name:string}) {
     const { getSample } = useContext(SampleDataContext)
 
     const [currentSample,] = useState<SampleResponse>(getSample(props.name))
-
   
     const toggleMenu = (event:null|React.MouseEvent<HTMLButtonElement|
         HTMLDivElement, MouseEvent>)  => {

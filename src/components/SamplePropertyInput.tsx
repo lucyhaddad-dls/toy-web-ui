@@ -28,7 +28,7 @@ export function SamplePropertyInput (props: {sampleId:string,
                 setSingleValue(props.name, val.target.value, props.sampleId)
                 }
            
-            }, 500), [] )
+            }, 200), [] )
 
     return (
         <Grid key={`${props.name}-text-input`}>

@@ -4,16 +4,14 @@ import React, { useContext, useState } from "react"
 import { SampleDataContext } from "../context/SampleContext"
 import { Box, Button, Menu, MenuItem, Popover, Stack } from "@mui/material"
 import { PhysicalPropertiesMenu } from "./PhysicalPropertiesMenu"
+import { Link } from "react-router-dom"
 
 export function AddPropsMenu(props:{sampleName:string}) {
 
     const [open, setOpen] = useState<boolean>(false)
-    const {sampleList } = useContext(SampleDataContext)
+    const {setFocusedSample, getSample } = useContext(SampleDataContext)
     const [top, setTop] = useState<number>(0)
     const [left, setLeft] = useState<number>(0)
-
-    const currentVals = sampleList.find(i => i.name == props.sampleName)?.values.
-    find(v => v.name == "formula")
 
     const onMenuClick = (event:React.MouseEvent<HTMLElement>) => {
         setOpen(!open)
@@ -24,7 +22,9 @@ export function AddPropsMenu(props:{sampleName:string}) {
     const [popOpen, setPopOpen] = useState<boolean>(false)
     const [popXY, setPopXY] = useState<HTMLElement|null>(null)
 
-    const onPopClick = (event:React.MouseEvent<HTMLElement>|null) => {
+    const onPopClick = (event:React.MouseEvent<HTMLElement>|null,
+    ) => {
+
         setPopOpen(!popOpen)
         if (!open && event!=null){
             setPopXY(event.currentTarget)
@@ -45,12 +45,15 @@ export function AddPropsMenu(props:{sampleName:string}) {
             onClick = {(event:React.MouseEvent<HTMLElement>) =>
              { onPopClick(event)}}>
                 Add Physical Properties
-            </MenuItem>
-            {(currentVals?.value.val == null) && 
-            <MenuItem>Formula from Mass Ratio</MenuItem>}
+            </MenuItem >
+            <MenuItem 
+            onClick = {() =>
+             {setFocusedSample(getSample(props.sampleName))}}>
+            <Link to="/samples/mass-percentage">
+            Formula from Mass %
+            </Link></MenuItem>
             </Stack>
             </Menu>
-
 
         <Popover id="1" open={popOpen} anchorEl={popXY}
         onClose={()=>onPopClick(null)}
@@ -63,7 +66,6 @@ export function AddPropsMenu(props:{sampleName:string}) {
         </Box>
         
         </Popover>
-
         </Stack>
 
     )
