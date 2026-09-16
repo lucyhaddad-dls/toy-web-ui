@@ -4,8 +4,8 @@ import { ListItemIcon, Menu, MenuItem,
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 import { SampleDataContext } from "../context/SampleContext";
-import { SaveSamplePopUp } from "./NameSamplePopup";
-import { AddPropsMenu } from "./AddPropertiesMenu";
+import { SaveSamplePopUp } from "./inputs/NameSamplePopup";
+import { AddPropsMenu } from "./menus/AddPropertiesMenu";
 
 
 export function SavedSampleList (){

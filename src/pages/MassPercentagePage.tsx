@@ -10,9 +10,9 @@ import { SampleDataContext } from "../context/SampleContext";
 
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import { MassPercentInput } from "../components/MassPercentageInput";
+import { MassPercentInput } from "../components/inputs/MassPercentageInput";
 import { useQuery } from "@tanstack/react-query";
-import { SaveSamplePopUp } from "../components/NameSamplePopup";
+import { SaveSamplePopUp } from "../components/inputs/NameSamplePopup";
 
 function FormulaCalculator (props:{formulaInfo:SampleMassRatioType[]}) {
 

@@ -1,8 +1,8 @@
-import type { SampleMassRatioType } from "../models/models";
+import type { SampleMassRatioType } from "../../models/models";
 import { Stack, TextField } from "@mui/material";
 import { NumberInput } from "@diamondlightsource/sci-react-ui";
 import { useCallback } from "react";
-import { debounce } from "../models/queryFunctions";
+import { debounce } from "../../models/queryFunctions";
 import type { ChangeEvent } from "react";
 
 export function MassPercentInput (props: {componentIndex: number,

@@ -1,7 +1,7 @@
 // add properties by input or formula via ratios/%'s:
 
 import React, { useContext, useState } from "react"
-import { SampleDataContext } from "../context/SampleContext"
+import { SampleDataContext } from "../../context/SampleContext"
 import { Box, Button, Menu, MenuItem, Popover, Stack } from "@mui/material"
 import { PhysicalPropertiesMenu } from "./PhysicalPropertiesMenu"
 import { Link } from "react-router-dom"

@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import { SampleDataContext } from "../context/SampleContext";
+import { SampleDataContext } from "../../context/SampleContext";
 import { Box, Button, Fade, Popover, Stack, TextField, Typography } from "@mui/material";
 import ScienceTwoToneIcon from '@mui/icons-material/ScienceTwoTone';
-import { nullSampleValues } from "../models/defaults";
-import type { SampleValueResponse } from "../models/models";
+import { nullSampleValues } from "../../models/defaults";
+import type { SampleValueResponse } from "../../models/models";
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 
 export function SaveSamplePopUp(props:{saveValues:SampleValueResponse[]|null}) {

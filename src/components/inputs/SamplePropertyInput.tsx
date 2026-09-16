@@ -1,8 +1,8 @@
 import { useCallback, useContext, useState, type ChangeEvent } from "react";
-import type { SampleResponseKeys } from "../models/models";
-import { SampleDataContext } from "../context/SampleContext";
+import type { SampleResponseKeys } from "../../models/models";
+import { SampleDataContext } from "../../context/SampleContext";
 import { Grid, TextField } from "@mui/material";
-import { debounce } from "../models/queryFunctions";
+import { debounce } from "../../models/queryFunctions";
 
 export function SamplePropertyInput (props: {sampleId:string,
     name:SampleResponseKeys, defaultVal:string|null|undefined} ) {

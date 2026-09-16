@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { EnergyUnits, LengthUnits, MassUnits,
-     UnitValue} from "../models/models";
-import { defaultSampleUnits } from "../models/defaults";
+     UnitValue} from "../../models/models";
+import { defaultSampleUnits } from "../../models/defaults";
 import { InputLabel, MenuItem, Select, Stack } from "@mui/material";
 
 function SingleUnitDropdown(props: {unitType:string, 

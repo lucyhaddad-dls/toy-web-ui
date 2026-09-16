@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { SampleDataContext } from "../context/SampleContext"
 import { Stack, Typography } from "@mui/material"
-import { SaveSamplePopUp } from "../components/NameSamplePopup"
+import { SaveSamplePopUp } from "../components/inputs/NameSamplePopup"
 
 import { SampleRow } from "../components/CollapseTableRow"
 
