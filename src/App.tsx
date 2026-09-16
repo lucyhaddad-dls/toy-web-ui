@@ -1,25 +1,33 @@
+import { Stack } from "@mui/material";
+import {
+  DiamondDSTheme,
+  ThemeProvider,
+} from "@diamondlightsource/sci-react-ui";
+import { SampleDataProvider } from "./context/SampleDataProvider";
 
-import { Stack } from '@mui/material'
-import { DiamondDSTheme, ThemeProvider } from '@diamondlightsource/sci-react-ui'
-import { LinkDrawer } from './components/RouterComponent'
-import { MultiSampleProvider } from './context/MultiSampleProvider'
+import { LinkBar } from "./pages/Router";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
-
   return (
-  <MultiSampleProvider>
-
-  <ThemeProvider theme={DiamondDSTheme}>
-  <Stack sx={{height:"100vh", width:"100vw", justifyContent:"flex-top",
-  alignContent:"space-around"
-  }} >
-     <LinkDrawer/>
-  </Stack>
-  </ThemeProvider>
-
-</MultiSampleProvider>
-
-  )
+    <QueryClientProvider client={new QueryClient()}>
+      <SampleDataProvider>
+        <ThemeProvider theme={DiamondDSTheme}>
+          <Stack
+            sx={{
+              height: "100vh",
+              width: "100vw",
+              justifyContent: "flex-top",
+              alignContent: "space-around",
+            }}
+          >
+            <LinkBar />
+          </Stack>
+        </ThemeProvider>
+      </SampleDataProvider>
+    </QueryClientProvider>
+  );
 }
-export default App
+
+export default App;
