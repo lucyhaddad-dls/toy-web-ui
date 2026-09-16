@@ -11,7 +11,7 @@ export function SamplePropertyInput (props: {sampleId:string,
 
 
     const sample = getSample(props.sampleId)
-    let [initValue, setInitValue] = useState(sample.values.find(i => i.name == props.name)?.value.val)
+    let [initValue, setInitValue] = useState(sample.values.find(i => i.name == props.name)?.value)
     if (initValue == undefined || initValue == null){
         setInitValue("")
     }

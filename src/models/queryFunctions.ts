@@ -14,7 +14,7 @@ export const getSampleData = async() => {
 }
 
 export const postSampleData = async(name:SampleResponseKeys | SampleUnitKeys,
-  value: string,) => {
+  value: string|string[],) => {
     await axios.post("/api/input", null,
        {params:{name, value}}
      ).then((response) => {return response.data})
@@ -24,15 +24,18 @@ export const postSampleData = async(name:SampleResponseKeys | SampleUnitKeys,
 
   export const postFocusedSample = async(sample:SampleResponse) => {
     sample.values.map(value => {
-      if (value.value.val != null){
-      postSampleData(value.name, value.value.val)
+      if (value.value!= null){
+      postSampleData(value.name, value.value)
       }
     })
   }
 
-  export const getAbsorptionData = async(abs_type:AbsorptionType) => {
+  export const getAbsorptionData = async(input_data:SampleValueResponse[],
+    abs_type:AbsorptionType) => {
 
-    const data = await axios.get("/api/absorption", {params:{abs_type:abs_type}}
+    const data = await axios.post("/api/absorption",input_data,
+      {params:{abs_type:abs_type}}
+
       ).then((response) => {
         return response.data})
     .catch((err) => {console.log(err); return null});

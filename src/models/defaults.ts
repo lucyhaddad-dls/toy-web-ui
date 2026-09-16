@@ -9,23 +9,23 @@ export const defaultSampleUnits: UnitValue[] = [
   ];
 
 export const nullSampleValues: SampleValueResponse[] = [
-  {name:"formula", value:{val:null, dtype:"str"}},
-  {name:"absorber", value:{val:null, dtype:"str"}},
-  {name:"edge", value:{val:null, dtype:"str"}},
-  {name:"density", value:{val:null, dtype:"float"}},
-  {name:"area", value:{val:null, dtype:"float"}},
-  {name:"thickness", value:{val:null, dtype:"float"}},
-  {name:"mass", value:{val:null, dtype:"float"}}
+  {name:"formula", value:null},
+  {name:"absorber", value:null},
+  {name:"edge", value:null},
+  {name:"density", value:null},
+  {name:"area", value:null},
+  {name:"thickness", value:null},
+  {name:"mass", value:null},
 ];
 
 export const exampleSampleValues: SampleValueResponse[] = [
-  {name:"formula", value:{val:"FeOH", dtype:"str"}},
-  {name:"absorber", value:{val:"Fe", dtype:"str"}},
-  {name:"edge", value:{val:"K", dtype:"str"}},
-  {name:"density", value:{val:null, dtype:"float"}},
-  {name:"area", value:{val:null, dtype:"float"}},
-  {name:"thickness", value:{val:null, dtype:"float"}},
-  {name:"mass", value:{val:null, dtype:"float"}}
+  {name:"formula", value:"FeOH"},
+  {name:"absorber", value:"Fe"},
+  {name:"edge", value:"K"},
+  {name:"density", value:null},
+  {name:"area", value:null},
+  {name:"thickness", value:null},
+  {name:"mass", value:null}
 ];
 
 

@@ -26,7 +26,7 @@ export function PhysicalPropertiesMenu (props:{name:string}) {
     }
 
     const [paramsList, setParamsList] = useState(currentSample.values.filter(i => 
-        i.value.val != null || ["formula", "edge", "absorber"].includes(i.name)
+        i.value != null || ["formula", "edge", "absorber"].includes(i.name)
     ))
 
     const onAddParam = (name:SampleResponseKeys) => {
@@ -68,7 +68,7 @@ export function PhysicalPropertiesMenu (props:{name:string}) {
                 return (<SamplePropertyInput name={i.name} 
                     sampleId={props.name}
                 key={`${i.name}-edit-grid`}
-                  defaultVal={i.value.val}/>)
+                  defaultVal={i.value!=undefined?i.value.toString():""}/>)
             })
             }
 

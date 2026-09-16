@@ -15,7 +15,7 @@ export function SampleRow(props: { input: SampleResponse }) {
     const [open, setOpen] = useState<boolean>(false)
     const rowId = useId()
 
-    const nonNullValues = props.input.values.filter(i => i.value.val!= null)
+    const nonNullValues = props.input.values.filter(i => i.value!= null)
 
     const { setFocusedSample, getAvailableData } = useContext(SampleDataContext)
 
@@ -61,7 +61,7 @@ export function SampleRow(props: { input: SampleResponse }) {
                     <ListItemText  id={rowId}
                     aria-hidden={!open?true : undefined}
                     key={`${value.name}-list-s`} 
-                    primary={value.name} secondary={value.value.val}/>
+                    primary={value.name} secondary={value.value}/>
                 </Grid>
                      )}
             )}

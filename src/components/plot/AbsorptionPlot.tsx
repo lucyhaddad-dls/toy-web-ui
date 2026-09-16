@@ -7,7 +7,6 @@ export function AbsPlot(props: {xdata:ndarray.NdArray<number[]>|null,
                                 ylabel:string}){
 
                                     
-
     const ydomain:Domain|undefined = props.ydata ? getDomain(props.ydata): [0, 1];
     const xdomain:Domain|undefined = props.xdata ? getDomain(props.xdata): [0, 1];
 

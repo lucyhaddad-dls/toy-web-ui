@@ -30,13 +30,8 @@ export interface UnitValue {
     options: MassUnits[] | LengthUnits[] | EnergyUnits[]
 }
 
-interface SampleValue {
-    val: string | null
-    dtype: "str" | "float" | "int"
-}
-
 export interface SampleValueResponse {
-    value: SampleValue
+    value: string|string[]|null
     name: SampleResponseKeys 
 }
 
@@ -49,11 +44,11 @@ export type AbsorptionType = "mass" | "linear" | "total"
 
 export interface ElementAbsorptionResponse {
   name: string
-  y: string
+  y: Array<number>
 }
 
 export interface SampleAbsorptionResponse { 
-  x: string
+  x: Array<number>
   xlabel: string
   ylabel: string
   y: ElementAbsorptionResponse[]

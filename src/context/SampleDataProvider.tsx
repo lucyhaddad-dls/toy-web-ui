@@ -12,7 +12,6 @@ export function SampleDataProvider( props: {children:React.ReactNode}){
         {name:"example data", values:exampleSampleValues},
         {name:"empty sample", values:nullSampleValues}])
     
-
     const getSample = (name:string) => {
         let currentSample = sampleList.find(i => i.name == name)
         if (currentSample == undefined){
@@ -30,7 +29,7 @@ export function SampleDataProvider( props: {children:React.ReactNode}){
         const currentSample = getSample(sampleId)
         const newValue = currentSample.values.map(itm => {
             if (itm.name == name){
-                return {...itm, value: {...itm.value, val:value}};
+                return {...itm, value: value}
             }
             else {return itm}
         })
@@ -72,9 +71,9 @@ export function SampleDataProvider( props: {children:React.ReactNode}){
     const getAvailableData = (sampleId:string) => {
         const currentData = getSample(sampleId)
         const nonNull = currentData.values.filter(v =>
-            v.value.val != null && v.value.val != undefined &&
-            v.value.val != ""
-        ).map(v => v.name)
+            v.value != null && v.value != undefined &&
+            v.value != "").map(v => v.name)
+
         const matches:string[] = []
 
         Object.keys(calcDependencies).map(key => {
@@ -98,7 +97,6 @@ export function SampleDataProvider( props: {children:React.ReactNode}){
             } })
         
             return matches
-
     }
 
 

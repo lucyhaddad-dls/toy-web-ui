@@ -29,7 +29,7 @@ export function SavedSampleList (){
 
         const valueInfo = getSample(hoverName)
 
-        const filt =  valueInfo.values.map((k) => (`${k.name} = ${k.value.val}`))
+        const filt =  valueInfo.values.map((k) => (`${k.name} = ${k.value}`))
         setHoverInfo(filt)
         setInfoPosition(event.currentTarget)
         
