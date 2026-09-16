@@ -114,16 +114,20 @@ export function MassPercentagePage() {
       <Stack spacing={2} sx={{ p: 2,
          justifyContent:"space-between"}} direction="row">
 
-    <Stack sx={{bgcolor:"primary.light"}}>Test Query: 
+    <Stack sx={{bgcolor:"primary.light"}} direction="row">Calculated Formula:
         <FormulaCalculator formulaInfo={formulaInfo}/>
 
-
     </Stack>
-
         <Button>Save as new sample (unfinished)</Button>
+
+        <Button>Overwrite old sample <br></br>({focusedSample.name} with 
+        formula {focusedSample.values.filter(val=>val.name=="formula")[0].value.val})</Button>
+        
         <Button variant="contained"
         onClick={onClear} sx={{bgcolor:"#616263"}}>
             Clear Sample Data</Button>
+
+
     </Stack>
 
     <Stack>

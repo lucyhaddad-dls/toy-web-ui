@@ -18,6 +18,8 @@ export function MassPercentInput (props: {componentIndex: number,
             props.onChange(props.componentIndex, valname, val.target.value)
         } }, 200), [])
 
+        // add into on atomic mass ?
+
     return (
     
         <Stack spacing={2}>
