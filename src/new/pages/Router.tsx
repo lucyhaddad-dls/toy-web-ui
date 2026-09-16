@@ -1,5 +1,5 @@
 import { Navbar } from "@diamondlightsource/sci-react-ui";
-import { Button, Drawer, Menu, Paper, Popper, Stack } from "@mui/material";
+import { Button, Menu, Paper, Popper, Stack } from "@mui/material";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { PlaceholderPage } from "./Placeholder";
@@ -9,9 +9,6 @@ import { SavedSampleList } from "../components/SavedSampleList";
 import { PlotValuesPage } from "./AbsorptionPage";
 
 export function LinkBar () {
-    const [ showMenu, setShowMenu ] = useState<boolean>(false);
-     
-    const toggleDrawer = (newVal: boolean) => () => {setShowMenu(newVal); };
 
     const [ showSamples, setShowSamples ] = useState<boolean>(false);
     const [menuPos, setMenuPos] = useState<null|HTMLElement>(null);
@@ -30,21 +27,15 @@ export function LinkBar () {
            width:"100vw", justifyContent:"flex-top",
            alignContent:"space-around"}}>
          <BrowserRouter>
-     
-            <Stack direction="row"></Stack>
-             <Stack direction="row" sx={{ minWidth:"100vw" }}>
+             <Stack direction="column" sx={{ minWidth:"100vw" }}>
              <Navbar sx={{backgroundColor: "primary.dark",
                               color: "primary"}}>
              <Stack direction="row" sx = {{ justifyContent:"space-between" ,
                          alignItems:"center",
                          minWidth:"80vw", }}>
-             <Button onClick={toggleDrawer(true)} variant="contained" 
-             sx={{ backgroundColor: "inherit",
-                  color: "inherit",
-                  marginLeft:"0%" }}>
-                 <b>Navigation Menu</b>
-             </Button>
-            
+                            
+                <LinksList/>
+                
                 <Button variant="contained" 
                 sx={{ backgroundColor: "inherit",
                             color: "inherit",
@@ -67,16 +58,12 @@ export function LinkBar () {
                 </Menu>
                 </Paper>
                 </Popper>
-     
+            
              </Stack>
+            
              </Navbar>
              </Stack>
-         <Stack>
-         <Drawer open={showMenu} onClose={toggleDrawer(false)}>
-             {LinksList}
-         </Drawer>
-         </Stack>
-     
+      
          <Routes>
              <Route path="/" element = {<Stack sx={{maxWidth:"100%"}}>
                                          <PlaceholderPage/>

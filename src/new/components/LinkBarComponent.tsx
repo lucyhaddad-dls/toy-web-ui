@@ -1,45 +1,33 @@
-import { List, ListItem, ListItemText, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-export const LinksList = (
+export function LinksList (){
+    return (
     <Stack sx={{ bgcolor: "primary.dark",
-        minHeight:"100%", justifyContent:"start" }}>
+        minHeight:"100%", justifyContent:"space-between",
+         alignItems:"center", minWidth:"80%" }}
+        direction="row" spacing={2}>
 
-    <Typography align="center" sx={{color:"white", marginTop:"10%"}}>
-        Navigation Menu
-    </Typography>
-    <List sx = {{ bgcolor:"primary.dark", color:"white",
-            alignContent:"center", marginTop:"20%" }}>
-    <ListItem key={"home"}>
         <Link to="/">
-        <ListItemText 
+        <Typography 
         sx = {{ bgcolor:"primary.dark", color:"white"}}>
         <b>Home (Placeholder page)</b>
-        </ListItemText>
+        </Typography>
         </Link>
-    </ListItem>
 
-    <ListItem key={"samples"}>
         <Link to="/samples">
-        <ListItemText 
+        <Typography 
         sx = {{ bgcolor:"primary.dark", color:"white"}}>
         <b>Sample Information</b>
-        </ListItemText>
+        </Typography>
         </Link>
-    </ListItem>
 
-    
-    <ListItem key={"absorption"}>
         <Link to="/absorption">
-        <ListItemText 
+        <Typography 
         sx = {{ bgcolor:"primary.dark", color:"white"}}>
         <b>Absorption Plots</b>
-        </ListItemText>
+        </Typography>
         </Link>
-    </ListItem>
-
-
-
-    </List>
     </Stack>
 )
+}
