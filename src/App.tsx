@@ -5,9 +5,12 @@ import { SampleDataProvider } from './context/SampleDataProvider'
 
 import { LinkBar } from './pages/Router'
 
+import { QueryClient, QueryClientProvider,} from '@tanstack/react-query'
+
 function App() {
 
   return (
+  <QueryClientProvider client={new QueryClient}>
   <SampleDataProvider>
   <ThemeProvider theme={DiamondDSTheme}>
   <Stack sx={{height:"100vh", 
@@ -17,6 +20,7 @@ function App() {
     </Stack>
   </ThemeProvider>
 </SampleDataProvider>
+</QueryClientProvider>
 
   )
 }

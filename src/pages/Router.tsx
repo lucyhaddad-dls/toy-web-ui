@@ -7,6 +7,7 @@ import { LinksList } from "../components/LinkBarComponent";
 import { SampleCreatePage } from "./SampleCreatePage";
 import { SavedSampleList } from "../components/SavedSampleList";
 import { PlotValuesPage } from "./AbsorptionPage";
+import { AbsorptionPlotPage } from "./AbsorptionPlotPage";
 
 export function LinkBar () {
 
@@ -78,7 +79,9 @@ export function LinkBar () {
                     </Stack>}/>
 
             <Route path="/samples/plot"
-            element={<Stack sx={{maxWidth:"100%"}}></Stack>}/>
+            element={<Stack sx={{maxWidth:"100%"}}>
+                <AbsorptionPlotPage/>
+            </Stack>}/>
          </Routes>
          </BrowserRouter>
      
