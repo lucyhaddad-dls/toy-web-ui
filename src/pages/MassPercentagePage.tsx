@@ -16,6 +16,8 @@ import { SaveSamplePopUp } from "../components/NameSamplePopup";
 
 function FormulaCalculator (props:{formulaInfo:SampleMassRatioType[]}) {
 
+    const {focusedSample} = useContext(SampleDataContext)
+
     const { isPending, error, data } = useQuery({
         queryKey: ["formulaInfo",{
             formulaList: props.formulaInfo.map(i => i.formula),
@@ -61,6 +63,12 @@ function FormulaCalculator (props:{formulaInfo:SampleMassRatioType[]}) {
             <b> Formula: {data}</b>
         </Typography>
             <SaveSamplePopUp saveValues={newVals}/>
+
+        <Button>Save Changes<br></br>({focusedSample.name} with 
+        formula {
+            focusedSample.values.find(i=>i.name=="formula")?.value.val}
+        )</Button>
+
         </Stack>
     
     )
@@ -127,9 +135,6 @@ export function MassPercentagePage() {
 
     </Stack>
      
-        <Button>Overwrite old sample <br></br>({focusedSample.name} with 
-        formula {focusedSample.values.filter(val=>val.name=="formula")[0].value.val})</Button>
-
         <Button variant="contained"
         onClick={onClear} sx={{bgcolor:"#616263"}}>
             Clear Sample Data</Button>

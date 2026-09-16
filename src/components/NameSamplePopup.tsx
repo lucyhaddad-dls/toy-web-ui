@@ -4,6 +4,7 @@ import { Box, Button, Fade, Popover, Stack, TextField, Typography } from "@mui/m
 import ScienceTwoToneIcon from '@mui/icons-material/ScienceTwoTone';
 import { nullSampleValues } from "../models/defaults";
 import type { SampleValueResponse } from "../models/models";
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 
 export function SaveSamplePopUp(props:{saveValues:SampleValueResponse[]|null}) {
      const { addToSampleList } = useContext(SampleDataContext)
@@ -29,20 +30,19 @@ export function SaveSamplePopUp(props:{saveValues:SampleValueResponse[]|null}) {
     return (
     <Stack >
         <Button variant="contained" sx={{bgcolor:"#477a51",
-            minWidth:"15vw", m:1
-        }}
+            minWidth:"15vw", m:1}}
             onClick = {onClick}>
-        <Stack direction="row" spacing={1}>
-        {props.saveValues == null && 
+
         <Stack>
-        <Typography><b>Make New Sample</b></Typography>
-        <ScienceTwoToneIcon/>
+        {props.saveValues == null && 
+        <Stack direction="row" spacing={1}>
+        <b>Make New Sample</b>  <ScienceTwoToneIcon size="small"/>
         </Stack>}
         {props.saveValues != null && 
-        <Stack>
-        <Typography><b>Save As New Sample</b></Typography>
+        <Stack direction="row" spacing={1}>
+        <Typography><b>Save As New Sample </b>
+        <LibraryAddIcon size="small"/></Typography>
         </Stack>}
-
 
         </Stack>
     </Button>
