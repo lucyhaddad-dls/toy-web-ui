@@ -1,9 +1,7 @@
-import { Button, Fab,  Grid, Grow, Stack, Typography } from "@mui/material";
+import { Button, Fab, Grid, Grow, Stack, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { defaultFormulaInfoValues, nullSampleValues } from "../models/defaults";
-import type {
-  SampleMassRatioType,
-} from "../models/models";
+import type { SampleMassRatioType } from "../models/models";
 
 import { getNewFormula } from "../models/queryFunctions";
 import { SampleDataContext } from "../context/SampleContext";
@@ -14,79 +12,94 @@ import { MassPercentInput } from "../components/inputs/MassPercentageInput";
 import { useQuery } from "@tanstack/react-query";
 import { SaveSamplePopUp } from "../components/inputs/NameSamplePopup";
 
-function FormulaCalculator (props:{formulaInfo:SampleMassRatioType[]}) {
+function FormulaCalculator(props: { formulaInfo: SampleMassRatioType[] }) {
+  const { focusedSample } = useContext(SampleDataContext);
 
-    const {focusedSample} = useContext(SampleDataContext)
+  const { isPending, error, data } = useQuery({
+    queryKey: [
+      "formulaInfo",
+      {
+        formulaList: props.formulaInfo.map((i) => i.formula),
+        ratioList: props.formulaInfo.map((i) => i.ratio),
+      },
+    ],
+    queryFn: () =>
+      getNewFormula(
+        props.formulaInfo.map((i) => i.formula),
+        props.formulaInfo.map((i) => i.ratio),
+      ),
+  });
 
-    const { isPending, error, data } = useQuery({
-        queryKey: ["formulaInfo",{
-            formulaList: props.formulaInfo.map(i => i.formula),
-           ratioList: props.formulaInfo.map(i => i.ratio)}
-        ],
-        queryFn: () => getNewFormula(props.formulaInfo.map(i => i.formula),
-                    props.formulaInfo.map(i => i.ratio))
-    });
-
-    if (error) return ( <Stack spacing={2} sx={{ p: 2,
-         justifyContent:"space-between"}} direction="row">
-                    <Typography
-                    sx = {{color:"#1e4c61"}}>
-                    <b>Error: {error.message}</b>
-                    </Typography>
-                    </Stack>
-    )
-
-    if (isPending) return ( <Stack spacing={2} sx={{ p: 2,
-         justifyContent:"space-between"}} direction="row">
-                    <Typography
-                    sx = {{color:"#1e4c61"}}>
-                    <b>Pending......</b>
-                    </Typography>
-                    </Stack>
-    )
-
-    const newVals = nullSampleValues.map(itm => {
-        if (itm.name == "formula"){
-            return {...itm, value:{...itm.value, val:data}}
-        }
-        else {return itm}
-        
-    })
-
-  
+  if (error)
     return (
-        
-        <Stack spacing={2} sx={{ p: 2,
-         justifyContent:"space-between"}} direction="row">
-    
-        <Typography>
-            <b> Formula: {data}</b>
+      <Stack
+        spacing={2}
+        sx={{ p: 2, justifyContent: "space-between" }}
+        direction="row"
+      >
+        <Typography sx={{ color: "#1e4c61" }}>
+          <b>Error: {error.message}</b>
         </Typography>
-            <SaveSamplePopUp saveValues={newVals}/>
+      </Stack>
+    );
 
-        <Button>Save Changes<br></br>({focusedSample.name} with 
-        formula {
-            focusedSample.values.find(i=>i.name=="formula")?.value.val}
-        )</Button>
+  if (isPending)
+    return (
+      <Stack
+        spacing={2}
+        sx={{ p: 2, justifyContent: "space-between" }}
+        direction="row"
+      >
+        <Typography sx={{ color: "#1e4c61" }}>
+          <b>Pending......</b>
+        </Typography>
+      </Stack>
+    );
 
-        </Stack>
-    
-    )
+  const newVals = nullSampleValues.map((itm) => {
+    if (itm.name == "formula") {
+      return { ...itm, value:data };
+    } else {
+      return itm;
+    }
+  });
+
+  return (
+    <Stack
+      spacing={2}
+      sx={{ p: 2, justifyContent: "space-between" }}
+      direction="row"
+    >
+      <Typography>
+        <b> Formula: {data}</b>
+      </Typography>
+      <SaveSamplePopUp saveValues={newVals} />
+
+      <Button>
+        Save Changes<br></br>({focusedSample.name} with formula{" "}
+        {focusedSample.values.find((i) => i.name == "formula")?.value})
+      </Button>
+    </Stack>
+  );
 }
 
 export function MassPercentagePage() {
-
   const [inputCount, setInputCount] = useState<number>(1);
 
-  const { focusedSample } = useContext(SampleDataContext)
+  const { focusedSample } = useContext(SampleDataContext);
 
   const getDefaultValues = () => {
-    let formula = focusedSample.values.filter(a =>a.name=="formula")[0].value.val
-    if (formula == null){return defaultFormulaInfoValues}
-    else {return [{formula:formula, ratio:1}]}
-  }
+    let formula = focusedSample.values.filter((a) => a.name == "formula")[0]
+      .value as string;
+    if (formula == null) {
+      return defaultFormulaInfoValues;
+    } else {
+      return [{ formula: formula, ratio: 1 }];
+    }
+  };
 
-  const [formulaInfo, setFormulaInfo] = useState<SampleMassRatioType[]>(getDefaultValues())
+  const [formulaInfo, setFormulaInfo] =
+    useState<SampleMassRatioType[]>(getDefaultValues());
 
   const onAdd = () => {
     setFormulaInfo([...formulaInfo, { formula: "", ratio: 1 }]);
@@ -97,18 +110,17 @@ export function MassPercentagePage() {
     valname: "formula" | "pc",
     value: string | number,
   ) => {
-
     const data = [...formulaInfo];
 
     if (valname == "formula") {
       data[index][valname] = value as string;
-      setFormulaInfo(data)
+      setFormulaInfo(data);
     }
     if (valname == "pc") {
       data[index]["ratio"] = value as number;
-      setFormulaInfo(data)
+      setFormulaInfo(data);
     }
-    return () => {}
+    return () => {};
   };
 
   const onDelete = (index: number) => {
@@ -118,95 +130,101 @@ export function MassPercentagePage() {
   };
 
   const onClear = () => {
-    setInputCount(1)
-    setFormulaInfo(getDefaultValues())
-  }
-  
+    setInputCount(1);
+    setFormulaInfo(getDefaultValues());
+  };
+
   return (
-
-    <Stack sx = {{ minWidth:"100vw"}}>
-        current sample is {focusedSample.name} 
-       
-      <Stack spacing={2} sx={{ p: 2,
-         justifyContent:"space-between"}} direction="row">
-
-    <Stack direction="row">Calculated Formula:
-        <FormulaCalculator formulaInfo={formulaInfo}/>
-
-    </Stack>
-     
-        <Button variant="contained"
-        onClick={onClear} sx={{bgcolor:"#616263"}}>
-            Clear Sample Data</Button>
-
-    </Stack>
-
-    <Stack>
-    <Grid container rowSpacing={1}
-       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-      sx = {{ p:2 }}>
-        {formulaInfo.map((_elm, indx) => {
-           
-          if (indx == inputCount - 1) {
-
-            return (
-            <Grow in={true} key={indx}>
-              <Grid key={`${indx}-child`} rowSpacing={1} columnSpacing={1}>
-                <MassPercentInput
-                key={`${indx}-input`}
-                  componentIndex={indx}
-                  defaults={formulaInfo[indx]}
-                  onChange={onChange} />
-                <Stack
-                    key = {`${indx}-stack-child`}
-                  direction="row"
-                  spacing={1}
-                  sx={{ justifyContent: "flex-end" }}>
-                  <Fab
-                    key={`${indx}-fab`}
-                    sx={{ bgcolor: "#5f967a", color: "#fefefe" }}
-                    size="small"
-                    variant="circular"
-                    onClick={() => {
-                      setInputCount(inputCount + 1);
-                      onAdd();
-                    }}>
-                    <AddIcon />
-                  </Fab>
-                  <Fab
-                    sx={{ bgcolor: "#696969", color: "#fefefe" }}
-                    size="small"
-                    variant="circular"
-                    onClick={() => {
-                      if (inputCount > 1) {
-                        setInputCount(inputCount - 1);
-                        onDelete(indx);
-                      }
-                    }} >
-                    <DeleteOutlinedIcon />
-                  </Fab>{" "}
-                </Stack>
-              </Grid>
-              </Grow>
-            );
-          }
-          if (indx != inputCount) {
-            return (
-            <Grow in={true}>
-              <Grid key={`${indx}-child`}>
-                <MassPercentInput
-                  componentIndex={indx}
-                  defaults={formulaInfo[indx]}
-                  onChange={onChange}/>
-              </Grid>
-              </Grow>
-            );
-          }
-        })}
-      </Grid>
+    <Stack sx={{ minWidth: "100vw" }}>
+      current sample is {focusedSample.name}
+      <Stack
+        spacing={2}
+        sx={{ p: 2, justifyContent: "space-between" }}
+        direction="row"
+      >
+        <Stack direction="row">
+          Calculated Formula:
+          <FormulaCalculator formulaInfo={formulaInfo} />
         </Stack>
 
+        <Button
+          variant="contained"
+          onClick={onClear}
+          sx={{ bgcolor: "#616263" }}
+        >
+          Clear Sample Data
+        </Button>
+      </Stack>
+      <Stack>
+        <Grid
+          container
+          rowSpacing={1}
+          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          sx={{ p: 2 }}
+        >
+          {formulaInfo.map((_elm, indx) => {
+            if (indx == inputCount - 1) {
+              return (
+                <Grow in={true} key={indx}>
+                  <Grid key={`${indx}-child`} rowSpacing={1} columnSpacing={1}>
+                    <MassPercentInput
+                      key={`${indx}-input`}
+                      componentIndex={indx}
+                      defaults={formulaInfo[indx]}
+                      onChange={onChange}
+                    />
+                    <Stack
+                      key={`${indx}-stack-child`}
+                      direction="row"
+                      spacing={1}
+                      sx={{ justifyContent: "flex-end" }}
+                    >
+                      <Fab
+                        key={`${indx}-fab`}
+                        sx={{ bgcolor: "#5f967a", color: "#fefefe" }}
+                        size="small"
+                        variant="circular"
+                        onClick={() => {
+                          setInputCount(inputCount + 1);
+                          onAdd();
+                        }}
+                      >
+                        <AddIcon />
+                      </Fab>
+                      <Fab
+                        sx={{ bgcolor: "#696969", color: "#fefefe" }}
+                        size="small"
+                        variant="circular"
+                        onClick={() => {
+                          if (inputCount > 1) {
+                            setInputCount(inputCount - 1);
+                            onDelete(indx);
+                          }
+                        }}
+                      >
+                        <DeleteOutlinedIcon />
+                      </Fab>{" "}
+                    </Stack>
+                  </Grid>
+                </Grow>
+              );
+            }
+            if (indx != inputCount) {
+              return (
+                <Grow in={true}>
+                  <Grid key={`${indx}-child`}>
+                    <MassPercentInput
+                      componentIndex={indx}
+                      defaults={formulaInfo[indx]}
+                      onChange={onChange}
+                    />
+                  </Grid>
+                </Grow>
+              );
+            }
+          })}
+        </Grid>
+      </Stack>
     </Stack>
-       
-        );
+  );
 }

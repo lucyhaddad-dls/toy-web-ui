@@ -1,32 +1,38 @@
-import { useContext } from "react"
-import { SampleDataContext } from "../context/SampleContext"
-import { Stack, Typography } from "@mui/material"
-import { SaveSamplePopUp } from "../components/inputs/NameSamplePopup"
+import { useContext } from "react";
+import { SampleDataContext } from "../context/SampleContext";
+import { Stack, Typography } from "@mui/material";
+import { SaveSamplePopUp } from "../components/inputs/NameSamplePopup";
 
-import { SampleRow } from "../components/CollapseTableRow"
+import { SampleRow } from "../components/CollapseTableRow";
 
+export function SampleCreatePage() {
+  const { sampleList } = useContext(SampleDataContext);
 
-export function SampleCreatePage () {
+  return (
+    <Stack
+      spacing={2}
+      sx={{ maxWidth: "100%", marginLeft: "2%", marginRight: "2%" }}
+    >
+      <Stack
+        direction="row"
+        sx={{
+          justifyContent: "space-between",
+          alignContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography>
+          <b>Current Samples Available</b>
+        </Typography>
 
-    const { sampleList } = useContext(SampleDataContext)
+        <SaveSamplePopUp saveValues={null} />
+      </Stack>
 
-    return (
-        <Stack spacing={2} 
-        sx = {{maxWidth:"100%", marginLeft:"2%", marginRight:"2%"}}>
-        <Stack direction="row" sx = {{justifyContent:"space-between",
-                alignContent:"center", alignItems:"center"}}>
-
-            <Typography><b>Current Samples Available</b></Typography>
-        
-        <SaveSamplePopUp saveValues={null}/>
-        </Stack>
-   
-        <Stack>
-            {sampleList.map(i => {
-                return (<SampleRow input={i} key={`${i.name}-row`}/>)
-            })}
-        </Stack>
-
-        </Stack>
-    )
+      <Stack>
+        {sampleList.map((i) => {
+          return <SampleRow input={i} key={`${i.name}-row`} />;
+        })}
+      </Stack>
+    </Stack>
+  );
 }
