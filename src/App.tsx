@@ -3,7 +3,7 @@ import { Stack } from '@mui/material'
 import { DiamondDSTheme, ThemeProvider } from '@diamondlightsource/sci-react-ui'
 import { SampleDataProvider } from './context/SampleDataProvider'
 
-import { LinkBar } from './new/pages/Router'
+import { LinkBar } from './pages/Router'
 
 function App() {
 

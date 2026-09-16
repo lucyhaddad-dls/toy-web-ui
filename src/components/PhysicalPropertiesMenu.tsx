@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import { SampleDataContext } from "../../context/SampleContext";
-import { sampleKeys, type SampleResponse, type SampleResponseKeys } from "../../models/models";
+import { SampleDataContext } from "../context/SampleContext";
+import { sampleKeys, type SampleResponse, type SampleResponseKeys } from "../models/models";
 import { Button, Grid, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import { nullSampleValues } from "../../models/defaults";
+import { nullSampleValues } from "../models/defaults";
 import { SamplePropertyInput } from "./SamplePropertyInput";
 
 export function PhysicalPropertiesMenu (props:{name:string}) {

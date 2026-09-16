@@ -1,17 +1,51 @@
-// do i want get to be handled here or by the provider..?
-// i think the provider 
+import ndarray from "ndarray";
+import { type Domain, getDomain, VisCanvas, DataCurve } from "@h5web/lib";
+
+function DataPlot(props: {xdata:ndarray.NdArray<number[]>|null,
+                                ydata:ndarray.NdArray<number[]>|null, 
+                                xlabel:string, 
+                                ylabel:string}){
+
+    const ydomain:Domain|undefined = props.ydata ? getDomain(props.ydata): [0, 1];
+    const xdomain:Domain|undefined = props.xdata ? getDomain(props.xdata): [0, 1];
+
+                            
+    return (
+      <div>
+       <VisCanvas 
+        abscissaConfig={{
+          visDomain: xdomain ? xdomain: [0, 1], 
+        label: props.xlabel }}
+
+        ordinateConfig={{
+          visDomain: ydomain ? ydomain: [0, 1],
+        label: props.ylabel }}
+      
+        >
+          {props.ydata && props.xdata && (
+            <DataCurve
+            abscissas={props.xdata.data}
+            color="red"
+            ordinates={props.ydata?.data}
+            visible
+            />
+          )}
+        </VisCanvas>
+      </div>
+        )
+}
 
 import { FormControl, InputLabel, MenuItem, Select, Stack } from "@mui/material";
 import { useContext, useState } from "react";
-import { MultiSampleContext } from "../context/SampleContext";
+import { SampleDataContext } from "../context/SampleContext";
 import { getAbsorptionData } from "../models/queryFunctions";
 import { type AbsorptionType, type SampleAbsorptionResponse } from "../models/models";
-import ndarray from "ndarray";
-import { DataPlot } from "./PhotoPlotComponent";
+
+
 
 export function PlotValuesPage() {
 
-    const { focusedSample, getAvailableCalcs, photoData, setPhotoData } = useContext(MultiSampleContext)
+    const {focusedSample, photoData, setPhotoData, getAvailableData} = useContext(SampleDataContext)
 
     const [currentPlotValue, setCurrentPlotValue] = useState<AbsorptionType|"">("")
 
@@ -31,11 +65,14 @@ export function PlotValuesPage() {
         setCurrentPlotValue(name as AbsorptionType)
 
         if (currentPlotValue != ""){
-            getAbsorptionData(currentPlotValue as AbsorptionType).then(data => 
-                setPhotoData({...photoData, [currentPlotValue]:data}))
-        }
+            getAbsorptionData(currentPlotValue as AbsorptionType).then(data => {
 
-        setPlotData(currentData())
+                setPhotoData({...photoData, [currentPlotValue]:data})})
+               
+        }
+        // TEST, change later...
+        // currentData did not work for some reason.
+        setPlotData(photoData.mass)
         handlePlotData()
     }
 
@@ -65,13 +102,16 @@ export function PlotValuesPage() {
         <Stack spacing={2}>
  
         <Stack direction="row" spacing={2} >
+            {(focusedSample != undefined) &&
+            <Stack>
             <FormControl size="medium" sx={{minWidth:"10%"}}>
             <InputLabel id="photo-select-label">
             Photo Value</InputLabel>
+            
             <Select labelId="photo-select-label"
             id="photo-select" value={currentPlotValue}
             label="Photo Value">
-            {getAvailableCalcs(focusedSample.name).filter(i => 
+            {getAvailableData(focusedSample.name).filter(i => 
                 i.includes("absorption")).map(i => <MenuItem
                      value={iSplit(i)}
                     selected={currentPlotValue === iSplit(i)}
@@ -91,8 +131,11 @@ export function PlotValuesPage() {
                 onClick = {() => {setCurrentElement(i); handlePlotData()}}
                 >{i}</MenuItem>)}
                 </Select>
+            
 
             </FormControl>
+            </Stack>
+        }
             </Stack>
         <Stack >
         <DataPlot xdata={xdata} ydata={ydata} xlabel={xlabel} ylabel={ylabel}/>

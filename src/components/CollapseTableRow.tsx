@@ -1,13 +1,13 @@
 // collapsable table items for displaying sample properties:
 
 import { useContext, useId, useState } from "react";
-import type { SampleResponse } from "../../models/models";
+import type { SampleResponse } from "../models/models";
 import { Button, Collapse, Grid, IconButton, List, ListItemText, Stack, Typography } from "@mui/material";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { AddPropsMenu } from "./AddPropertiesMenu";
-import { SampleDataContext } from "../../context/SampleContext";
-import { postFocusedSample } from "../../models/queryFunctions";
+import { SampleDataContext } from "../context/SampleContext";
+import { postFocusedSample } from "../models/queryFunctions";
 import { Link } from "react-router-dom";
 
 export function SampleRow(props: { input: SampleResponse }) {

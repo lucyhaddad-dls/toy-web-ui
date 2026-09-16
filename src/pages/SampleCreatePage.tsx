@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { SampleDataContext } from "../../context/SampleContext"
+import { SampleDataContext } from "../context/SampleContext"
 import { Stack, Typography } from "@mui/material"
 import { NameSamplePopUp } from "../components/NameSamplePopup"
 
