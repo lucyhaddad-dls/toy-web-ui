@@ -1,8 +1,8 @@
-import { Button, Fab, Grid, Grow, Stack, Typography } from "@mui/material";
+import { Button, Fab,  Grid, Grow, Stack, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { defaultFormulaInfoValues, nullSampleValues } from "../models/defaults";
 import type {
-  SampleMassRatioType, SampleValueResponse,
+  SampleMassRatioType,
 } from "../models/models";
 
 import { getNewFormula } from "../models/queryFunctions";
@@ -12,6 +12,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { MassPercentInput } from "../components/MassPercentageInput";
 import { useQuery } from "@tanstack/react-query";
+import { SaveSamplePopUp } from "../components/NameSamplePopup";
 
 function FormulaCalculator (props:{formulaInfo:SampleMassRatioType[]}) {
 
@@ -41,17 +42,27 @@ function FormulaCalculator (props:{formulaInfo:SampleMassRatioType[]}) {
                     </Typography>
                     </Stack>
     )
+
+    const newVals = nullSampleValues.map(itm => {
+        if (itm.name == "formula"){
+            return {...itm, value:{...itm.value, val:data}}
+        }
+        else {return itm}
+        
+    })
+
   
     return (
         
         <Stack spacing={2} sx={{ p: 2,
          justifyContent:"space-between"}} direction="row">
-
-        <Typography
-        sx = {{color:"#1e4c61"}}>
+    
+        <Typography>
             <b> Formula: {data}</b>
         </Typography>
+            <SaveSamplePopUp saveValues={newVals}/>
         </Stack>
+    
     )
 }
 
@@ -98,13 +109,10 @@ export function MassPercentagePage() {
     setFormulaInfo(data);
   };
 
-
-
   const onClear = () => {
     setInputCount(1)
     setFormulaInfo(getDefaultValues())
   }
-
   
   return (
 
@@ -114,19 +122,17 @@ export function MassPercentagePage() {
       <Stack spacing={2} sx={{ p: 2,
          justifyContent:"space-between"}} direction="row">
 
-    <Stack sx={{bgcolor:"primary.light"}} direction="row">Calculated Formula:
+    <Stack direction="row">Calculated Formula:
         <FormulaCalculator formulaInfo={formulaInfo}/>
 
     </Stack>
-        <Button>Save as new sample (unfinished)</Button>
-
+     
         <Button>Overwrite old sample <br></br>({focusedSample.name} with 
         formula {focusedSample.values.filter(val=>val.name=="formula")[0].value.val})</Button>
-        
+
         <Button variant="contained"
         onClick={onClear} sx={{bgcolor:"#616263"}}>
             Clear Sample Data</Button>
-
 
     </Stack>
 

@@ -3,9 +3,10 @@ import { SampleDataContext } from "../context/SampleContext";
 import { Box, Button, Fade, Popover, Stack, TextField, Typography } from "@mui/material";
 import ScienceTwoToneIcon from '@mui/icons-material/ScienceTwoTone';
 import { nullSampleValues } from "../models/defaults";
-export function NameSamplePopUp() {
+import type { SampleValueResponse } from "../models/models";
 
-    const { addToSampleList} = useContext(SampleDataContext)
+export function SaveSamplePopUp(props:{saveValues:SampleValueResponse[]|null}) {
+     const { addToSampleList } = useContext(SampleDataContext)
 
     const [open, setOpen] = useState<boolean>(false)
     const [position, setPosition] = useState<HTMLElement|null>(null)
@@ -19,7 +20,10 @@ export function NameSamplePopUp() {
     }
 
     const onAdd = (name:string) => {
-        addToSampleList(nullSampleValues, name)
+        if (props.saveValues == null){
+        addToSampleList(nullSampleValues, name)}
+        else {addToSampleList(props.saveValues, name)
+        }
     }
 
     return (
@@ -29,8 +33,17 @@ export function NameSamplePopUp() {
         }}
             onClick = {onClick}>
         <Stack direction="row" spacing={1}>
+        {props.saveValues == null && 
+        <Stack>
         <Typography><b>Make New Sample</b></Typography>
         <ScienceTwoToneIcon/>
+        </Stack>}
+        {props.saveValues != null && 
+        <Stack>
+        <Typography><b>Save As New Sample</b></Typography>
+        </Stack>}
+
+
         </Stack>
     </Button>
     <Popover id = "0" open={open} anchorEl={position}

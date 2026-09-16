@@ -4,8 +4,9 @@ import { ListItemIcon, Menu, MenuItem,
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 import { SampleDataContext } from "../context/SampleContext";
-import { NameSamplePopUp } from "./NameSamplePopup";
+import { SaveSamplePopUp } from "./NameSamplePopup";
 import { AddPropsMenu } from "./AddPropertiesMenu";
+
 
 export function SavedSampleList (){
 
@@ -101,9 +102,7 @@ export function SavedSampleList (){
     </MenuItem> 
     ))}
     </MenuList>
-
-        <NameSamplePopUp/>
- 
+        <SaveSamplePopUp saveValues={null} />
     <Menu id={"addSampleMenu"}
     open = {addSampleOpen}
     onClick={handleAddMenuClick}

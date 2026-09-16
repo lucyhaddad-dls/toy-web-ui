@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { SampleDataContext } from "../context/SampleContext"
 import { Stack, Typography } from "@mui/material"
-import { NameSamplePopUp } from "../components/NameSamplePopup"
+import { SaveSamplePopUp } from "../components/NameSamplePopup"
 
 import { SampleRow } from "../components/CollapseTableRow"
 
@@ -18,7 +18,7 @@ export function SampleCreatePage () {
 
             <Typography><b>Current Samples Available</b></Typography>
         
-        <NameSamplePopUp/>
+        <SaveSamplePopUp saveValues={null}/>
         </Stack>
    
         <Stack>
