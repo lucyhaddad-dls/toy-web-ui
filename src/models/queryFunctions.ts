@@ -1,9 +1,6 @@
 import axios, { type AxiosResponse } from "axios";
 import {
   type AbsorptionType,
-  type SampleResponse,
-  type SampleResponseKeys,
-  type SampleUnitKeys,
   type SampleValueResponse,
   sampleKeys,
 } from "./models";
@@ -17,28 +14,6 @@ export const getSampleData = async () => {
   const sample = data.filter((v) => sampleKeys.includes(v.name));
 
   return sample;
-};
-
-export const postSampleData = async (
-  name: SampleResponseKeys | SampleUnitKeys,
-  value: string | string[],
-) => {
-  await axios
-    .post("/api/input", null, { params: { name, value } })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      return error;
-    });
-};
-
-export const postFocusedSample = async (sample: SampleResponse) => {
-  sample.values.map((value) => {
-    if (value.value != null) {
-      postSampleData(value.name, value.value);
-    }
-  });
 };
 
 export const getAbsorptionData = async (

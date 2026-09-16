@@ -13,7 +13,6 @@ import {
   nullSampleValues,
 } from "../models/defaults";
 import { SampleDataContext } from "./SampleContext";
-import { postFocusedSample } from "../models/queryFunctions";
 
 export function SampleDataProvider(props: { children: React.ReactNode }) {
   const { children } = props;
@@ -75,7 +74,6 @@ export function SampleDataProvider(props: { children: React.ReactNode }) {
   // set it by default to be the first example sample.
   const setFocusedSample = (values: SampleResponse) => {
     _setFocusedSample(values);
-    postFocusedSample(focusedSample);
   };
 
   const [photoData, setPhotoData] =

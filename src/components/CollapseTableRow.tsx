@@ -16,7 +16,6 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { AddPropsMenu } from "./menus/AddPropertiesMenu";
 import { SampleDataContext } from "../context/SampleContext";
-import { postFocusedSample } from "../models/queryFunctions";
 import { Link } from "react-router-dom";
 
 export function SampleRow(props: { input: SampleResponse }) {
@@ -32,7 +31,6 @@ export function SampleRow(props: { input: SampleResponse }) {
   );
 
   const onGetAbsorption = () => {
-    postFocusedSample(props.input);
     setFocusedSample(props.input);
     setAvailableData(getAvailableData(props.input.name));
   };
