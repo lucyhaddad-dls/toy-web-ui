@@ -10,6 +10,7 @@ import type {
   SamplePhotoData,
   SampleResponse,
   SampleResponseKeys,
+  SampleValueResponse,
 } from "../models/models";
 import { SampleContext } from "./SampleContext";
 
@@ -71,6 +72,16 @@ export function DataProvider(props: { children: React.ReactNode }) {
     setSampleList(newList);
   };
 
+  const replaceSampleValues = (sampleName:string, newValues:SampleValueResponse[]) =>{
+    const newList = sampleList.map(i => {
+      if (i.name === sampleName){
+        return {...i, values:newValues}
+      }
+      else {return i}
+    })
+    setSampleList(newList)
+  }
+
   const editFocusedSample = (valName:SampleResponseKeys,
        newValue:string) => {
         const newFocused = focusedSample.values.map(i => {
@@ -130,6 +141,7 @@ export function DataProvider(props: { children: React.ReactNode }) {
         addToSampleList: addToSampleList,
         deleteFromSampleList: deleteFromSampleList,
         editSampleList: editSampleList,
+        replaceSampleValues: replaceSampleValues,
 
         getSample: getSample,
 

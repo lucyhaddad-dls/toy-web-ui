@@ -12,7 +12,7 @@ const steps = [
         "Add Absorber and Edge",
         "Add other Physical Properties",];
 
-  const { setFocusedSample} = useContext(SampleContext)
+  const { setFocusedSample, focusedSample } = useContext(SampleContext)
   const onNewSample = () => {
     setFocusedSample(emptySampleValues)
   }
@@ -21,11 +21,11 @@ const steps = [
     <Typography align="center"><b>Sample Builder</b></Typography>
 
     <Stack direction="row" spacing={2}>
-    <SampleInfoBox sampleName={null} showLinks={false}
+    <SampleInfoBox sampleName={focusedSample.name} showLinks={false}
     defaultOpen={false}/>
     <Button variant="contained"
     sx={{maxHeight:"50px"}} 
-    onClick = {onNewSample}>Make New Sample</Button>
+    onClick = {onNewSample}>Use New Sample</Button>
     </Stack>
     <SampleStepper steps={steps}/>
   </Stack>)

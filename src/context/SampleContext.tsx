@@ -30,5 +30,8 @@ export const SampleContext = createContext<SampleContextType>({
   },
   editFocusedSample: function (): void {
     throw new Error("Function not implemented.");
+  },
+  replaceSampleValues: function (): void {
+    throw new Error("Function not implemented.");
   }
 })

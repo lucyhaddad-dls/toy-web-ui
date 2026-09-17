@@ -29,7 +29,7 @@ export function MassPercentInput(props: {
     [],
   );
 
-  // add into on atomic mass ?
+  // add info on atomic mass ?
 
   return (
     <Stack spacing={2}>

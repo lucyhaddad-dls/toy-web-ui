@@ -73,6 +73,7 @@ export interface SampleContextType {
   addToSampleList: (sample: SampleResponse) => void
   deleteFromSampleList: (name: string) => void
   editSampleList: (sampleName: string, valName: SampleResponseKeys, newValue: string) => void
+  replaceSampleValues: (sampleName: string, newValues: SampleValueResponse[]) => void
   getSample: (sampleName:string|null) => SampleResponse
   focusedSample: SampleResponse
   editFocusedSample: (valName: SampleResponseKeys, newValue: string) => void

@@ -1,42 +1,35 @@
 import {
+  Box,
   Button,
+  Fade,
+  Popover,
   Stack,
   Step,
   StepButton,
   Stepper,
-  Typography,
+  TextField,
+
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { PageSwitcher } from "./PageSwitcher";
+import { SampleContext } from "../../context/SampleContext";
+
+// todo: remove the "save step" 
 
 export function SampleStepper(props: { steps: string[] }) {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [done, setDone] = useState<{ [step: number]: boolean }>({});
 
-  const isComplete = Object.keys(done).length === props.steps.length;
+  const {focusedSample, setFocusedSample, getSample, addToSampleList, replaceSampleValues} = useContext(SampleContext)
+
   const isLast = currentStep === Object.keys(done).length - 1;
 
   const resetButtonRef = useRef<HTMLButtonElement>(null);
   const nextButtonRef = useRef<HTMLButtonElement>(null);
   const previousActiveStepRef = useRef(currentStep);
-  const previousCompletedRef = useRef(done);
 
-  // when completed changes
-  useEffect(() => {
-    const previousCompleted = previousCompletedRef.current;
-    previousCompletedRef.current = done;
-
-    if (isComplete) {
-      resetButtonRef.current!.focus();
-      return;
-    }
-    if (
-      Object.keys(done).length === 0 &&
-      Object.keys(previousCompleted).length !== 0
-    ) {
-      nextButtonRef.current!.focus();
-    }
-  }, [done, isComplete]);
+  const [saveOpen, setSaveOpen] = useState<boolean>(false) 
+  const [savePosition, setSavePosition] = useState<null|HTMLElement>(null)
 
   // when active changes:
   useEffect(() => {
@@ -48,7 +41,7 @@ export function SampleStepper(props: { steps: string[] }) {
 
   const onNext = () => {
     const newStep =
-      isLast && !isComplete
+      isLast
         ? props.steps.findIndex((_step, i) => !(i in done))
         : currentStep + 1;
     setCurrentStep(newStep);
@@ -62,10 +55,23 @@ export function SampleStepper(props: { steps: string[] }) {
     setCurrentStep(step);
   };
 
-  const onComplete = () => {
+  const onComplete = (event:React.MouseEvent<HTMLElement>) => {
+    // rename sample.
     setDone({ ...done, [currentStep]: true });
-    onNext();
+    // open sample name box.
+      setSaveOpen(!saveOpen)
+      setSavePosition(event.currentTarget)
   };
+
+  const saveNew = (sampleName:string) => {
+    addToSampleList({name:sampleName, values:focusedSample.values})
+    setFocusedSample({name:sampleName, values:focusedSample.values})
+  }
+
+  const ovewriteSample = () => {
+    replaceSampleValues(focusedSample.name, focusedSample.values)
+    setFocusedSample(getSample(focusedSample.name))
+  }
 
   const onReset = () => {
     setCurrentStep(0);
@@ -102,24 +108,61 @@ export function SampleStepper(props: { steps: string[] }) {
         >
           Next
         </Button>
-      </Stack>
 
-      {isComplete && (
-        <Stack>
-          <Typography>All steps complete!</Typography>
-          <Button ref={resetButtonRef} onClick={onReset}>
-            Reset all Steps
+                <Button ref={resetButtonRef} onClick={onReset}
+          disabled={currentStep === 0}>
+            Back to start
           </Button>
-        </Stack>
-      )}
 
-      {currentStep != props.steps.length && (
-        <Button onClick={onComplete}>
-          {Object.keys(done).length === props.steps.length - 1
-            ? "finish"
-            : "save step"}
+      {currentStep == props.steps.length -1 && (
+        <Button 
+        onClick={(event:React.MouseEvent<HTMLElement> ) => 
+        onComplete(event)}
+          >
+         Save as New Sample
         </Button>
       )}
+      {currentStep == props.steps.length -1 && focusedSample.name != "" &&(
+        <div>
+        <Button 
+        onClick={(event:React.MouseEvent<HTMLElement> ) => 
+        onComplete(event)}>
+         Save as New Sample
+        </Button>
+        <Button onClick={() => 
+          {setDone({ ...done, [currentStep]: true }); ovewriteSample()}}>
+          Save Changes
+        </Button>
+        </div>
+      )}
+      </Stack>
+
+        <Popover id="save"
+        open={saveOpen}
+        anchorEl={savePosition}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        transformOrigin={{ vertical: "top", horizontal: "left" }}
+        onClose={() =>{setSaveOpen(false); setSavePosition(null)}}>
+        <Fade in={saveOpen}>
+            <Box sx={{visibility:saveOpen==true?"visible":"hidden"}}>
+                <TextField
+                label="Sample Name: "
+                onKeyUp={(event) => {
+                if (event.key == "Enter") {
+                  setSaveOpen(false); setSavePosition(null)
+                  const val = event.target as HTMLTextAreaElement;
+                  
+                  if (val.value != "") {
+                    saveNew(val.value)
+                    event.preventDefault(); }
+                  }
+                }
+              }
+                />
+            </Box>
+        </Fade>
+        </Popover>
+  
     </Stack>
   );
 }
