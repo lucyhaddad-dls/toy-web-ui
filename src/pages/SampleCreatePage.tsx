@@ -30,7 +30,8 @@ export function SampleCreatePage() {
 
       <Grid container spacing={1}>
         {sampleList.map(i => {
-          return <SampleInfoBox sampleName={i.name} showLinks={true}/>
+          return <SampleInfoBox sampleName={i.name} showLinks={true}
+          defaultOpen={true} key={i.name}/>
         })}
       </Grid>
     </Stack>

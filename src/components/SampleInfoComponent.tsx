@@ -15,10 +15,11 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { Link } from "react-router-dom";
 
-export function SampleInfoBox(props: { sampleName: string | null ,
-                                        showLinks: boolean 
+export function SampleInfoBox(props: { sampleName: string | null,
+                                        showLinks: boolean,
+                                        defaultOpen: boolean
 }) {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(props.defaultOpen);
   const { getSample, getAvailableData, setFocusedSample } = useContext(SampleContext);
   const rowId = useId();
 

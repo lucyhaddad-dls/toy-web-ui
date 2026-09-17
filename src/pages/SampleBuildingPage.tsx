@@ -21,7 +21,8 @@ const steps = [
     <Typography align="center"><b>Sample Builder</b></Typography>
 
     <Stack direction="row" spacing={2}>
-    <SampleInfoBox sampleName={focusedSample.name} showLinks={false}/>
+    <SampleInfoBox sampleName={focusedSample.name} showLinks={false}
+    defaultOpen={false}/>
     <Button variant="contained" 
     onClick = {onNewSample}>Make New Sample</Button>
     </Stack>

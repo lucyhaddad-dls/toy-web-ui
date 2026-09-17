@@ -9,7 +9,7 @@ export function SamplePropertyInput(props: {
   name: SampleResponseKeys;
   defaultVal: string | null | undefined;
 }) {
-  const {getSample, editSampleList} = useContext(SampleContext)
+  const {getSample, editFocusedSample} = useContext(SampleContext)
 
   const sample = getSample(props.sampleId);
   let [initValue, setInitValue] = useState(
@@ -28,7 +28,8 @@ export function SamplePropertyInput(props: {
     debounce(
       (val: ChangeEvent<HTMLTextAreaElement | HTMLInputElement, Element>) => {
         if (val.target.value != undefined) {
-          editSampleList(props.sampleId, props.name, val.target.value)
+
+          editFocusedSample(props.name, val.target.value)
         }
       },
       200,

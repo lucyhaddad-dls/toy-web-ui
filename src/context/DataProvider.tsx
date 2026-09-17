@@ -71,6 +71,18 @@ export function DataProvider(props: { children: React.ReactNode }) {
     setSampleList(newList);
   };
 
+  const editFocusedSample = (valName:SampleResponseKeys,
+       newValue:string) => {
+        const newFocused = focusedSample.values.map(i => {
+          if (i.name === valName){
+            return {...i, value: newValue}
+          }
+          else {return i}
+        })
+
+        setFocusedSample({name:focusedSample.name, values:newFocused})
+    }
+
   const [photoData, setPhotoData] =
     useState<SamplePhotoData>(nullAbsorptionData);
 
@@ -123,6 +135,7 @@ export function DataProvider(props: { children: React.ReactNode }) {
 
         focusedSample: focusedSample,
         setFocusedSample: setFocusedSample,
+        editFocusedSample: editFocusedSample,
 
         photoData: photoData,
         setPhotoData: setPhotoData,

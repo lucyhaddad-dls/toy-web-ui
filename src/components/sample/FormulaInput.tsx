@@ -1,12 +1,21 @@
 import { Button, Menu, MenuItem, Stack, Typography } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { SamplePropertyInput } from "../inputs/SamplePropertyInput";
+import { SampleContext } from "../../context/SampleContext";
 
 export function FormulaInputPage() {
+
+  const {focusedSample} = useContext(SampleContext)
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
 
   const [textInput, setTextInput] = useState<boolean>(false)
   const [massPcInput, setMassPcInput] = useState<boolean>(false)
+
+  const defaultValues = focusedSample.values.map(i => {
+    if (i.value == null){return {name:i.name, value:""}}
+    else {return i}
+  })
 
   const menuToggle = (event: React.MouseEvent<HTMLElement> | null) => {
     if (event != null) {
@@ -33,10 +42,10 @@ export function FormulaInputPage() {
          setMassPcInput(true)}}>Build by Mass %</MenuItem>
       </Menu>
 
-      {/* { (textInput) &&
-        <SamplePropertyInput sampleId="" name={"formula"} defaultVal={null}/>
-        } */}
-        {(textInput) && <Stack>Formula textbox here</Stack>}
+
+        {(textInput) && <SamplePropertyInput  sampleId={focusedSample.name} 
+        name={"formula"} defaultVal={defaultValues.filter(i => i.name === "formula")[0].value as string}/>}
+        
 
         {(massPcInput) && <Stack>Mass % Page here</Stack>}
 

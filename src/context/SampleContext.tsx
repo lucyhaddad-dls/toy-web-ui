@@ -1,5 +1,5 @@
 import { createContext, } from "react";
-import { type SampleContextType, type SampleResponse, } from "../models/models";
+import { type SampleContextType, type SampleResponse } from "../models/models";
 import { emptySampleValues, nullAbsorptionData } from "../models/defaults";
 
 
@@ -26,6 +26,9 @@ export const SampleContext = createContext<SampleContextType>({
     throw new Error("Function not implemented.");
   },
   getSample: function (): SampleResponse {
+    throw new Error("Function not implemented.");
+  },
+  editFocusedSample: function (): void {
     throw new Error("Function not implemented.");
   }
 })

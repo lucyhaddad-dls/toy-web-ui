@@ -75,6 +75,7 @@ export interface SampleContextType {
   editSampleList: (sampleName: string, valName: SampleResponseKeys, newValue: string) => void
   getSample: (sampleName:string|null) => SampleResponse
   focusedSample: SampleResponse
+  editFocusedSample: (valName: SampleResponseKeys, newValue: string) => void
   setFocusedSample: React.Dispatch<React.SetStateAction<SampleResponse>>
   photoData: SamplePhotoData
   setPhotoData: React.Dispatch<React.SetStateAction<SamplePhotoData>>
