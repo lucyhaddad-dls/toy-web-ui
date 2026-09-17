@@ -30,6 +30,8 @@ export type SampleResponseKeys =
   | "thickness"
   | "mass";
 
+export type ExtendedResponseKeys = "cross sectional area" | "radius" | "diameter"
+
 export type SampleUnitKeys = "mass_unit" | "length_unit" | "energy_unit";
 
 export interface UnitValue {

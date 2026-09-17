@@ -10,6 +10,7 @@ export function SequentialSampleBuilder() {
 const steps = [
         "Add Formula/Composition",
         "Add Absorber and Edge",
+        "Define Sample Type",
         "Add other Physical Properties",];
 
   const { setFocusedSample } = useContext(SampleContext)

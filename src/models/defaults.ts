@@ -57,3 +57,10 @@ export const calcDependencies = {
   linear_absorption: ["formula", "absorber", "edge", "density"],
   total_absorption: ["formula", "absorber", "edge", "density", "thickness"],
 };
+
+export const SampleTypes = {
+  pellet: ["cross sectional area", "thickness", "density",
+     "radius", "diameter", "mass"],
+     //todo: add more 
+
+}

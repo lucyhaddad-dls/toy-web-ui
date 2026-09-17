@@ -4,14 +4,12 @@ import { SamplePropertyInput } from "../inputs/SamplePropertyInput";
 import { SampleContext } from "../../context/SampleContext";
 
 export function FormulaInputPage() {
-
-  const {focusedSample} = useContext(SampleContext)
+  const { focusedSample } = useContext(SampleContext);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
 
-  const [textInput, setTextInput] = useState<boolean>(false)
-  const [massPcInput, setMassPcInput] = useState<boolean>(false)
-
+  const [textInput, setTextInput] = useState<boolean>(false);
+  const [massPcInput, setMassPcInput] = useState<boolean>(false);
 
   const menuToggle = (event: React.MouseEvent<HTMLElement> | null) => {
     if (event != null) {
@@ -31,20 +29,34 @@ export function FormulaInputPage() {
       </Stack>
 
       <Menu open={menuOpen} anchorEl={menuAnchor} onClick={menuToggle}>
-        <MenuItem onClick={()=>{setTextInput(true); 
-            setMassPcInput(false)}}>Text Input</MenuItem>
+        <MenuItem
+          onClick={() => {
+            setTextInput(true);
+            setMassPcInput(false);
+          }}
+        >
+          Text Input
+        </MenuItem>
 
-        <MenuItem onClick={() => {setTextInput(false);
-         setMassPcInput(true)}}>Build by Mass %</MenuItem>
+        <MenuItem
+          onClick={() => {
+            setTextInput(false);
+            setMassPcInput(true);
+          }}
+        >
+          Build by Mass %
+        </MenuItem>
       </Menu>
 
+      {textInput && (
+        <SamplePropertyInput
+          sampleId={focusedSample.name}
+          name={"formula"}
+          label={null}
+        />
+      )}
 
-        {(textInput) && <SamplePropertyInput  sampleId={focusedSample.name} 
-        name={"formula"} />}
-        
-
-        {(massPcInput) && <Stack>Mass % Page here</Stack>}
-
+      {massPcInput && <Stack>Mass % Page here</Stack>}
     </Stack>
   );
 }

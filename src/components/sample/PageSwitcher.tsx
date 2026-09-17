@@ -1,6 +1,7 @@
 import { Stack } from "@mui/material";
 import { FormulaInputPage } from "./FormulaInput";
 import { AbsorptionDataInputPage } from "./AbsorberInput";
+import { InputPagePellet } from "./PhysicalPropsInput";
 
 export function PageSwitcher(props: { currentStep: Number }) {
   if (props.currentStep === 0) {
@@ -13,7 +14,7 @@ export function PageSwitcher(props: { currentStep: Number }) {
   if (props.currentStep === 1) {
     return (
       <Stack sx={{ minHeight: "30vh", alignItems: "center" }}>
-        <AbsorptionDataInputPage/>
+        <AbsorptionDataInputPage />
       </Stack>
     );
   }
@@ -21,7 +22,16 @@ export function PageSwitcher(props: { currentStep: Number }) {
   if (props.currentStep === 2) {
     return (
       <Stack sx={{ minHeight: "30vh", alignItems: "center" }}>
-        Step 3 page (add phyiscal properties + save sample)
+        Step 3 page (define sample) (TODO: make list of sample "types")
+      </Stack>
+    );
+  }
+
+  if (props.currentStep === 3) {
+    return (
+      <Stack sx={{ minHeight: "30vh", alignItems: "center" }}>
+        {/* just setting this to be a pellet right now. */}
+        <InputPagePellet />
       </Stack>
     );
   }

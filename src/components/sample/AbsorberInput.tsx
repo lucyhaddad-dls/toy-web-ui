@@ -11,18 +11,20 @@ export function AbsorptionDataInputPage() {
       <Stack direction="row">Absorber and Edge Input: </Stack>
 
       <Grid container spacing={1}>
-    <Grid key={"absorber-input"}>
-        <SamplePropertyInput
-          sampleId={focusedSample.name}
-          name={"absorber" }
-        />
-    </Grid>
-    <Grid key={"edge-input"}>
-        <SamplePropertyInput
-          sampleId={focusedSample.name}
-          name={"edge"}
-        />
-    </Grid>
+        <Grid key={"absorber-input"}>
+          <SamplePropertyInput
+            sampleId={focusedSample.name}
+            name={"absorber"}
+            label={null}
+          />
+        </Grid>
+        <Grid key={"edge-input"}>
+          <SamplePropertyInput
+            sampleId={focusedSample.name}
+            name={"edge"}
+            label={null}
+          />
+        </Grid>
       </Grid>
     </Stack>
   );

@@ -32,9 +32,7 @@ export function SampleInfoBox(props: { sampleName: string | null,
     }
   const nonEmptyVals = sample.values.filter((i) => i.value != null);
   let availableData = [""];
-  if (props.sampleName) {
-    availableData = getAvailableData(props.sampleName);
-  }
+  availableData = getAvailableData(name);
 
   const onButtonClick = () => {
     setFocusedSample(sample)
