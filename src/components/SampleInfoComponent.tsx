@@ -24,9 +24,11 @@ export function SampleInfoBox(props: { sampleName: string | null,
   const rowId = useId();
 
   let sample = focusedSample
+  let name = focusedSample.name
 
   if (props.sampleName != null){
     sample = getSample(props.sampleName);
+    name = props.sampleName
     }
   const nonEmptyVals = sample.values.filter((i) => i.value != null);
   let availableData = [""];
@@ -43,7 +45,7 @@ export function SampleInfoBox(props: { sampleName: string | null,
       <Paper>
         <Stack direction="row" sx={{ m: 1, width:"15vw" }}>
           <Typography>
-            Sample Name: <b>{props.sampleName}</b>
+            Sample Name: <b>{name}</b>
           </Typography>
           <IconButton
             aria-label={open ? "collapse" : "expand"}

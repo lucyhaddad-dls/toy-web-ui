@@ -6,8 +6,7 @@ import { debounce } from "../../models/queryFunctions";
 
 export function SamplePropertyInput(props: {
   sampleId: string;
-  name: SampleResponseKeys;
-  defaultVal: string | null | undefined;
+  name: SampleResponseKeys
 }) {
   const {getSample, editFocusedSample} = useContext(SampleContext)
 
@@ -19,28 +18,23 @@ export function SamplePropertyInput(props: {
     setInitValue("");
   }
 
-  let init = "";
-  if (props.defaultVal != undefined && props.defaultVal != null) {
-    init = props.defaultVal;
-  }
-
   const handleInput = useCallback(
     debounce(
       (val: ChangeEvent<HTMLTextAreaElement | HTMLInputElement, Element>) => {
         if (val.target.value != undefined) {
-
           editFocusedSample(props.name, val.target.value)
         }
       },
       200,
     ),
     [],
+
   );
 
   return (
     <Grid key={`${props.name}-text-input`}>
       <TextField
-        defaultValue={init}
+        defaultValue={initValue}
         label={props.name}
         onChange={handleInput}
       />

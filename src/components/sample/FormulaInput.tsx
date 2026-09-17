@@ -12,10 +12,6 @@ export function FormulaInputPage() {
   const [textInput, setTextInput] = useState<boolean>(false)
   const [massPcInput, setMassPcInput] = useState<boolean>(false)
 
-  const defaultValues = focusedSample.values.map(i => {
-    if (i.value == null){return {name:i.name, value:""}}
-    else {return i}
-  })
 
   const menuToggle = (event: React.MouseEvent<HTMLElement> | null) => {
     if (event != null) {
@@ -44,7 +40,7 @@ export function FormulaInputPage() {
 
 
         {(textInput) && <SamplePropertyInput  sampleId={focusedSample.name} 
-        name={"formula"} defaultVal={defaultValues.filter(i => i.name === "formula")[0].value as string}/>}
+        name={"formula"} />}
         
 
         {(massPcInput) && <Stack>Mass % Page here</Stack>}

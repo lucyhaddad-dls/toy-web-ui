@@ -1,5 +1,6 @@
 import { Stack } from "@mui/material";
 import { FormulaInputPage } from "./FormulaInput";
+import { AbsorptionDataInputPage } from "./AbsorberInput";
 
 export function PageSwitcher(props: { currentStep: Number }) {
   if (props.currentStep === 0) {
@@ -12,7 +13,7 @@ export function PageSwitcher(props: { currentStep: Number }) {
   if (props.currentStep === 1) {
     return (
       <Stack sx={{ minHeight: "30vh", alignItems: "center" }}>
-        Step 2 page (absorber + edge)
+        <AbsorptionDataInputPage/>
       </Stack>
     );
   }

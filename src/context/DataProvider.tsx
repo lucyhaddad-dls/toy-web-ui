@@ -84,6 +84,7 @@ export function DataProvider(props: { children: React.ReactNode }) {
 
   const editFocusedSample = (valName:SampleResponseKeys,
        newValue:string) => {
+    
         const newFocused = focusedSample.values.map(i => {
           if (i.name === valName){
             return {...i, value: newValue}

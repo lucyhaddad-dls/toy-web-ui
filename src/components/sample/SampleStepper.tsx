@@ -71,6 +71,7 @@ export function SampleStepper(props: { steps: string[] }) {
   const ovewriteSample = () => {
     replaceSampleValues(focusedSample.name, focusedSample.values)
     setFocusedSample(getSample(focusedSample.name))
+    console.log(focusedSample.values)
   }
 
   const onReset = () => {
@@ -124,11 +125,7 @@ export function SampleStepper(props: { steps: string[] }) {
       )}
       {currentStep == props.steps.length -1 && focusedSample.name != "" &&(
         <div>
-        <Button 
-        onClick={(event:React.MouseEvent<HTMLElement> ) => 
-        onComplete(event)}>
-         Save as New Sample
-        </Button>
+    
         <Button onClick={() => 
           {setDone({ ...done, [currentStep]: true }); ovewriteSample()}}>
           Save Changes
