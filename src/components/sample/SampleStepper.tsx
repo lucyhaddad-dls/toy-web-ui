@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
+import { PageSwitcher } from "./PageSwitcher";
 
 export function SampleStepper(props: { steps: string[] }) {
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -72,7 +73,7 @@ export function SampleStepper(props: { steps: string[] }) {
   };
 
   return (
-    <Stack>
+    <Stack spacing={2}>
       <Stepper nonLinear activeStep={currentStep}>
         {props.steps.map((step, i) => (
           <Step key={step} completed={done[i]}>
@@ -86,6 +87,8 @@ export function SampleStepper(props: { steps: string[] }) {
           </Step>
         ))}
       </Stepper>
+
+      <PageSwitcher currentStep={currentStep} />
 
       <Stack direction="row">
         <Button onClick={onBack} disabled={currentStep === 0} color="inherit">
