@@ -1,33 +1,31 @@
-import { createContext } from "react";
-import type { SampleDataContextType, SampleResponse } from "../models/models";
-import { nullAbsorptionData, nullSampleValues } from "../models/defaults";
+import { createContext, } from "react";
+import { type SampleContextType, type SampleResponse, } from "../models/models";
+import { emptySampleValues, nullAbsorptionData } from "../models/defaults";
 
-export const SampleDataContext = createContext<SampleDataContextType>({
+
+export const SampleContext = createContext<SampleContextType>({
   sampleList: [],
-  setSampleList: function (): void {
-    throw new Error("Function not implemented.");
-  },
-  setSingleValue: function (): () => void {
-    throw new Error("Function not implemented.");
-  },
   addToSampleList: function (): void {
     throw new Error("Function not implemented.");
   },
   deleteFromSampleList: function (): void {
     throw new Error("Function not implemented.");
   },
-  getSample: function (): SampleResponse {
+  editSampleList: function (): void {
     throw new Error("Function not implemented.");
   },
-  focusedSample: { name: "", values: nullSampleValues },
+  focusedSample: emptySampleValues,
   setFocusedSample: function (): void {
-    throw new Error("Function not implemented.");
-  },
-  getAvailableData: function (): string[] {
     throw new Error("Function not implemented.");
   },
   photoData: nullAbsorptionData,
   setPhotoData: function (): void {
     throw new Error("Function not implemented.");
   },
-});
+  getAvailableData: function (): string[] {
+    throw new Error("Function not implemented.");
+  },
+  getSample: function (): SampleResponse {
+    throw new Error("Function not implemented.");
+  }
+})

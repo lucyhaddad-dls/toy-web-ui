@@ -1,7 +1,5 @@
 import { Button, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { useState } from "react";
-import { SamplePropertyInput } from "../inputs/SamplePropertyInput";
-
 
 export function FormulaInputPage() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -35,9 +33,10 @@ export function FormulaInputPage() {
          setMassPcInput(true)}}>Build by Mass %</MenuItem>
       </Menu>
 
-      { (textInput) &&
+      {/* { (textInput) &&
         <SamplePropertyInput sampleId="" name={"formula"} defaultVal={null}/>
-        }
+        } */}
+        {(textInput) && <Stack>Formula textbox here</Stack>}
 
         {(massPcInput) && <Stack>Mass % Page here</Stack>}
 

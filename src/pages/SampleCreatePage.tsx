@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { SampleDataContext } from "../context/SampleContext";
+import { SampleContext } from "../context/SampleContext";
 import { Stack, Typography } from "@mui/material";
 import { SaveSamplePopUp } from "../components/inputs/NameSamplePopup";
 
 import { SampleRow } from "../components/CollapseTableRow";
 
 export function SampleCreatePage() {
-  const { sampleList } = useContext(SampleDataContext);
+  const { sampleList } = useContext(SampleContext);
 
   return (
     <Stack

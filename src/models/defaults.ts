@@ -1,6 +1,7 @@
 import type {
   SampleMassRatioType,
   SamplePhotoData,
+  SampleResponse,
   SampleValueResponse,
   UnitValue,
 } from "./models";
@@ -20,6 +21,11 @@ export const nullSampleValues: SampleValueResponse[] = [
   { name: "thickness", value: null },
   { name: "mass", value: null },
 ];
+
+export const emptySampleValues: SampleResponse = {
+  name:"",
+  values: nullSampleValues
+}
 
 export const exampleSampleValues: SampleValueResponse[] = [
   { name: "formula", value: "FeOH" },

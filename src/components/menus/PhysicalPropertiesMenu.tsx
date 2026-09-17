@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { SampleDataContext } from "../../context/SampleContext";
+import { SampleContext } from "../../context/SampleContext";
 import {
   sampleKeys,
   type SampleResponse,
@@ -14,7 +14,7 @@ export function PhysicalPropertiesMenu(props: { name: string }) {
   const [open, setOpen] = useState<boolean>(false);
   const [anchor, setAnchor] = useState<null | HTMLElement>(null);
 
-  const { getSample } = useContext(SampleDataContext);
+  const { getSample } = useContext(SampleContext);
 
   const [currentSample] = useState<SampleResponse>(getSample(props.name));
 

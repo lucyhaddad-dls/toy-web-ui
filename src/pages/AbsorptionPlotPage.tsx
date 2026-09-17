@@ -8,11 +8,12 @@ import {
 } from "@mui/material";
 import { AbsPlotWrapper } from "../components/plot/AbsorptionPlotWrapper";
 import { useContext, useState } from "react";
-import { SampleDataContext } from "../context/SampleContext";
+import { SampleContext } from "../context/SampleContext";
 import type { AbsorptionType } from "../models/models";
 
 export function AbsorptionPlotPage() {
-  const { focusedSample, getAvailableData } = useContext(SampleDataContext);
+
+  const {focusedSample, getAvailableData} = useContext(SampleContext)
   const [currentPlotValue, setCurrentPlotValue] = useState<AbsorptionType | "">(
     "",
   );

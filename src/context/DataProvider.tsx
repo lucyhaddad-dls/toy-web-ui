@@ -1,20 +1,19 @@
-import type React from "react";
 import { useState } from "react";
-import type {
-  SamplePhotoData,
-  SampleResponse,
-  SampleResponseKeys,
-  SampleValueResponse,
-} from "../models/models";
 import {
   calcDependencies,
+  emptySampleValues,
   exampleSampleValues,
   nullAbsorptionData,
   nullSampleValues,
 } from "../models/defaults";
-import { SampleDataContext } from "./SampleContext";
+import type {
+  SamplePhotoData,
+  SampleResponse,
+  SampleResponseKeys,
+} from "../models/models";
+import { SampleContext } from "./SampleContext";
 
-export function SampleDataProvider(props: { children: React.ReactNode }) {
+export function DataProvider(props: { children: React.ReactNode }) {
   const { children } = props;
 
   const [sampleList, setSampleList] = useState<SampleResponse[]>([
@@ -22,43 +21,25 @@ export function SampleDataProvider(props: { children: React.ReactNode }) {
     { name: "empty sample", values: nullSampleValues },
   ]);
 
-  const getSample = (name: string) => {
+  const [focusedSample, setFocusedSample] =
+    useState<SampleResponse>(emptySampleValues);
+
+  const getSample = (name: string | null) => {
+    if (name == null) {
+      return emptySampleValues;
+    }
+
     let currentSample = sampleList.find((i) => i.name == name);
     if (currentSample == undefined) {
+      // add to sample list?
       currentSample = { name: name, values: nullSampleValues };
     }
 
     return currentSample;
   };
 
-  const setSingleValue = (
-    name: SampleResponseKeys,
-    value: string,
-    sampleId: string,
-  ) => {
-    const currentSample = getSample(sampleId);
-    const newValue = currentSample.values.map((itm) => {
-      if (itm.name == name) {
-        return { ...itm, value: value };
-      } else {
-        return itm;
-      }
-    });
-
-    const newList = sampleList.map((i) => {
-      if (i.name == sampleId) {
-        return { ...i, values: newValue };
-      } else {
-        return i;
-      }
-    });
-
-    setSampleList(newList);
-    return () => {};
-  };
-
-  const addToSampleList = (values: SampleValueResponse[], name: string) => {
-    setSampleList([...sampleList, { name: name, values: values }]);
+  const addToSampleList = (sample: SampleResponse) => {
+    setSampleList([...sampleList, sample]);
   };
 
   const deleteFromSampleList = (name: string) => {
@@ -66,21 +47,35 @@ export function SampleDataProvider(props: { children: React.ReactNode }) {
     setSampleList(newSamples);
   };
 
-  // make a member of the sampleList the focusedSample when absorption
-  // data requested:
-  const [focusedSample, _setFocusedSample] = useState<SampleResponse>(
-    sampleList[0],
-  );
-  // set it by default to be the first example sample.
-  const setFocusedSample = (values: SampleResponse) => {
-    _setFocusedSample(values);
+  const editSampleList = (
+    sampleName: string,
+    valName: SampleResponseKeys,
+    newValue: string,
+  ) => {
+    const currentSample = getSample(sampleName);
+    const newSample = currentSample.values.map((i) => {
+      if (i.name == valName) {
+        return { ...i, value: newValue };
+      } else {
+        return i;
+      }
+    });
+
+    const newList = sampleList.map((i) => {
+      if (i.name == sampleName) {
+        return { ...i, values: newSample };
+      } else {
+        return i;
+      }
+    });
+    setSampleList(newList);
   };
 
   const [photoData, setPhotoData] =
     useState<SamplePhotoData>(nullAbsorptionData);
 
-  const getAvailableData = (sampleId: string) => {
-    const currentData = getSample(sampleId);
+  const getAvailableData = (sampleName: string) => {
+    const currentData = getSample(sampleName);
     const nonNull = currentData.values
       .filter((v) => v.value != null && v.value != undefined && v.value != "")
       .map((v) => v.name);
@@ -117,22 +112,24 @@ export function SampleDataProvider(props: { children: React.ReactNode }) {
   };
 
   return (
-    <SampleDataContext.Provider
+    <SampleContext.Provider
       value={{
         sampleList: sampleList,
-        setSampleList: setSampleList,
-        getSample: getSample,
-        setSingleValue: setSingleValue,
         addToSampleList: addToSampleList,
         deleteFromSampleList: deleteFromSampleList,
+        editSampleList: editSampleList,
+
+        getSample: getSample,
+
         focusedSample: focusedSample,
         setFocusedSample: setFocusedSample,
-        getAvailableData: getAvailableData,
+
         photoData: photoData,
         setPhotoData: setPhotoData,
+        getAvailableData: getAvailableData,
       }}
     >
       {children}
-    </SampleDataContext.Provider>
+    </SampleContext.Provider>
   );
 }

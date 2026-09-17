@@ -25,7 +25,7 @@ export function LinksList() {
           <b>Sample Builder</b>
         </Typography>
       </Link>
-
+{/* 
       <Link to="/samples/mass-percentage">
         <Typography sx={{ bgcolor: "primary.dark", color: "white" }}>
           <b>Formula from Mass %</b>
@@ -37,7 +37,7 @@ export function LinksList() {
           <b>Absorption Plots</b>
         </Typography>
       </Link>
-      
+       */}
          <Link to="/samples">
         <Typography sx={{ bgcolor: "primary.dark", color: "white" }}>
           <b>Sample Information</b>

@@ -1,14 +1,14 @@
 // add properties by input or formula via ratios/%'s:
 
 import React, { useContext, useState } from "react";
-import { SampleDataContext } from "../../context/SampleContext";
+import { SampleContext } from "../../context/SampleContext";
 import { Box, Button, Menu, MenuItem, Popover, Stack } from "@mui/material";
 import { PhysicalPropertiesMenu } from "./PhysicalPropertiesMenu";
 import { Link } from "react-router-dom";
 
 export function AddPropsMenu(props: { sampleName: string }) {
   const [open, setOpen] = useState<boolean>(false);
-  const { setFocusedSample, getSample } = useContext(SampleDataContext);
+  const { setFocusedSample, getSample } = useContext(SampleContext)
   const [top, setTop] = useState<number>(0);
   const [left, setLeft] = useState<number>(0);
 

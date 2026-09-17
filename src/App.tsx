@@ -3,16 +3,16 @@ import {
   DiamondDSTheme,
   ThemeProvider,
 } from "@diamondlightsource/sci-react-ui";
-import { SampleDataProvider } from "./context/SampleDataProvider";
 
 import { LinkBar } from "./pages/Router";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { DataProvider } from "./context/DataProvider";
 
 function App() {
   return (
     <QueryClientProvider client={new QueryClient()}>
-      <SampleDataProvider>
+      <DataProvider>
         <ThemeProvider theme={DiamondDSTheme}>
           <Stack
             sx={{
@@ -25,7 +25,7 @@ function App() {
             <LinkBar />
           </Stack>
         </ThemeProvider>
-      </SampleDataProvider>
+      </DataProvider>
     </QueryClientProvider>
   );
 }

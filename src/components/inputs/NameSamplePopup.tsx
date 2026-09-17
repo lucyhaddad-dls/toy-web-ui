@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { SampleDataContext } from "../../context/SampleContext";
+import { SampleContext } from "../../context/SampleContext";
 import {
   Box,
   Button,
@@ -17,7 +17,7 @@ import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 export function SaveSamplePopUp(props: {
   saveValues: SampleValueResponse[] | null;
 }) {
-  const { addToSampleList } = useContext(SampleDataContext);
+  const { addToSampleList } = useContext(SampleContext);
 
   const [open, setOpen] = useState<boolean>(false);
   const [position, setPosition] = useState<HTMLElement | null>(null);
@@ -33,9 +33,9 @@ export function SaveSamplePopUp(props: {
 
   const onAdd = (name: string) => {
     if (props.saveValues == null) {
-      addToSampleList(nullSampleValues, name);
+      addToSampleList({ name: name, values: nullSampleValues });
     } else {
-      addToSampleList(props.saveValues, name);
+      addToSampleList({ name: name, values: props.saveValues });
     }
   };
 

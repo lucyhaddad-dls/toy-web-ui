@@ -10,13 +10,13 @@ import {
 } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
-import { SampleDataContext } from "../context/SampleContext";
+import { SampleContext, } from "../context/SampleContext";
 import { SaveSamplePopUp } from "./inputs/NameSamplePopup";
 import { AddPropsMenu } from "./menus/AddPropertiesMenu";
 
 export function SavedSampleList() {
   const { sampleList, deleteFromSampleList, getSample } =
-    useContext(SampleDataContext);
+    useContext(SampleContext);
 
   const [hoverInfo, setHoverInfo] = useState<string[]>([]);
 

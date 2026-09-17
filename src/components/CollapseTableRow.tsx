@@ -15,7 +15,7 @@ import {
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { AddPropsMenu } from "./menus/AddPropertiesMenu";
-import { SampleDataContext } from "../context/SampleContext";
+import { SampleContext } from "../context/SampleContext";
 import { Link } from "react-router-dom";
 
 export function SampleRow(props: { input: SampleResponse }) {
@@ -24,7 +24,8 @@ export function SampleRow(props: { input: SampleResponse }) {
 
   const nonNullValues = props.input.values.filter((i) => i.value != null);
 
-  const { setFocusedSample, getAvailableData } = useContext(SampleDataContext);
+  const {setFocusedSample, getAvailableData} = useContext(SampleContext)
+
 
   const [availableData, setAvailableData] = useState<string[]>(
     getAvailableData(props.input.name),

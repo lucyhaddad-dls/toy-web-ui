@@ -1,6 +1,6 @@
 import { useCallback, useContext, useState, type ChangeEvent } from "react";
 import type { SampleResponseKeys } from "../../models/models";
-import { SampleDataContext } from "../../context/SampleContext";
+import { SampleContext } from "../../context/SampleContext";
 import { Grid, TextField } from "@mui/material";
 import { debounce } from "../../models/queryFunctions";
 
@@ -9,7 +9,7 @@ export function SamplePropertyInput(props: {
   name: SampleResponseKeys;
   defaultVal: string | null | undefined;
 }) {
-  const { setSingleValue, getSample } = useContext(SampleDataContext);
+  const {getSample, editSampleList} = useContext(SampleContext)
 
   const sample = getSample(props.sampleId);
   let [initValue, setInitValue] = useState(
@@ -28,7 +28,7 @@ export function SamplePropertyInput(props: {
     debounce(
       (val: ChangeEvent<HTMLTextAreaElement | HTMLInputElement, Element>) => {
         if (val.target.value != undefined) {
-          setSingleValue(props.name, val.target.value, props.sampleId);
+          editSampleList(props.sampleId, props.name, val.target.value)
         }
       },
       200,

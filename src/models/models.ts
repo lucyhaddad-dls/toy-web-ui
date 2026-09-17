@@ -68,22 +68,17 @@ export interface SamplePhotoData {
   total: null | SampleAbsorptionResponse;
 }
 
-export interface SampleDataContextType {
-  sampleList: SampleResponse[];
-  setSampleList: React.Dispatch<React.SetStateAction<SampleResponse[]>>;
-  getSample: (name: string) => SampleResponse;
-  setSingleValue: (
-    name: SampleResponseKeys,
-    value: string,
-    sampleId: string,
-  ) => () => void;
-  addToSampleList: (values: SampleValueResponse[], name: string) => void;
-  deleteFromSampleList: (name: string) => void;
-  focusedSample: SampleResponse;
-  setFocusedSample: (values: SampleResponse) => void;
-  getAvailableData: (sampleId: string) => string[];
-  photoData: SamplePhotoData;
-  setPhotoData: React.Dispatch<React.SetStateAction<SamplePhotoData>>;
+export interface SampleContextType {
+  sampleList: SampleResponse[]
+  addToSampleList: (sample: SampleResponse) => void
+  deleteFromSampleList: (name: string) => void
+  editSampleList: (sampleName: string, valName: SampleResponseKeys, newValue: string) => void
+  getSample: (sampleName:string|null) => SampleResponse
+  focusedSample: SampleResponse
+  setFocusedSample: React.Dispatch<React.SetStateAction<SampleResponse>>
+  photoData: SamplePhotoData
+  setPhotoData: React.Dispatch<React.SetStateAction<SamplePhotoData>>
+  getAvailableData: (sampleName: string) => string[]
 }
 
 export interface SampleMassRatioType {
