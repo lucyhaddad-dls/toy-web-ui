@@ -1,11 +1,14 @@
-// option for formula builder or pure input....
-
 import { Button, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { useState } from "react";
+import { SamplePropertyInput } from "../inputs/SamplePropertyInput";
+
 
 export function FormulaInputPage() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
+
+  const [textInput, setTextInput] = useState<boolean>(false)
+  const [massPcInput, setMassPcInput] = useState<boolean>(false)
 
   const menuToggle = (event: React.MouseEvent<HTMLElement> | null) => {
     if (event != null) {
@@ -17,7 +20,7 @@ export function FormulaInputPage() {
   };
 
   return (
-    <Stack>
+    <Stack spacing={2}>
       <Stack direction="row">
         <Typography>Formula input:</Typography>
 
@@ -25,9 +28,19 @@ export function FormulaInputPage() {
       </Stack>
 
       <Menu open={menuOpen} anchorEl={menuAnchor} onClick={menuToggle}>
-        <MenuItem>Text Input</MenuItem>
-        <MenuItem>Build by Mass %</MenuItem>
+        <MenuItem onClick={()=>{setTextInput(true); 
+            setMassPcInput(false)}}>Text Input</MenuItem>
+
+        <MenuItem onClick={() => {setTextInput(false);
+         setMassPcInput(true)}}>Build by Mass %</MenuItem>
       </Menu>
+
+      { (textInput) &&
+        <SamplePropertyInput sampleId="" name={"formula"} defaultVal={null}/>
+        }
+
+        {(massPcInput) && <Stack>Mass % Page here</Stack>}
+
     </Stack>
   );
 }
