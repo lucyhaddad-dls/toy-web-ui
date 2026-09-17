@@ -8,6 +8,7 @@ import { SampleCreatePage } from "./SampleCreatePage";
 import { SavedSampleList } from "../components/SavedSampleList";
 import { AbsorptionPlotPage } from "./AbsorptionPlotPage";
 import { MassPercentagePage } from "./MassPercentagePage";
+import { SequentialSampleBuilder } from "./SampleBuildingPage";
 
 export function LinkBar() {
   const [showSamples, setShowSamples] = useState<boolean>(false);
@@ -90,6 +91,15 @@ export function LinkBar() {
             element={
               <Stack sx={{ maxWidth: "100%" }}>
                 <SampleCreatePage />
+              </Stack>
+            }
+          />
+
+          <Route
+            path="/samples/build"
+            element={
+              <Stack sx={{ maxWidth: "100%" }}>
+                <SequentialSampleBuilder />
               </Stack>
             }
           />
