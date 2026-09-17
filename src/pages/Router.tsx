@@ -4,7 +4,7 @@ import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { PlaceholderPage } from "./Placeholder";
 import { LinksList } from "../components/LinkBarComponent";
-import { SampleCreatePage } from "./SampleCreatePage";
+import { SampleInfoPage } from "./SampleInfoPage";
 import { SavedSampleList } from "../components/SavedSampleList";
 import { AbsorptionPlotPage } from "./AbsorptionPlotPage";
 import { MassPercentagePage } from "./MassPercentagePage";
@@ -90,7 +90,7 @@ export function LinkBar() {
             path="/samples"
             element={
               <Stack sx={{ maxWidth: "100%" }}>
-                <SampleCreatePage />
+                <SampleInfoPage />
               </Stack>
             }
           />

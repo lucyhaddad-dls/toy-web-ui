@@ -4,7 +4,7 @@ import { Grid, Stack, Typography } from "@mui/material";
 import { SaveSamplePopUp } from "../components/inputs/NameSamplePopup";
 import { SampleInfoBox } from "../components/SampleInfoComponent";
 
-export function SampleCreatePage() {
+export function SampleInfoPage() {
   const { sampleList } = useContext(SampleContext);
 
   return (
@@ -26,7 +26,6 @@ export function SampleCreatePage() {
 
         <SaveSamplePopUp saveValues={null} />
       </Stack>
-
 
       <Grid container spacing={1}>
         {sampleList.map(i => {

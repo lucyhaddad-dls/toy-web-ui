@@ -20,10 +20,14 @@ export function SampleInfoBox(props: { sampleName: string | null,
                                         defaultOpen: boolean
 }) {
   const [open, setOpen] = useState<boolean>(props.defaultOpen);
-  const { getSample, getAvailableData, setFocusedSample } = useContext(SampleContext);
+  const { getSample, getAvailableData, setFocusedSample, focusedSample } = useContext(SampleContext);
   const rowId = useId();
 
-  const sample = getSample(props.sampleName);
+  let sample = focusedSample
+
+  if (props.sampleName != null){
+    sample = getSample(props.sampleName);
+    }
   const nonEmptyVals = sample.values.filter((i) => i.value != null);
   let availableData = [""];
   if (props.sampleName) {
@@ -117,7 +121,6 @@ export function SampleInfoBox(props: { sampleName: string | null,
           </List>
         )}
 
-    
     {(props.showLinks) &&
         <Stack direction="row" sx={{justifyContent:"space-around"}}>
             <Button onClick={onButtonClick}>
@@ -127,7 +130,9 @@ export function SampleInfoBox(props: { sampleName: string | null,
             </Button>
             <Button disabled={availableData.length===0}
             onClick={onButtonClick}>
+                <Link to="/samples/plot">
                 To Plot
+                </Link>
                 </Button>
         </Stack>
 }
