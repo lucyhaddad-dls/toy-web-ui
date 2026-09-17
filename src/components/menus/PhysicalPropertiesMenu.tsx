@@ -10,6 +10,8 @@ import AddIcon from "@mui/icons-material/Add";
 import { nullSampleValues } from "../../models/defaults";
 import { SamplePropertyInput } from "./../inputs/SamplePropertyInput";
 
+// i *think* this can be deleted
+
 export function PhysicalPropertiesMenu(props: { name: string }) {
   const [open, setOpen] = useState<boolean>(false);
   const [anchor, setAnchor] = useState<null | HTMLElement>(null);
