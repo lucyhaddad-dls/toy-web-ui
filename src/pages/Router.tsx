@@ -6,9 +6,9 @@ import { PlaceholderPage } from "./Placeholder";
 import { LinksList } from "../components/LinkBarComponent";
 import { SampleInfoPage } from "./SampleInfoPage";
 import { SavedSampleList } from "../components/SavedSampleList";
-import { AbsorptionPlotPage } from "./AbsorptionPlotPage";
 import { MassPercentagePage } from "./MassPercentagePage";
 import { SequentialSampleBuilder } from "./SampleBuildingPage";
+import { TestCalcPage } from "./TestCalcPage";
 
 export function LinkBar() {
   const [showSamples, setShowSamples] = useState<boolean>(false);
@@ -105,10 +105,10 @@ export function LinkBar() {
           />
 
           <Route
-            path="/samples/plot"
+            path="/samples/test"
             element={
               <Stack sx={{ maxWidth: "100%" }}>
-                <AbsorptionPlotPage />
+                <TestCalcPage />
               </Stack>
             }
           />

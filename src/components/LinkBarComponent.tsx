@@ -26,15 +26,15 @@ export function LinksList() {
         </Typography>
       </Link>
 
-      <Link to="/samples/plot">
-        <Typography sx={{ bgcolor: "primary.dark", color: "white" }}>
-          <b>Absorption Plots</b>
-        </Typography>
-      </Link>
-       
          <Link to="/samples">
         <Typography sx={{ bgcolor: "primary.dark", color: "white" }}>
           <b>Sample Information</b>
+        </Typography>
+      </Link>
+
+      <Link to="/samples/test">
+              <Typography sx={{ bgcolor: "primary.dark", color: "white" }}>
+          <b>Test Page</b>
         </Typography>
       </Link>
 

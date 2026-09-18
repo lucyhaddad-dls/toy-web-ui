@@ -104,3 +104,34 @@ export interface SampleMassRatioType {
   formula: string;
   ratio: number;
 }
+
+export interface MeasurementResponse {
+  value: string | string[] | number | number[] | null;
+  unit: string | null;
+}
+
+export interface AllValuesResponse {
+  total: {
+    formula: MeasurementResponse;
+    absorber: MeasurementResponse;
+    edge: MeasurementResponse;
+    density: MeasurementResponse;
+    surface_density: MeasurementResponse;
+    mass: MeasurementResponse;
+    area: MeasurementResponse;
+    thickness: MeasurementResponse;
+    mu_total: MeasurementResponse;
+    mass_absorption: MeasurementResponse;
+    mass_abs_step: MeasurementResponse;
+    mass_abs_min: MeasurementResponse;
+  };
+  elements: {[key:string]: PhotoElementResponse}
+}
+
+export interface PhotoElementResponse {
+  Z: MeasurementResponse;
+  A: MeasurementResponse;
+  N: MeasurementResponse;
+  massFraction: MeasurementResponse;
+  mass_absorption: MeasurementResponse;
+}

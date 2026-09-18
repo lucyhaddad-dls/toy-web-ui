@@ -1,7 +1,7 @@
 import { useContext, useId, useState } from "react";
 import { SampleContext } from "../context/SampleContext";
 import {
-    Button,
+  Button,
   Collapse,
   Grid,
   IconButton,
@@ -15,33 +15,35 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { Link } from "react-router-dom";
 
-export function SampleInfoBox(props: { sampleName: string | null,
-                                        showLinks: boolean,
-                                        defaultOpen: boolean
+export function SampleInfoBox(props: {
+  sampleName: string | null;
+  showLinks: boolean;
+  defaultOpen: boolean;
 }) {
   const [open, setOpen] = useState<boolean>(props.defaultOpen);
-  const { getSample, getAvailableData, setFocusedSample, focusedSample } = useContext(SampleContext);
+  const { getSample, getAvailableData, setFocusedSample, focusedSample } =
+    useContext(SampleContext);
   const rowId = useId();
 
-  let sample = focusedSample
-  let name = focusedSample.name
+  let sample = focusedSample;
+  let name = focusedSample.name;
 
-  if (props.sampleName != null){
+  if (props.sampleName != null) {
     sample = getSample(props.sampleName);
-    name = props.sampleName
-    }
+    name = props.sampleName;
+  }
   const nonEmptyVals = sample.values.filter((i) => i.value != null);
   let availableData = [""];
   availableData = getAvailableData(name);
 
   const onButtonClick = () => {
-    setFocusedSample(sample)
-  }
+    setFocusedSample(sample);
+  };
 
   return (
-    <Stack sx={{ alignItems: "center"}}>
+    <Stack sx={{ alignItems: "center" }}>
       <Paper>
-        <Stack direction="row" sx={{ m: 1, width:"15vw" }}>
+        <Stack direction="row" sx={{ m: 1, width: "15vw" }}>
           <Typography>
             Sample Name: <b>{name}</b>
           </Typography>
@@ -60,10 +62,10 @@ export function SampleInfoBox(props: { sampleName: string | null,
           <List id={rowId} aria-hidden={!open ? true : undefined}>
             <Grid container sx={{ justifyContent: "center" }}>
               <Collapse in={open} timeout="auto" unmountOnExit>
-              <Grid key={"sample-type"}>
-                <Typography>
-            Sample Type: <b>{sample.sampleType}</b>
-          </Typography>
+                <Grid key={"sample-type"}>
+                  <Typography>
+                    Sample Type: <b>{sample.sampleType}</b>
+                  </Typography>
                 </Grid>
                 {nonEmptyVals.map((value) => {
                   return (
@@ -112,9 +114,10 @@ export function SampleInfoBox(props: { sampleName: string | null,
                 }}
               >
                 <Grid key={"sample-type"}>
-                <Typography>
-            Sample Type: <b>{sample.sampleType}</b>
-            </Typography></Grid>
+                  <Typography>
+                    Sample Type: <b>{sample.sampleType}</b>
+                  </Typography>
+                </Grid>
                 <ListItemText
                   id={rowId}
                   aria-hidden={!open ? true : undefined}
@@ -130,22 +133,21 @@ export function SampleInfoBox(props: { sampleName: string | null,
           </List>
         )}
 
-    {(props.showLinks) &&
-        <Stack direction="row" sx={{justifyContent:"space-around"}}>
+        {props.showLinks && (
+          <Stack direction="row" sx={{ justifyContent: "space-around" }}>
             <Button onClick={onButtonClick}>
-            <Link to="/samples/build">
-                Edit Properties
-            </Link>
+              <Link to="/samples/build">Edit Properties</Link>
             </Button>
-            <Button disabled={availableData.length===0}
-            onClick={onButtonClick}>
-                <Link to="/samples/plot">
-                To Plot
-                </Link>
-                </Button>
-        </Stack>
-}
-
+            {availableData.length > 0 && (
+              <Button
+                disabled={availableData.length === 0}
+                onClick={onButtonClick}
+              >
+                <Link to="/samples/test">To Test Calc. page</Link>
+              </Button>
+            )}
+          </Stack>
+        )}
       </Paper>
     </Stack>
   );
