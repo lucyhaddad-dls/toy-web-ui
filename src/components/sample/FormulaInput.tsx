@@ -1,7 +1,8 @@
 import { Button, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { useContext, useState } from "react";
-import { SamplePropertyInput } from "../inputs/SamplePropertyInput";
+
 import { SampleContext } from "../../context/SampleContext";
+import { PropertyInputWrapper } from "../inputs/PhysicalPropertyInput";
 
 export function FormulaInputPage() {
   const { focusedSample } = useContext(SampleContext);
@@ -49,11 +50,8 @@ export function FormulaInputPage() {
       </Menu>
 
       {textInput && (
-        <SamplePropertyInput
-          sampleId={focusedSample.name}
-          name={"formula"}
-          label={null}
-        />
+        <PropertyInputWrapper sampleId={focusedSample.name}
+        name={"formula"}/>
       )}
 
       {massPcInput && <Stack>Mass % Page here</Stack>}

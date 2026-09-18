@@ -2,9 +2,9 @@ import { useContext, useState } from "react";
 import { SampleContext } from "../../context/SampleContext";
 import { Button, Grid, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { SampleTypes } from "../../models/defaults";
-import { ExtendedPropertyInput, SamplePropertyInput } from "../inputs/SamplePropertyInput";
 import AddIcon from '@mui/icons-material/Add';
 import type { ExtendedResponseKeys, SampleResponseKeys } from "../../models/models";
+import { PropertyInputWrapper } from "../inputs/PhysicalPropertyInput";
 
 export function InputPagePellet() {
   const { focusedSample } = useContext(SampleContext);
@@ -45,7 +45,8 @@ export function InputPagePellet() {
     <Menu open={menuOpen} onClick={menuToggle}
     anchorEl={menuPosition}>
         {SampleTypes.pellet.map(val => 
-            <MenuItem onClick={() =>{onAddProperty(val)}}>{val}</MenuItem>
+            <MenuItem onClick={() =>{onAddProperty(val)}}
+            key={val}>{val}</MenuItem>
         )}
 
     </Menu>
@@ -55,10 +56,10 @@ export function InputPagePellet() {
           if (i.value != "") {
             return (
               <Grid key={i.name}>
-                <SamplePropertyInput
+                <PropertyInputWrapper
                   sampleId={focusedSample.name}
                   name={i.name}
-                  label={null}
+        
                 />
               </Grid>
             );
@@ -70,12 +71,12 @@ export function InputPagePellet() {
         {toAdd.map(i => {
             if (SampleTypes.pellet.includes(i)){
                 return (<Grid key={i}>
-                    <ExtendedPropertyInput sampleId={focusedSample.name} 
+                    <PropertyInputWrapper sampleId={focusedSample.name} 
                     name={i as ExtendedResponseKeys}/>
                 </Grid>)}
             else {return (<Grid key={i}>
-                <SamplePropertyInput sampleId={focusedSample.name}
-                name={i as SampleResponseKeys} label={null}/>
+                <PropertyInputWrapper sampleId={focusedSample.name}
+                name={i as SampleResponseKeys} />
 
             </Grid>)}
         })

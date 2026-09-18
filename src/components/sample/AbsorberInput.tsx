@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import { SampleContext } from "../../context/SampleContext";
 import { Grid, Stack } from "@mui/material";
-import { SamplePropertyInput } from "../inputs/SamplePropertyInput";
+
+import { PropertyInputWrapper } from "../inputs/PhysicalPropertyInput";
 
 export function AbsorptionDataInputPage() {
   const { focusedSample } = useContext(SampleContext);
@@ -12,17 +13,17 @@ export function AbsorptionDataInputPage() {
 
       <Grid container spacing={1}>
         <Grid key={"absorber-input"}>
-          <SamplePropertyInput
+          <PropertyInputWrapper
             sampleId={focusedSample.name}
             name={"absorber"}
-            label={null}
+
           />
         </Grid>
         <Grid key={"edge-input"}>
-          <SamplePropertyInput
+          <PropertyInputWrapper
             sampleId={focusedSample.name}
             name={"edge"}
-            label={null}
+
           />
         </Grid>
       </Grid>
