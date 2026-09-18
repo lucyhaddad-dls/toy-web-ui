@@ -6,10 +6,11 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllData } from "../models/queryFunctions";
 import type { MeasurementResponse } from "../models/models";
 import { MathJax } from "better-react-mathjax";
+import { AbsorptionPlot } from "../components/plotting/PlotCanvas";
 
 export function TestCalcPage() {
   const { focusedSample } = useContext(SampleContext);
-  const { error, data } = useQuery({
+  const {isPending, error, data } = useQuery({
     queryKey: ["allData"],
     queryFn: () => getAllData(focusedSample.values),
   });
@@ -26,9 +27,18 @@ export function TestCalcPage() {
     );
   }
 
+  if (isPending){
+    return (
+      <Stack sx={{m:1}}>
+        <Typography><b>Test Calculation Page!</b></Typography>
+        <Typography>Data pending.....</Typography>
+      </Stack>
+    )
+  }
+
   if (error) {
     return (
-      <Stack>
+      <Stack sx={{m:1}}>
         <Typography>
           <b>Test Calculation Page!</b>
         </Typography>
@@ -37,6 +47,7 @@ export function TestCalcPage() {
           showLinks={false}
           defaultOpen={true}
         />
+        <Typography>No Sample Results :(</Typography>
         <Typography>{error.message}</Typography>
       </Stack>
     );
@@ -51,8 +62,10 @@ export function TestCalcPage() {
         showLinks={false}
         defaultOpen={true}
       />
-      <Typography>sucess!</Typography>
 
+    <Stack direction="row">
+    <Stack>
+      <Typography>Some results!!!!</Typography>
         <Grid container spacing={2}>
           {measuredVals.map((i) => {
             const val = Number(i[1].value).toPrecision(5);
@@ -72,6 +85,9 @@ export function TestCalcPage() {
             );}
           })}
            </Grid>
+          </Stack>
+        <AbsorptionPlot data={data}/>
+        </Stack>
 
     </Stack>
   );

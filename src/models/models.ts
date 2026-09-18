@@ -124,6 +124,7 @@ export interface AllValuesResponse {
     mass_absorption: MeasurementResponse;
     mass_abs_step: MeasurementResponse;
     mass_abs_min: MeasurementResponse;
+    energy: MeasurementResponse
   };
   elements: {[key:string]: PhotoElementResponse}
 }
