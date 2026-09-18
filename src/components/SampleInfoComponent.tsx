@@ -90,7 +90,7 @@ export function SampleInfoBox(props: {
                         align="center"
                         id={rowId}
                         aria-hidden={!open ? true : undefined}
-                        key={"absorption-list"}
+                        key={`absorption-list-${val}`}
                       >
                         {" "}
                         {val}{" "}

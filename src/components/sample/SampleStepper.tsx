@@ -64,14 +64,13 @@ export function SampleStepper(props: { steps: string[] }) {
   };
 
   const saveNew = (sampleName:string) => {
-    addToSampleList({name:sampleName, values:focusedSample.values})
-    setFocusedSample({name:sampleName, values:focusedSample.values})
+    addToSampleList({name:sampleName, values:focusedSample.values, sampleType:focusedSample.sampleType})
+    setFocusedSample({name:sampleName, values:focusedSample.values, sampleType:focusedSample.sampleType})
   }
 
   const ovewriteSample = () => {
     replaceSampleValues(focusedSample.name, focusedSample.values)
     setFocusedSample(getSample(focusedSample.name))
-    console.log(focusedSample.values)
   }
 
   const onReset = () => {
