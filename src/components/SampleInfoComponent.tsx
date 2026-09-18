@@ -70,13 +70,23 @@ export function SampleInfoBox(props: {
                 {nonEmptyVals.map((value) => {
                   return (
                     <Grid key={`${value.name}-list-0`}>
-                      <ListItemText
+                {!isNaN(Number(value.value)) && <ListItemText
                         id={rowId}
                         aria-hidden={!open ? true : undefined}
                         key={`${value.name}-list-s`}
                         primary={value.name}
-                        secondary={value.value}
-                      />
+                        secondary={Number(value.value).toPrecision(5)}
+                      /> }
+
+              {Number.isNaN(Number(value.value)) && <ListItemText
+                        id={rowId}
+                        aria-hidden={!open ? true : undefined}
+                        key={`${value.name}-list-s`}
+                        primary={value.name}
+                        secondary={value.value} 
+
+                      />}
+
                     </Grid>
                   );
                 })}
