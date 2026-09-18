@@ -18,8 +18,8 @@ export function DataProvider(props: { children: React.ReactNode }) {
   const { children } = props;
 
   const [sampleList, setSampleList] = useState<SampleResponse[]>([
-    { name: "example data", values: exampleSampleValues },
-    { name: "empty sample", values: nullSampleValues },
+    { name: "example data", values: exampleSampleValues, sampleType: "Pellet" },
+    { name: "empty sample", values: nullSampleValues, sampleType: "Pellet" },
   ]);
 
   const [focusedSample, setFocusedSample] =
@@ -33,7 +33,11 @@ export function DataProvider(props: { children: React.ReactNode }) {
     let currentSample = sampleList.find((i) => i.name == name);
     if (currentSample == undefined) {
       // add to sample list?
-      currentSample = { name: name, values: nullSampleValues };
+      currentSample = {
+        name: name,
+        values: nullSampleValues,
+        sampleType: "Pellet",
+      };
     }
 
     return currentSample;
@@ -72,28 +76,39 @@ export function DataProvider(props: { children: React.ReactNode }) {
     setSampleList(newList);
   };
 
-  const replaceSampleValues = (sampleName:string, newValues:SampleValueResponse[]) =>{
-    const newList = sampleList.map(i => {
-      if (i.name === sampleName){
-        return {...i, values:newValues}
+  const replaceSampleValues = (
+    sampleName: string,
+    newValues: SampleValueResponse[],
+  ) => {
+    const newList = sampleList.map((i) => {
+      if (i.name === sampleName) {
+        return { ...i, values: newValues };
+      } else {
+        return i;
       }
-      else {return i}
-    })
-    setSampleList(newList)
-  }
+    });
+    setSampleList(newList);
+  };
 
-  const editFocusedSample = (valName:SampleResponseKeys,
-       newValue:string) => {
-    
-        const newFocused = focusedSample.values.map(i => {
-          if (i.name === valName){
-            return {...i, value: newValue}
-          }
-          else {return i}
-        })
+  const editFocusedSample = (
+    valName: SampleResponseKeys,
+    newValue: string,
+    newType: string = "pellet",
+  ) => {
+    const newFocused = focusedSample.values.map((i) => {
+      if (i.name === valName) {
+        return { ...i, value: newValue };
+      } else {
+        return i;
+      }
+    });
 
-        setFocusedSample({name:focusedSample.name, values:newFocused})
-    }
+    setFocusedSample({
+      name: focusedSample.name,
+      values: newFocused,
+      sampleType: newType,
+    });
+  };
 
   const [photoData, setPhotoData] =
     useState<SamplePhotoData>(nullAbsorptionData);

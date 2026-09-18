@@ -24,7 +24,8 @@ export const nullSampleValues: SampleValueResponse[] = [
 
 export const emptySampleValues: SampleResponse = {
   name:"",
-  values: nullSampleValues
+  values: nullSampleValues,
+  sampleType: "pellet"
 }
 
 export const exampleSampleValues: SampleValueResponse[] = [

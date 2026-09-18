@@ -60,6 +60,11 @@ export function SampleInfoBox(props: { sampleName: string | null,
           <List id={rowId} aria-hidden={!open ? true : undefined}>
             <Grid container sx={{ justifyContent: "center" }}>
               <Collapse in={open} timeout="auto" unmountOnExit>
+              <Grid key={"sample-type"}>
+                <Typography>
+            Sample Type: <b>{sample.sampleType}</b>
+          </Typography>
+                </Grid>
                 {nonEmptyVals.map((value) => {
                   return (
                     <Grid key={`${value.name}-list-0`}>
@@ -106,6 +111,10 @@ export function SampleInfoBox(props: { sampleName: string | null,
                   minHeight: "150px",
                 }}
               >
+                <Grid key={"sample-type"}>
+                <Typography>
+            Sample Type: <b>{sample.sampleType}</b>
+            </Typography></Grid>
                 <ListItemText
                   id={rowId}
                   aria-hidden={!open ? true : undefined}

@@ -33,9 +33,17 @@ export function SaveSamplePopUp(props: {
 
   const onAdd = (name: string) => {
     if (props.saveValues == null) {
-      addToSampleList({ name: name, values: nullSampleValues });
+      addToSampleList({
+        name: name,
+        values: nullSampleValues,
+        sampleType: "pellet",
+      });
     } else {
-      addToSampleList({ name: name, values: props.saveValues });
+      addToSampleList({
+        name: name,
+        values: props.saveValues,
+        sampleType: "pellet",
+      });
     }
   };
 

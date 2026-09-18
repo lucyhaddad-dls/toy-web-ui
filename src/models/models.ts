@@ -30,7 +30,10 @@ export type SampleResponseKeys =
   | "thickness"
   | "mass";
 
-export type ExtendedResponseKeys = "cross sectional area" | "radius" | "diameter"
+export type ExtendedResponseKeys =
+  | "cross sectional area"
+  | "radius"
+  | "diameter";
 
 export type SampleUnitKeys = "mass_unit" | "length_unit" | "energy_unit";
 
@@ -48,6 +51,7 @@ export interface SampleValueResponse {
 export interface SampleResponse {
   name: string;
   values: SampleValueResponse[];
+  sampleType: string;
 }
 
 export type AbsorptionType = "mass" | "linear" | "total";
@@ -71,18 +75,29 @@ export interface SamplePhotoData {
 }
 
 export interface SampleContextType {
-  sampleList: SampleResponse[]
-  addToSampleList: (sample: SampleResponse) => void
-  deleteFromSampleList: (name: string) => void
-  editSampleList: (sampleName: string, valName: SampleResponseKeys, newValue: string) => void
-  replaceSampleValues: (sampleName: string, newValues: SampleValueResponse[]) => void
-  getSample: (sampleName:string|null) => SampleResponse
-  focusedSample: SampleResponse
-  editFocusedSample: (valName: SampleResponseKeys, newValue: string) => void
-  setFocusedSample: React.Dispatch<React.SetStateAction<SampleResponse>>
-  photoData: SamplePhotoData
-  setPhotoData: React.Dispatch<React.SetStateAction<SamplePhotoData>>
-  getAvailableData: (sampleName: string) => string[]
+  sampleList: SampleResponse[];
+  addToSampleList: (sample: SampleResponse) => void;
+  deleteFromSampleList: (name: string) => void;
+  editSampleList: (
+    sampleName: string,
+    valName: SampleResponseKeys,
+    newValue: string,
+  ) => void;
+  replaceSampleValues: (
+    sampleName: string,
+    newValues: SampleValueResponse[],
+  ) => void;
+  getSample: (sampleName: string | null) => SampleResponse;
+  focusedSample: SampleResponse;
+  editFocusedSample: (
+    valName: SampleResponseKeys,
+    newValue: string,
+    newType: string,
+  ) => void;
+  setFocusedSample: React.Dispatch<React.SetStateAction<SampleResponse>>;
+  photoData: SamplePhotoData;
+  setPhotoData: React.Dispatch<React.SetStateAction<SamplePhotoData>>;
+  getAvailableData: (sampleName: string) => string[];
 }
 
 export interface SampleMassRatioType {

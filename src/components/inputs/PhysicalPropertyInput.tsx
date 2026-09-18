@@ -32,31 +32,11 @@ function PropertyInput(
       (val: ChangeEvent<HTMLTextAreaElement | HTMLInputElement, Element>) => {
         if (val.target.value != undefined) {
             const tmp = props.converter(val.target.value)
-            console.log(`convert ${props.propName}=${val.target.value}
-                 to${props.basePropName}=${tmp}`)
-          editFocusedSample(props.basePropName, tmp);
+          editFocusedSample(props.basePropName, tmp, sample.sampleType);
         }}, 200,), []);
        
     
-  const handleInputBase = useCallback(
-    debounce(
-      (val: ChangeEvent<HTMLTextAreaElement | HTMLInputElement, Element>) => {
-        if (val.target.value != undefined) {
-          editFocusedSample(props.basePropName, val.target.value)
-        }}, 200,), [], );
 
-    if (props.basePropName === props.propName){
-        return (
-         <Grid key={`${props.propName}-text-input`}>
-            <TextField
-            defaultValue={initValue}
-            label={props.propName}
-            onChange={handleInputBase}/>
-         </Grid>   
-        )  
-    }
-
-    else {
         return (<Grid key={`${props.propName}-text-input`}>
             <TextField
             defaultValue={initValue}
@@ -64,7 +44,7 @@ function PropertyInput(
             onChange={handleInputConvert}/>
          </Grid>   
          )
-    }
+    
 }
 
 export function PropertyInputWrapper(props:{
