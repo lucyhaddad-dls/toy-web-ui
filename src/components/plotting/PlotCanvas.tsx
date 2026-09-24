@@ -72,7 +72,7 @@ export function AbsorptionPlot(props:{
             abscissas={xdata.data}
             color="red"
             ordinates={tmpY.data}
-            visible
+    
           />
         )}
       </VisCanvas>
