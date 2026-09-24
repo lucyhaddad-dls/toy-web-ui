@@ -1,39 +1,31 @@
 import { http, HttpResponse } from "msw";
 import type { SampleValueResponse } from "../models/models";
+import alldata from "./test_data_all.json"
 
-const mockSampleData: SampleValueResponse[] = [
+export const mockSampleInput: SampleValueResponse[] = [
   {
-    value: "Cu",
-
+    value: "CuOH2",
     name: "formula",
   },
-  {
-    value: "Cu",
-    name: "absorber",
-  },
+
   {
     value: "K",
-
     name: "edge",
   },
   {
     value: null,
-
     name: "density",
   },
   {
     value: null,
-
     name: "area",
   },
   {
     value: null,
-
     name: "mass",
   },
   {
-    value: null,
-
+    value: "0.5",
     name: "thickness",
   },
   {
@@ -43,13 +35,14 @@ const mockSampleData: SampleValueResponse[] = [
   },
 ];
 
-export const handlers = [
-  http.get("/api/input", () => {
-    return HttpResponse.json(mockSampleData);
-  }),
+const mockAllDataResponse = alldata
 
-  http.post("/api/input", async ({ request }) => {
-    await request.json();
-    return HttpResponse.json({ status: 200 });
+export const handlers = [
+
+  http.post("/api/calculate/all", async ({request }) => {
+    const requestObj = await request.json()
+    console.log(requestObj)
+    return HttpResponse.json(mockAllDataResponse, {status:200})
+  
   }),
-];
+]

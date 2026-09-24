@@ -1,0 +1,33 @@
+import { Button, Stack, Typography } from "@mui/material";
+import { SampleStepper } from "../components/sample/SampleStepper";
+import { SampleInfoBox } from "../components/SampleInfoComponent";
+import { useContext } from "react";
+import { SampleContext } from "../context/SampleContext";
+import { emptySampleValues } from "../models/defaults";
+
+export function SequentialSampleBuilder() {
+
+const steps = [
+        "Add Formula/Composition",
+        "Add Absorber and Edge",
+        "Define Sample Type",
+        "Add other Physical Properties",];
+
+  const { setFocusedSample } = useContext(SampleContext)
+  const onNewSample = () => {
+    setFocusedSample(emptySampleValues)
+  }
+
+  return (<Stack spacing={1} sx={{m:2}}>
+    <Typography align="center"><b>Sample Builder</b></Typography>
+
+    <Stack direction="row" spacing={2}>
+    <SampleInfoBox sampleName={null} showLinks={false}
+    defaultOpen={false}/>
+    <Button variant="contained"
+    sx={{maxHeight:"50px"}} 
+    onClick = {onNewSample}>Use New Sample</Button>
+    </Stack>
+    <SampleStepper steps={steps}/>
+  </Stack>)
+}

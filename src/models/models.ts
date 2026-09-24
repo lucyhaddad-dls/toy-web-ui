@@ -1,4 +1,4 @@
-import type React from "react";
+
 
 export type MassUnits = "kg" | "g" | "mg" | "ug";
 export type LengthUnits = "m" | "cm" | "mm" | "um";
@@ -30,6 +30,11 @@ export type SampleResponseKeys =
   | "thickness"
   | "mass";
 
+export type ExtendedResponseKeys =
+  | "cross sectional area"
+  | "radius"
+  | "diameter";
+
 export type SampleUnitKeys = "mass_unit" | "length_unit" | "energy_unit";
 
 export interface UnitValue {
@@ -46,6 +51,7 @@ export interface SampleValueResponse {
 export interface SampleResponse {
   name: string;
   values: SampleValueResponse[];
+  sampleType: string;
 }
 
 export type AbsorptionType = "mass" | "linear" | "total";
@@ -68,25 +74,65 @@ export interface SamplePhotoData {
   total: null | SampleAbsorptionResponse;
 }
 
-export interface SampleDataContextType {
+export interface SampleContextType {
   sampleList: SampleResponse[];
-  setSampleList: React.Dispatch<React.SetStateAction<SampleResponse[]>>;
-  getSample: (name: string) => SampleResponse;
-  setSingleValue: (
-    name: SampleResponseKeys,
-    value: string,
-    sampleId: string,
-  ) => () => void;
-  addToSampleList: (values: SampleValueResponse[], name: string) => void;
+  addToSampleList: (sample: SampleResponse) => void;
   deleteFromSampleList: (name: string) => void;
+  editSampleList: (
+    sampleName: string,
+    valName: SampleResponseKeys,
+    newValue: string,
+  ) => void;
+  replaceSampleValues: (
+    sampleName: string,
+    newValues: SampleValueResponse[],
+  ) => void;
+  getSample: (sampleName: string | null) => SampleResponse;
   focusedSample: SampleResponse;
-  setFocusedSample: (values: SampleResponse) => void;
-  getAvailableData: (sampleId: string) => string[];
+  editFocusedSample: (
+    valName: SampleResponseKeys,
+    newValue: string,
+    newType: string,
+  ) => void;
+  setFocusedSample: React.Dispatch<React.SetStateAction<SampleResponse>>;
   photoData: SamplePhotoData;
   setPhotoData: React.Dispatch<React.SetStateAction<SamplePhotoData>>;
+  getAvailableData: (sampleName: string) => string[];
 }
 
 export interface SampleMassRatioType {
   formula: string;
   ratio: number;
+}
+
+export interface MeasurementResponse {
+  value: string | string[] | number | number[] | null;
+  unit: string | null;
+}
+
+export interface AllValuesResponse {
+  total: {
+    formula: MeasurementResponse;
+    absorber: MeasurementResponse;
+    edge: MeasurementResponse;
+    density: MeasurementResponse;
+    surface_density: MeasurementResponse;
+    mass: MeasurementResponse;
+    area: MeasurementResponse;
+    thickness: MeasurementResponse;
+    mu_total: MeasurementResponse;
+    mass_absorption: MeasurementResponse;
+    mass_abs_step: MeasurementResponse;
+    mass_abs_min: MeasurementResponse;
+    energy: MeasurementResponse
+  };
+  elements: {[key:string]: PhotoElementResponse}
+}
+
+export interface PhotoElementResponse {
+  Z: MeasurementResponse;
+  A: MeasurementResponse;
+  N: MeasurementResponse;
+  massFraction: MeasurementResponse;
+  mass_absorption: MeasurementResponse;
 }

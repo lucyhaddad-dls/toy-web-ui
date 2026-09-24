@@ -4,7 +4,7 @@ import { defaultFormulaInfoValues, nullSampleValues } from "../models/defaults";
 import type { SampleMassRatioType } from "../models/models";
 
 import { getNewFormula } from "../models/queryFunctions";
-import { SampleDataContext } from "../context/SampleContext";
+import { SampleContext } from "../context/SampleContext";
 
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
@@ -13,7 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import { SaveSamplePopUp } from "../components/inputs/NameSamplePopup";
 
 function FormulaCalculator(props: { formulaInfo: SampleMassRatioType[] }) {
-  const { focusedSample } = useContext(SampleDataContext);
+  const { focusedSample } = useContext(SampleContext);
 
   const { isPending, error, data } = useQuery({
     queryKey: [
@@ -86,7 +86,7 @@ function FormulaCalculator(props: { formulaInfo: SampleMassRatioType[] }) {
 export function MassPercentagePage() {
   const [inputCount, setInputCount] = useState<number>(1);
 
-  const { focusedSample } = useContext(SampleDataContext);
+  const { focusedSample } = useContext(SampleContext);
 
   const getDefaultValues = () => {
     let formula = focusedSample.values.filter((a) => a.name == "formula")[0]

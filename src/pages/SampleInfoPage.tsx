@@ -1,12 +1,11 @@
 import { useContext } from "react";
-import { SampleDataContext } from "../context/SampleContext";
-import { Stack, Typography } from "@mui/material";
+import { SampleContext } from "../context/SampleContext";
+import { Grid, Stack, Typography } from "@mui/material";
 import { SaveSamplePopUp } from "../components/inputs/NameSamplePopup";
+import { SampleInfoBox } from "../components/SampleInfoComponent";
 
-import { SampleRow } from "../components/CollapseTableRow";
-
-export function SampleCreatePage() {
-  const { sampleList } = useContext(SampleDataContext);
+export function SampleInfoPage() {
+  const { sampleList } = useContext(SampleContext);
 
   return (
     <Stack
@@ -28,11 +27,12 @@ export function SampleCreatePage() {
         <SaveSamplePopUp saveValues={null} />
       </Stack>
 
-      <Stack>
-        {sampleList.map((i) => {
-          return <SampleRow input={i} key={`${i.name}-row`} />;
+      <Grid container spacing={1}>
+        {sampleList.map(i => {
+          return <SampleInfoBox sampleName={i.name} showLinks={true}
+          defaultOpen={true} key={i.name}/>
         })}
-      </Stack>
+      </Grid>
     </Stack>
   );
 }

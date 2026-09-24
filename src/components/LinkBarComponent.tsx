@@ -9,7 +9,7 @@ export function LinksList() {
         minHeight: "100%",
         justifyContent: "space-between",
         alignItems: "center",
-        minWidth: "80%",
+        width:"80%"
       }}
       direction="row"
       spacing={2}
@@ -20,23 +20,26 @@ export function LinksList() {
         </Typography>
       </Link>
 
-      <Link to="/samples">
+        <Link to="/samples/build">
+         <Typography sx={{ bgcolor: "primary.dark", color: "white" }}>
+          <b>Sample Builder</b>
+        </Typography>
+      </Link>
+
+         <Link to="/samples">
         <Typography sx={{ bgcolor: "primary.dark", color: "white" }}>
           <b>Sample Information</b>
         </Typography>
       </Link>
 
-      <Link to="/samples/mass-percentage">
-        <Typography sx={{ bgcolor: "primary.dark", color: "white" }}>
-          <b>Formula from Mass %</b>
+      <Link to="/samples/test">
+              <Typography sx={{ bgcolor: "primary.dark", color: "white" }}>
+          <b>Test Page</b>
         </Typography>
       </Link>
 
-      <Link to="/samples/plot">
-        <Typography sx={{ bgcolor: "primary.dark", color: "white" }}>
-          <b>Absorption Plots</b>
-        </Typography>
-      </Link>
+      
+
     </Stack>
   );
 }

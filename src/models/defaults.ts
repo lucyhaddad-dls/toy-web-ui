@@ -1,6 +1,7 @@
 import type {
   SampleMassRatioType,
   SamplePhotoData,
+  SampleResponse,
   SampleValueResponse,
   UnitValue,
 } from "./models";
@@ -20,6 +21,12 @@ export const nullSampleValues: SampleValueResponse[] = [
   { name: "thickness", value: null },
   { name: "mass", value: null },
 ];
+
+export const emptySampleValues: SampleResponse = {
+  name:"",
+  values: nullSampleValues,
+  sampleType: "pellet"
+}
 
 export const exampleSampleValues: SampleValueResponse[] = [
   { name: "formula", value: "FeOH" },
@@ -51,3 +58,10 @@ export const calcDependencies = {
   linear_absorption: ["formula", "absorber", "edge", "density"],
   total_absorption: ["formula", "absorber", "edge", "density", "thickness"],
 };
+
+export const SampleTypes = {
+  pellet: ["cross sectional area", "thickness", "density",
+     "radius", "diameter", "mass"],
+     //todo: add more 
+
+}
