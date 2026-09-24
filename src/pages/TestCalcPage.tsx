@@ -15,13 +15,13 @@ export function TestCalcPage() {
     queryFn: () => getAllData(focusedSample.values),
   });
 
-  let scalarVals: [string, MeasurementResponse][] = [];
+  // let scalarVals: [string, MeasurementResponse][] = [];
   let measuredVals: [string, MeasurementResponse][] = [];
 
   if (data) {
-    scalarVals = Object.entries(data.total).filter(
-      (i) => Object.keys(i[1]).includes("unit") && i[1].unit == null,
-    );
+    // scalarVals = Object.entries(data.total).filter(
+      // (i) => Object.keys(i[1]).includes("unit") && i[1].unit == null,
+    // );
     measuredVals = Object.entries(data.total).filter(
       (i) => Object.keys(i[1]).includes("unit") && i[1].unit != null,
     );
